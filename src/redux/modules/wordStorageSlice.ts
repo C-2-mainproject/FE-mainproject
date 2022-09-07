@@ -6,6 +6,6 @@ export const wordStorageSlice = createSlice({
   reducers: {},
 });
 
-export const {} = wordStorageSlice.actions;
+// export const {} = wordStorageSlice.actions;
 
 export default wordStorageSlice.reducer;
