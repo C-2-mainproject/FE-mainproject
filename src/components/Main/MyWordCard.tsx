@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-const MyWordCard = () => {
+const MyWordCard = ({ props }: { props: any }) => {
   return (
     <CardContainer>
       <span>카테고리</span>
@@ -17,7 +17,7 @@ const MyWordCard = () => {
 
 export default MyWordCard;
 
-const CardContainer = styled.div`
+const CardContainer = styled.article`
   background-color: #e7e7e7;
   width: 220px;
   height: 400px;
