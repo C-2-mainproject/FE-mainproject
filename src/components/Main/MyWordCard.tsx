@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-const MyWordCard = ({ props }: { props: any }) => {
+const MyWordCard = () => {
   return (
     <CardContainer>
       <span>카테고리</span>

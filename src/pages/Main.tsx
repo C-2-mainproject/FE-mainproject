@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { MyWordCard, PopularWordBook, MainSubMenu } from "../components/index";
+import { PopularWordBook, MainSubMenu } from "../components/index";
+import SlickMyBook from "../components/Main/SlickMyBook";
 import Header from "../Layout/Header";
 const Main = () => {
   return (
@@ -21,7 +22,7 @@ const Main = () => {
             <p>나의 단어장</p>
             <p>단어장 전체보기</p>
           </span>
-          <MyWordCard />
+          <SlickMyBook />
         </div>
       </MyWordBookList>
       <div>
