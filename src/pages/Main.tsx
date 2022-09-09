@@ -11,12 +11,14 @@ const Main = () => {
       </MainHeader>
       <MainSubMenu />
       <MyWordBookList>
-        <span>
-          <h3>맞춤형</h3>
-          <p>나의 단어장</p>
-          <p>단어장 전체보기</p>
-        </span>
-        <MyWordCard />
+        <div>
+          <span>
+            <h3>맞춤형</h3>
+            <p>나의 단어장</p>
+            <p>단어장 전체보기</p>
+          </span>
+          <MyWordCard />
+        </div>
       </MyWordBookList>
       <div>
         <span>
@@ -58,4 +60,7 @@ const MyWordBookList = styled.section`
   display: flex;
   height: 970px;
   align-items: center;
+  div {
+    display: flex;
+  }
 `;
