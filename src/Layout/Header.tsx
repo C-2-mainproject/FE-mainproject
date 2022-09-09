@@ -1,10 +1,7 @@
 import styled from "styled-components";
 const Header = () => {
-  const location = window.location.pathname;
-  const MainHeader = location === "/" ? true : false;
-
   return (
-    <HeaderBar MainHeader={MainHeader}>
+    <HeaderBar>
       <HeaderContent>
         <div>
           <span> 로고</span>
@@ -26,12 +23,12 @@ const Header = () => {
 
 export default Header;
 
-const HeaderBar = styled.div<{ MainHeader: boolean }>`
+const HeaderBar = styled.div<{ MainHeader?: boolean }>`
   height: 233px;
   display: flex;
   align-items: center;
 
-  background-color: ${props => (props.MainHeader ? "#bdbdbd" : "#fff")};
+  /* background-color: ${props => (props.MainHeader ? "#00b4db" : "#fff")}; */
 `;
 const HeaderContent = styled.section`
   display: flex;
