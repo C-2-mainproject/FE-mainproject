@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { MyWordCard, PopularWordBook, MainSubMenu } from "../components/index";
+import Header from "../Layout/Header";
 const Main = () => {
   return (
     <>
       <MainHeader>
+        <Header />
         <section>
-          <p>단어장의 기준이되다</p>
-          <p>일단이와 함께하는 완전 단어학습</p>
+          <WelcomeText>
+            <p>단어장의 기준이되다</p>
+            <p>일단이와 함께하는 완전 단어학습</p>
+          </WelcomeText>
         </section>
       </MainHeader>
       <MainSubMenu />
@@ -40,17 +44,16 @@ const Main = () => {
     </>
   );
 };
-
 export default Main;
 
 const MainHeader = styled.div`
-  background-color: #bdbdbd;
-  height: calc(900px - 233px);
-  display: flex;
-  align-items: center;
-  section {
-    margin-bottom: 233px;
-  }
+  background-image: linear-gradient(140deg, #00b4db 21%, #0083b0 83%),
+    linear-gradient(to bottom, #bdbdbd, #bdbdbd);
+  height: 900px;
+`;
+
+const WelcomeText = styled.div`
+  margin-top: 103px;
 `;
 
 const MyWordBookList = styled.section`
