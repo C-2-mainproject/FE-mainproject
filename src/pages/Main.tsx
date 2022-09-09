@@ -15,35 +15,47 @@ const Main = () => {
         </section>
       </MainHeader>
       <MainSubMenu />
+      {/* 내단어장 리스트 */}
       <MyWordBookList>
         <div>
           <span>
             <h3>맞춤형</h3>
             <p>나의 단어장</p>
-            <p>단어장 전체보기</p>
           </span>
           <SlickMyBook />
         </div>
       </MyWordBookList>
-      <div>
-        <span>
-          <h3>합격률 1위-</h3>
-          <p>인기 단어장</p>
-          <p>카테고리 별로 인기있는 단어장을 찾아볼 수 있어요.</p>
-        </span>
-        <PopularWordBook />
-      </div>
-      <div>
-        <div>
-          <h3>단어장 통계</h3>
+      {/* 인기 단어장 리스트 */}
+      <PopWordBook>
+        <section>
           <span>
-            <p>토익</p>
-            <p>토익</p>
-            <p>토익</p>
+            <h3>합격률 1위-</h3>
+            <p>인기 단어장</p>
+            <p>
+              카테고리 별로 인기있는 <br />
+              단어장을 찾아볼 수 있어요
+            </p>
+          </span>
+          <PopularWordBook />
+        </section>
+      </PopWordBook>
+      <ChartWord>
+        <div>
+          <span>
+            <h3>수강료 걱정없이-</h3>
+            <p>일단이와 함께하는 학습</p>
+            <p>
+              학습한 만큼 쌓아가고.
+              <br /> 일단이와 함께해서 더 즐거운.
+            </p>
           </span>
         </div>
-        <span> 더보기 </span>
-      </div>
+        <span>
+          <p>일단이의 총 단어장</p>
+          <p>카테고리별 총 단어장 갯수 실시간 통계</p>
+          <div>차트</div>
+        </span>
+      </ChartWord>
     </>
   );
 };
@@ -67,4 +79,17 @@ const MyWordBookList = styled.section`
   div {
     display: flex;
   }
+`;
+
+const PopWordBook = styled.div`
+  background-color: #00b4db;
+  section {
+    display: flex;
+  }
+`;
+
+const ChartWord = styled.section`
+  height: 1271px;
+  display: flex;
+  align-items: center;
 `;
