@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { wordStorageList } from "../../mockData";
+import { wordStorageList, wrongWordStorageList } from "../../mockData";
 import { WordStorage } from "../../types";
-import { MyVocaItem } from "../../components/index";
+import { MyVocaItem } from "../../components";
 
 type TargetIdProps = {
   targetId: string;
@@ -31,6 +31,16 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
         })}
       </MyVocaListLayout>
     );
+  } else if (targetId === "오답노트") {
+    // api요청을 해서 오답노트 리스트 받아오기 -> /api/user/wordstorage/test/history
+    console.log("오답노트");
+    const wrongWordStorages = wrongWordStorageList.map(
+      (wrongWordStorage, index) => {
+        return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
+      },
+    );
+    console.log("오답노트", wrongWordStorages);
+    return <MyVocaListLayout>{wrongWordStorages}</MyVocaListLayout>;
   }
 
   const wordStorages = wordStorageList.filter(wordStorage => {
