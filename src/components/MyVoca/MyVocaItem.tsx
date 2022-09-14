@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { WordStorage } from "../../types";
-import { expand } from "../../images/index";
+import { expand } from "../../images";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   wordStorage: WordStorage;
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
+  const navigate = useNavigate();
+
   const moveToDetail = (id: number) => {
-    console.log("moveToDetail", id);
+    navigate(`/myvoca-detail/${id}`);
   };
 
   const moveToTestService = (id: number) => {
-    console.log("moveToTestService", id);
+    navigate(`/wordtest/${id}`);
   };
 
   return (

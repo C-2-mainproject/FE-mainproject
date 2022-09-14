@@ -1,19 +1,51 @@
-import { useState } from "react";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { MyVocaFilter } from "../../components/index";
-import { add, search } from "../../images/index";
+import { MyVocaFilter } from "../../components";
+import { add, search } from "../../images";
+
+import AddVocaModal from "./AddVocaModal";
 
 const MyVocaSubMenu = () => {
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [text, setText] = useState<string>("");
 
   const tabClickHandler = (index: number) => {
+    // if (index === 0) {
+    //   navigate("/myvoca");
+    // } else {
+    //   navigate("/wronganswer");
+    // }
+
     setActiveIndex(index);
+  };
+
+  const addWordStorage = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  const guide = () => {
+    console.log("guide!!");
+  };
+
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      console.log("text is :: ", text);
+      setText("");
+    }
   };
 
   return (
     <div>
       <MyVocaSubMenuLayout>
-        <h1>나의 단어장</h1>
+        <h1>{activeIndex === 0 ? "나의 단어장" : "오답 노트"}</h1>
         <Span
           className={activeIndex === 0 ? "active" : ""}
           onClick={() => tabClickHandler(0)}
@@ -26,18 +58,37 @@ const MyVocaSubMenu = () => {
         >
           오답 노트
         </Span>
-        <SearchInput placeholder="검색어를 입력해주세요" />
-        <AddButton>
-          <span>새 단어장 추가</span>
-        </AddButton>
+        <SearchInput
+          placeholder="검색어를 입력해주세요"
+          value={text}
+          onChange={onChangeHandler}
+          onKeyPress={onKeyDownHandler}
+        />
+        {activeIndex === 0 ? (
+          <>
+            <AddButton onClick={addWordStorage}>
+              <span>새 단어장 추가</span>
+            </AddButton>
+            {isOpenModal && (
+              <AddVocaModal openAddStorageModal={addWordStorage} />
+            )}
+          </>
+        ) : (
+          <>
+            <GuideButton onClick={guide}>
+              <span>오답 노트 가이드</span>
+            </GuideButton>
+            {isOpenModal && (
+              <AddVocaModal openAddStorageModal={addWordStorage} />
+            )}
+          </>
+        )}
       </MyVocaSubMenuLayout>
 
       {activeIndex === 0 ? (
-        <MyVocaFilter />
+        <MyVocaFilter index={0} />
       ) : (
-        <div>
-          <h1>오답 노트입니다!!!</h1>
-        </div>
+        <MyVocaFilter index={1} />
       )}
     </div>
   );
@@ -48,6 +99,7 @@ const MyVocaSubMenuLayout = styled.div`
   align-items: center;
 
   h1 {
+    width: 13rem;
     margin-right: 5rem;
     font-family: NotoSansKR;
     font-size: 48px;
@@ -55,7 +107,7 @@ const MyVocaSubMenuLayout = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -3px;
     text-align: left;
     color: #000;
   }
@@ -108,6 +160,25 @@ const AddButton = styled.button`
   span {
     flex-grow: 0;
     margin: 0 0 0 14px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    text-align: left;
+    color: #fff;
+  }
+`;
+
+const GuideButton = styled.button`
+  width: 182px;
+  height: 40px;
+  background-color: #1f1f1f;
+
+  span {
+    flex-grow: 0;
     font-family: NotoSansKR;
     font-size: 16px;
     font-weight: 500;
