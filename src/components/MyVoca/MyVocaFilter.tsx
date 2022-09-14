@@ -1,8 +1,8 @@
-import { MouseEvent } from "react";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { MyVocaList } from "../../components/index";
-import { expand, filter } from "../../images/index";
+import { MyVocaList } from "../../components";
+import { expand, filter } from "../../images";
+import { WrongAnswer } from "../../pages";
 
 const category_list = [
   "토익",
@@ -17,7 +17,10 @@ const category_list = [
 
 const shared_list = ["공개", "비공개"];
 
-const MyVocaFilter = () => {
+type IndexProps = {
+  index: number;
+};
+const MyVocaFilter = ({ index }: IndexProps) => {
   const [targetId, setTargetId] = useState<string>("전체보기");
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -44,84 +47,103 @@ const MyVocaFilter = () => {
 
   return (
     <div>
-      <MyVocaFilterLayout>
-        <div>
-          <MenuSpan
-            className={activeIndex === 0 ? "active" : ""}
-            onClick={onFilterHandler}
-            id="전체보기"
-          >
-            전체보기
-          </MenuSpan>
-          <MenuSpan
-            className={activeIndex === 1 ? "active" : ""}
-            onClick={onFilterHandler}
-            id="나의 단어장"
-          >
-            나의 단어장
-          </MenuSpan>
-          <MenuSpan
-            className={activeIndex === 2 ? "active" : ""}
-            onClick={onFilterHandler}
-            id="좋아요"
-          >
-            좋아요
-          </MenuSpan>
-        </div>
-        <div>
-          <FilterSpan>
-            필터
-            <img src={filter} alt="filter" />
-          </FilterSpan>
+      {index === 0 ? (
+        <>
+          <MyVocaFilterLayout>
+            <div>
+              <MenuSpan
+                className={activeIndex === 0 ? "active" : ""}
+                onClick={onFilterHandler}
+                id="전체보기"
+              >
+                전체보기
+              </MenuSpan>
+              <MenuSpan
+                className={activeIndex === 1 ? "active" : ""}
+                onClick={onFilterHandler}
+                id="나의 단어장"
+              >
+                나의 단어장
+              </MenuSpan>
+              <MenuSpan
+                className={activeIndex === 2 ? "active" : ""}
+                onClick={onFilterHandler}
+                id="좋아요"
+              >
+                좋아요
+              </MenuSpan>
+            </div>
+            <div>
+              <FilterSpan>
+                필터
+                <img src={filter} alt="filter" />
+              </FilterSpan>
 
-          <DropDownButton>
-            <CategorySpan
-              className={activeIndex === 3 ? "active" : ""}
-              id="카테고리"
-            >
-              카테고리
-              <img src={expand} alt="expand" />
-            </CategorySpan>
-            <ListContainer>
-              <Ul>
-                {category_list.map((value, index) => (
-                  <Li key={index} onClick={onFilterHandler} id={value}>
-                    {value}
-                  </Li>
-                ))}
-              </Ul>
-            </ListContainer>
-          </DropDownButton>
-          <DropDownButton>
-            <CategorySpan
-              className={activeIndex === 4 ? "active" : ""}
-              id="공개"
-            >
-              공개
-              <img src={expand} alt="expand" />
-            </CategorySpan>
-            <ListContainer>
-              <Ul>
-                {shared_list.map((value, index) => (
-                  <Li key={index} onClick={onFilterHandler} id={value}>
-                    {value}
-                  </Li>
-                ))}
-              </Ul>
-            </ListContainer>
-          </DropDownButton>
-          <DropDownButton>
-            <CategorySpan
-              className={activeIndex === 5 ? "active" : ""}
-              onClick={onFilterHandler}
-              id="인기순"
-            >
-              인기순
-            </CategorySpan>
-          </DropDownButton>
-        </div>
-      </MyVocaFilterLayout>
-      <MyVocaList targetId={targetId} />
+              <DropDownButton>
+                <CategorySpan
+                  className={activeIndex === 3 ? "active" : ""}
+                  id="카테고리"
+                >
+                  카테고리
+                  <img src={expand} alt="expand" />
+                </CategorySpan>
+                <ListContainer>
+                  <Ul>
+                    {category_list.map((value, index) => (
+                      <Li key={index} onClick={onFilterHandler} id={value}>
+                        {value}
+                      </Li>
+                    ))}
+                  </Ul>
+                </ListContainer>
+              </DropDownButton>
+              <DropDownButton>
+                <CategorySpan
+                  className={activeIndex === 4 ? "active" : ""}
+                  id="공개"
+                >
+                  공개
+                  <img src={expand} alt="expand" />
+                </CategorySpan>
+                <ListContainer>
+                  <Ul>
+                    {shared_list.map((value, index) => (
+                      <Li key={index} onClick={onFilterHandler} id={value}>
+                        {value}
+                      </Li>
+                    ))}
+                  </Ul>
+                </ListContainer>
+              </DropDownButton>
+              <DropDownButton>
+                <CategorySpan
+                  className={activeIndex === 5 ? "active" : ""}
+                  onClick={onFilterHandler}
+                  id="인기순"
+                >
+                  인기순
+                </CategorySpan>
+              </DropDownButton>
+            </div>
+          </MyVocaFilterLayout>
+          <MyVocaList targetId={targetId} />
+        </>
+      ) : (
+        <>
+          <MyVocaFilterLayout>
+            <div>
+              <MenuSpan
+                className={activeIndex === 0 ? "active" : ""}
+                onClick={onFilterHandler}
+                id="전체보기"
+              >
+                전체보기
+              </MenuSpan>
+            </div>
+          </MyVocaFilterLayout>
+          <MyVocaList targetId="오답노트" />
+        </>
+      )}
     </div>
   );
 };
