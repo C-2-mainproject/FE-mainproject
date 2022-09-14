@@ -8,12 +8,12 @@ import MyVocaList from "./MyVoca/MyVocaList";
 import MyVocaItem from "./MyVoca/MyVocaItem";
 
 export {
-  MyVocaSubMenu,
-  MyVocaFilter,
-  MyVocaList,
-  MyVocaItem,
   MyWordCard,
   PopularWordBook,
   WordChart,
   MainSubMenu,
+  MyVocaSubMenu,
+  MyVocaFilter,
+  MyVocaList,
+  MyVocaItem,
 };
