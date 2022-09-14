@@ -9,4 +9,15 @@ import MyVocaItem from "./MyVoca/MyVocaItem";
 import WordList from "./MyVoca/WordList";
 import WordItem from "./MyVoca/WordItem";
 
-export { MyWordCard, PopularWordBook, WordChart, MainSubMenu, MyVocaSubMenu, MyVocaFilter, MyVocaList, MyVocaItem WordList, WordItem };
+export {
+  MyWordCard,
+  PopularWordBook,
+  WordChart,
+  MainSubMenu,
+  MyVocaSubMenu,
+  MyVocaFilter,
+  MyVocaList,
+  MyVocaItem,
+  WordList,
+  WordItem,
+};
