@@ -7,10 +7,14 @@ const Layout = (props: { children?: React.ReactNode }) => {
   return (
     <>
       {location !== "/" && <Header />}
-      {props.children}
+      <LayOut>{props.children}</LayOut>
       <Footer />
     </>
   );
 };
 
 export default Layout;
+
+const LayOut = styled.div`
+  width: 100vw;
+`;
