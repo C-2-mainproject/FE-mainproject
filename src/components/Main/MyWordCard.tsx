@@ -37,7 +37,8 @@ const MyWordCard = ({ wordStorage }: Props) => {
 
       <CardTitle>
         <div>
-          {title}ㄴㅇㄹㄴㅇㄹㅁㄴㅇㅁㄴㅇㅁㄴㄴㅇsdafasdfasdfasdfasdfㄹㄴㅇㄹ
+          {title}
+          ㄴㅇㄹㄴㅇㄹㅁㄴㅇㅁㄴㅇㅁㄴㄴㅇsdafasdfasdsdssdfaasdsdfasdfㄹㄴㅇㄹ
         </div>
         <div>
           {description}
