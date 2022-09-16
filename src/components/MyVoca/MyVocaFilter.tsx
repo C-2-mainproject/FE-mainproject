@@ -227,7 +227,7 @@ const DropDownButton = styled.button`
 
 const Li = styled.li`
   list-style: none;
-  height: 1.5rem;
+  height: 2.5rem;
   background-color: white;
   padding: 10px;
   border-top: 1px solid;

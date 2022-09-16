@@ -4,12 +4,21 @@ const Header = () => {
     <HeaderBar>
       <HeaderContent>
         <div>
-          <span> 로고</span>
-          <p>나의 단어장</p>
-          <p>공유 단어장</p>
-          <p>게임</p>
-          <p>자유게시판</p>
-          <p>고객지원</p>
+          <span>
+            <A href="/">로고</A>
+          </span>
+          <p>
+            <A href="/myvoca">나의 단어장</A>
+          </p>
+          <p>
+            <A href="/sharedvoca">공유 단어장</A>
+          </p>
+          <p>
+            <A href="/game">게임</A>
+          </p>
+          <p>
+            <A href="/board">자유게시판</A>
+          </p>
         </div>
         <div>
           <span>검색</span>
@@ -31,6 +40,7 @@ const HeaderBar = styled.div<{ MainHeader?: boolean }>`
   /* background-color: ${props => (props.MainHeader ? "#00b4db" : "#fff")}; */
 `;
 const HeaderContent = styled.section`
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -46,4 +56,8 @@ const HeaderContent = styled.section`
       }
     }
   }
+`;
+
+const A = styled.a`
+  text-decoration: none;
 `;

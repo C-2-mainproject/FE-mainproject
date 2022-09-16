@@ -5,5 +5,23 @@ import search from "./search.png";
 import person from "./person.png";
 import expand from "./expand_more.png";
 import filter from "./filter_alt.png";
+import mainsub_game from "./icon/game.png";
+import mainsub_csceneter from "./icon/cscenter.png";
+import mainsub_community from "./icon/community.png";
+import mainsub_myVoca from "./icon/my_word_book.png";
+import mainsub_sharebook from "./icon/share_book.png";
 
-export { add, logo_w, logo, search, person, expand, filter };
+export {
+  add,
+  logo_w,
+  logo,
+  search,
+  person,
+  expand,
+  filter,
+  mainsub_sharebook,
+  mainsub_myVoca,
+  mainsub_community,
+  mainsub_csceneter,
+  mainsub_game,
+};

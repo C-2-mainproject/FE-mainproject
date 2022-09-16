@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
+import EditVocaModal from "../../components/MyVoca/EditVocaModal";
+import { expand } from "../../images";
 
 const voca_item = {
   id: 6,
@@ -19,16 +21,20 @@ const voca_item = {
 };
 
 const MyVocaDetail = () => {
+  // api 통신: 특정 단어장 조회 -> GET | /api/user/wordstorage/id/{id}
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isAddOpenModal, setIsAddOpenModal] = useState(false);
+  const [isEditOpenModal, setIsEditOpenModal] = useState(false);
 
   const todoEdit = () => {
     setIsEdit(!isEdit);
+    setIsEditOpenModal(!isEditOpenModal);
+    console.log("dodjoj", isEdit);
   };
 
   const addWord = () => {
     console.log("addword!!!");
-    setIsOpenModal(!isOpenModal);
+    setIsAddOpenModal(!isAddOpenModal);
   };
 
   return (
@@ -38,26 +44,55 @@ const MyVocaDetail = () => {
           <InfoHeader>
             <DivA>
               <p>지금 보고 있는 단어장</p>
-              <button onClick={todoEdit}>
+              <Button onClick={addWord}>
+                <span>단어 추가하기</span>
+              </Button>
+              {isAddOpenModal && <AddWordModal openAddWordModal={addWord} />}
+              <Button onClick={todoEdit}>
                 <span>단어장 편집하기</span>
-              </button>
+              </Button>
+              {isEditOpenModal && (
+                <EditVocaModal openEditVocaModal={todoEdit} />
+              )}
             </DivA>
             <DivB>
               <div>
                 <MyVocaItem wordStorage={voca_item} />
               </div>
-              <div>C</div>
+              <div>
+                <div>
+                  <p>
+                    카테고리<span>토익</span>
+                    <img src={expand} alt="expand" />
+                    <span>330</span>
+                  </p>
+                  <h1>보카바이블30</h1>
+                  <h2>
+                    시험에꼭 나오는 영단어
+                    보카바이블보카바이블보카바이블보카바이블
+                  </h2>
+                  <p>공개</p>
+                  <p>
+                    마지막 시험<span>2022.09.10.12:33</span>
+                  </p>
+                  <p>
+                    모르는 단어<span>3 객</span>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    작성<span>보카 바이블</span>
+                  </p>
+                  <p>
+                    제작<span>2022.09.10</span>
+                  </p>
+                </div>
+              </div>
             </DivB>
           </InfoHeader>
+
           <WordList />
-          {isEdit ? (
-            <div>
-              <AddButton onClick={addWord}>단어 추가하기</AddButton>
-              {isOpenModal && <AddWordModal openAddWordModal={addWord} />}
-            </div>
-          ) : (
-            <div></div>
-          )}
+          {isEdit ? <div></div> : <div></div>}
         </MyVocaDetailBox>
       </MyVocaDetailWrapper>
     </MyVocaDetailLayout>
@@ -85,7 +120,6 @@ const InfoHeader = styled.div``;
 const DivA = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 7rem;
   align-items: center;
 
   p {
@@ -127,7 +161,7 @@ const DivB = styled.div`
   display: flex;
 `;
 
-const AddButton = styled.button`
+const Button = styled.button`
   width: 290px;
   height: 300px;
   background-color: #f3f3f3;
