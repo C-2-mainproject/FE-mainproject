@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { WordStorage } from "../../types";
+// import { useNavigate } from "react-router-dom";
+import { WordStorage } from "../../types/types";
 
 type Props = {
   wordStorage: WordStorage;
@@ -9,25 +9,26 @@ type Props = {
 
 const MyWordCard = ({ wordStorage }: Props) => {
   const {
-    id,
+    // id,
     category,
     title,
     lastTestAt,
     description,
     writer,
     createAt,
-    likeCount,
+    // likeCount,
   } = wordStorage;
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const moveToDetail = (id: number) => {
-    navigate(`/myvoca-detail/${id}`);
-  };
+  // const moveToDetail = (id: number) => {
+  //   navigate(`/myvoca-detail/${id}`);
+  // };
 
-  const moveToTestService = (id: number) => {
-    navigate(`/wordtest/${id}`);
-  };
+  // const moveToTestService = (id: number) => {
+  //   navigate(`/wordtest/${id}`);
+  // };
+
   return (
     <CardContainer>
       <VocaCategory>

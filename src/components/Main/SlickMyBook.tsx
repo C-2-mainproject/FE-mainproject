@@ -7,7 +7,7 @@ import goPrev from "../../assets/images/arrow_back_ios.png";
 import goNext from "../../assets/images/arrow_forward_ios.png";
 // import arrow_foward from "../../images/icon/arrow_foward.png";
 import { useState } from "react";
-import { WordStorage } from "../../types";
+import { WordStorage } from "../../types/types";
 
 // interface sliderProps {
 //   /** 슬라이더 아이템 요소 */
@@ -100,10 +100,13 @@ const SlickMyBook = () => {
     },
   ]);
 
+  console.log(setmyVocaList);
+
   return (
     <>
       <WordBookSlicder {...settings}>
         {myVocaList.map((myVoca, list) => {
+          console.log(list);
           return <MyWordCard wordStorage={myVoca} />;
         })}
       </WordBookSlicder>
