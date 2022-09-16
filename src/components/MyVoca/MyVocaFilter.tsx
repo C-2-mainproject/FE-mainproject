@@ -2,7 +2,6 @@ import { useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { MyVocaList } from "../../components";
 import { expand, filter } from "../../images";
-import { WrongAnswer } from "../../pages";
 
 const category_list = [
   "토익",
