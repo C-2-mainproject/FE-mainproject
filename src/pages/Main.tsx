@@ -1,70 +1,194 @@
 import styled from "styled-components";
-import { PopularWordBook, MainSubMenu } from "../components/index";
+import { PopularWordBook, MainSubMenu, WordChart } from "../components/index";
 import SlickMyBook from "../components/Main/SlickMyBook";
 import Header from "../Layout/Header";
+import Dlfeksdl from "../images/top_dlfeksdl.png";
+import RunDlfeksdl from "../images/run_dlfeksdl.png";
 const Main = () => {
   return (
     <>
-      <MainHeader>
+      <MainMenu>
         <Header />
-        <section>
+        <section style={{ paddingRight: "0px" }}>
           <WelcomeText>
-            <p>단어장의 기준이되다</p>
-            <p>일단이와 함께하는 완전 단어학습</p>
+            <div>
+              <p>단어장의 기준이되다</p>
+              <p>일단이와 함께하는 완전 단어학습</p>
+              <p>수강료 걱정없는 단어 학습의 시작</p>
+            </div>
+
+            <TopDlfeksd src={Dlfeksdl} />
           </WelcomeText>
         </section>
-      </MainHeader>
+      </MainMenu>
       <MainSubMenu />
+      {/* 내단어장 리스트 */}
       <MyWordBookList>
         <div>
-          <span>
+          <MyBookTitle>
             <h3>맞춤형</h3>
             <p>나의 단어장</p>
-            <p>단어장 전체보기</p>
-          </span>
+          </MyBookTitle>
           <SlickMyBook />
         </div>
       </MyWordBookList>
-      <div>
-        <span>
-          <h3>합격률 1위-</h3>
-          <p>인기 단어장</p>
-          <p>카테고리 별로 인기있는 단어장을 찾아볼 수 있어요.</p>
-        </span>
-        <PopularWordBook />
-      </div>
-      <div>
-        <div>
-          <h3>단어장 통계</h3>
-          <span>
-            <p>토익</p>
-            <p>토익</p>
-            <p>토익</p>
-          </span>
-        </div>
-        <span> 더보기 </span>
-      </div>
+      <PopularList>
+        <section>
+          <PopularText>
+            <h3>합격률 1위-</h3>
+            <h3>인기 단어장</h3>
+            <p>
+              카테고리 별로 인기있는 <br />
+              단어장을 찾아볼 수 있어요.
+            </p>
+          </PopularText>
+          <PopularWordBook />
+        </section>
+      </PopularList>
+      <BookChart>
+        <BookChartItems>
+          <ChartTitle>
+            <h3>수강료 걱정없이-</h3>
+            <h3>일단이와 함께하는 학습</h3>
+            <p>
+              학습한 만큼 받아가고, <br />
+              일단이와 함께해서 더 즐거운
+            </p>
+            <RunDlfeksd src={RunDlfeksdl} />
+          </ChartTitle>
+          <div>
+            <span> 일단이의 총 단어장 </span>
+            <span> 카테고리별 총 단어장 갯수 실시간 통계 </span>
+            <WordChart />
+          </div>
+        </BookChartItems>
+      </BookChart>
     </>
   );
 };
 export default Main;
 
-const MainHeader = styled.div`
+const MainMenu = styled.div`
   background-image: linear-gradient(140deg, #00b4db 21%, #0083b0 83%),
     linear-gradient(to bottom, #bdbdbd, #bdbdbd);
   height: 900px;
+  color: #fff;
 `;
 
 const WelcomeText = styled.div`
-  margin-top: 103px;
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-size: 48px;
+    color: #fff;
+    &:nth-child(1) {
+      margin-top: 109px;
+
+      font-weight: 500;
+    }
+    &:nth-child(2) {
+      font-weight: 300;
+    }
+    &:nth-child(3) {
+      margin-top: 50px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const MyWordBookList = styled.section`
   background-color: #fff;
   display: flex;
-  height: 970px;
+  height: 908px;
   align-items: center;
+  justify-content: center;
+  margin-top: -10rem;
   div {
     display: flex;
+  }
+`;
+const MyBookTitle = styled.span`
+  width: 16rem;
+  font-size: 36px;
+  p {
+    font-size: 36px;
+    font-weight: 300;
+  }
+`;
+
+const PopularList = styled.div`
+  height: 334px;
+  background-color: #00b4db;
+  section {
+    display: flex;
+    position: relative;
+    top: 71px;
+  }
+`;
+const PopularText = styled.span`
+  font-size: 36px;
+  letter-spacing: -2.5px;
+  color: #fff;
+  margin-right: 8rem;
+  h3 {
+    &:nth-child(2) {
+      font-weight: 300;
+    }
+  }
+  p {
+    letter-spacing: -1.6px;
+    margin-top: 21px;
+  }
+`;
+
+const BookChart = styled.div`
+  height: 1271px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BookChartItems = styled.section`
+  display: flex;
+`;
+
+const TopDlfeksd = styled.img`
+  width: 698px;
+  position: relative;
+  top: 2.5rem;
+`;
+const RunDlfeksd = styled.img`
+  position: relative;
+  width: 304px;
+  top: 5.3rem;
+  left: 9.1rem;
+`;
+
+const ChartTitle = styled.div`
+  background-color: #00b4db;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 51px;
+  width: 463px;
+  height: 581px;
+  font-size: 36px;
+  line-height: 52px;
+  letter-spacing: -0.07em;
+  h3 {
+    &:nth-child(1) {
+      margin-top: 76px;
+    }
+    &:nth-child(2) {
+      font-weight: 300;
+    }
+  }
+  p {
+    font-size: 18px;
+    line-height: 26px;
+    margin-top: 21px;
+    letter-spacing: -0.07em;
   }
 `;

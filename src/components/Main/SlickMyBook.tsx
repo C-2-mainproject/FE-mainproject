@@ -1,8 +1,13 @@
 import Slider from "react-slick";
-import MyWordCard from "./MyWordCard";
+import { MyWordCard } from "../index";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import goPrev from "../../assets/images/arrow_back_ios.png";
+import goNext from "../../assets/images/arrow_forward_ios.png";
+// import arrow_foward from "../../images/icon/arrow_foward.png";
+import { useState } from "react";
+import { WordStorage } from "../../types";
 
 // interface sliderProps {
 //   /** 슬라이더 아이템 요소 */
@@ -26,15 +31,81 @@ const SlickMyBook = () => {
     slidesToShow: 4,
     loop: true,
   };
+
+  const [myVocaList, setmyVocaList] = useState<WordStorage[]>([
+    {
+      id: 1,
+      title: "테스트 단어장1",
+      description: "테스트 단어장입니다.",
+      category: "토익",
+      likeCount: 13,
+      bookmarked: true,
+      public: true,
+      writer: "일단이",
+      createAt: "2022.09.01",
+      modifiedAt: "2022.09.01",
+      lastTestAt: "2022.09.01",
+    },
+    {
+      id: 2,
+      title: "테스트 단어장2",
+      description: "테스트 단어장입니다.",
+      category: "토익",
+      likeCount: 11,
+      bookmarked: true,
+      public: true,
+      writer: "일단이",
+      createAt: "2022.09.02",
+      modifiedAt: "2022.09.02",
+      lastTestAt: "2022.09.02",
+    },
+    {
+      id: 3,
+      title: "테스트 단어장3",
+      description: "테스트 단어장입니다.",
+      category: "토익",
+      likeCount: 11,
+      bookmarked: true,
+      public: true,
+      writer: "일단이",
+      createAt: "2022.09.02",
+      modifiedAt: "2022.09.02",
+      lastTestAt: "2022.09.02",
+    },
+    {
+      id: 4,
+      title: "테스트 단어장4",
+      description: "테스트 단어장입니다.",
+      category: "토익",
+      likeCount: 11,
+      bookmarked: true,
+      public: true,
+      writer: "일단이",
+      createAt: "2022.09.02",
+      modifiedAt: "2022.09.02",
+      lastTestAt: "2022.09.02",
+    },
+    {
+      id: 5,
+      title: "테스트 단어장5",
+      description: "테스트 단어장입니다.",
+      category: "토익",
+      likeCount: 11,
+      bookmarked: true,
+      public: true,
+      writer: "일단이",
+      createAt: "2022.09.02",
+      modifiedAt: "2022.09.02",
+      lastTestAt: "2022.09.02",
+    },
+  ]);
+
   return (
     <>
       <WordBookSlicder {...settings}>
-        <MyWordCard></MyWordCard>
-        <MyWordCard></MyWordCard>
-        <MyWordCard></MyWordCard>
-        <MyWordCard></MyWordCard>
-        <MyWordCard></MyWordCard>
-        <MyWordCard></MyWordCard>
+        {myVocaList.map((myVoca, list) => {
+          return <MyWordCard wordStorage={myVoca} />;
+        })}
       </WordBookSlicder>
     </>
   );
@@ -45,13 +116,17 @@ export default SlickMyBook;
 const WordBookSlicder = styled(Slider)`
   max-width: 1000px;
   .slick-prev:before {
-    content: "<";
+    content: url(${goPrev});
     opacity: 1; // 기존에 숨어있던 화살표 버튼이 보이게
     color: black; // 버튼 색은 검은색으로
     left: 0;
   }
   .slick-next:before {
+    content: ">";
+
     opacity: 1;
+    content: url(${goNext});
+
     color: black;
   }
 `;

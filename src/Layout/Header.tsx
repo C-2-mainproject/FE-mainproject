@@ -31,6 +31,7 @@ const HeaderBar = styled.div<{ MainHeader?: boolean }>`
   /* background-color: ${props => (props.MainHeader ? "#00b4db" : "#fff")}; */
 `;
 const HeaderContent = styled.section`
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
