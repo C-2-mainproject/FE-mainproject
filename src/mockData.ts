@@ -1,4 +1,4 @@
-import { WordStorage, WrongAnswerWordStorage } from "./types";
+import { WordStorage, WrongAnswerWordStorage } from "./types/types";
 
 export const wordStorageList: WordStorage[] = [
   {

@@ -2,7 +2,6 @@ import { ChangeEvent, useState, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { MyVocaFilter } from "../../components";
 import { add, search } from "../../images";
-
 import AddVocaModal from "./AddVocaModal";
 
 const MyVocaSubMenu = () => {
@@ -33,6 +32,7 @@ const MyVocaSubMenu = () => {
   };
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    // api 통신 : 내 단어장 내 제목+내용 검색 -> GET | /api/user/wordstorage/my/search?search={word}
     if (event.key === "Enter") {
       console.log("text is :: ", text);
       setText("");
