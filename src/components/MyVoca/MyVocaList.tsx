@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { wordStorageList, wrongWordStorageList } from "../../mockData";
 import { WordStorage } from "../../types/types";
 import { MyVocaItem } from "../../components";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 type TargetIdProps = {
   targetId: string;
@@ -9,26 +10,27 @@ type TargetIdProps = {
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
   // api 통신 : 내 단어장 목록 불러오기 -> GET | /api/user/wordstorage/my
+  const [wordStorageLists, setWordStorageLists] = useState<WordStorage[]>([]);
 
-  // const [wordStorageLists, setWordStorageLists] = useState();
+  const getWordStorageList = async () => {
+    try {
+      const data = await axios.get(
+        "https://jdh3340.shop/api/user/wordstorage/my",
+        { withCredentials: true },
+      );
+      setWordStorageLists(data.data.content);
+      console.log(data.data.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // const getWordStorageList = async () => {
-  //   try {
-  //     const data = await axios.get(
-  //       "https://jdh3340.shop/api/user/wordstorage/my",
-  //     );
-  //     // setWordStorageLists(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getWordStorageList();
-  // }, []);
+  useEffect(() => {
+    getWordStorageList();
+  }, []);
 
   if (targetId === "전체보기") {
-    const wordStorages = wordStorageList.map((wordStorage, index) => {
+    const wordStorages = wordStorageLists.map((wordStorage, index) => {
       return <MyVocaItem key={index} wordStorage={wordStorage} />;
     });
 
@@ -37,9 +39,8 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     console.log("2");
   } else if (targetId === "좋아요") {
     // api 통신 : 좋아요 한 단어장 목록 불러오기 -> GET | /api/user/wordstorage/like
-    console.log("3");
   } else if (targetId === "인기순") {
-    const wordStorages = wordStorageList.sort(
+    const wordStorages = wordStorageLists.sort(
       (a: WordStorage, b: WordStorage): number => {
         return b.likeCount - a.likeCount;
       },
@@ -53,17 +54,15 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     );
   } else if (targetId === "오답노트") {
     // api 통신 : 오답노트 리스트 받아오기 -> GET | /api/user/wordstorage/test/history
-    console.log("오답노트");
-    const wrongWordStorages = wrongWordStorageList.map(
+    const wrongWordStorages = wordStorageLists.map(
       (wrongWordStorage, index) => {
         return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
       },
     );
-    console.log("오답노트", wrongWordStorages);
     return <MyVocaListLayout>{wrongWordStorages}</MyVocaListLayout>;
   }
 
-  const wordStorages = wordStorageList.filter(wordStorage => {
+  const wordStorages = wordStorageLists.filter(wordStorage => {
     return wordStorage.category === targetId;
   });
 
