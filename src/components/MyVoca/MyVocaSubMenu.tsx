@@ -1,5 +1,4 @@
 import { ChangeEvent, useState, KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MyVocaFilter } from "../../components";
 import { add, search } from "../../images";
@@ -7,8 +6,6 @@ import { add, search } from "../../images";
 import AddVocaModal from "./AddVocaModal";
 
 const MyVocaSubMenu = () => {
-  const navigate = useNavigate();
-
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [text, setText] = useState<string>("");
