@@ -2,7 +2,6 @@ import { useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { MyVocaList } from "../../components";
 import { expand, filter } from "../../images";
-import { WrongAnswer } from "../../pages";
 
 const category_list = [
   "토익",
@@ -228,7 +227,7 @@ const DropDownButton = styled.button`
 
 const Li = styled.li`
   list-style: none;
-  height: 1.5rem;
+  height: 2.5rem;
   background-color: white;
   padding: 10px;
   border-top: 1px solid;

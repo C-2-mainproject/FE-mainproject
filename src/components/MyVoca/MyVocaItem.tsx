@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { WordStorage } from "../../types";
+import { WordStorage } from "../../types/types";
 import { expand } from "../../images";
 import { useNavigate } from "react-router-dom";
 
@@ -20,34 +20,30 @@ const MyVocaItem = ({ wordStorage }: Props) => {
 
   return (
     <MyVocaItemLayout key={wordStorage.id}>
-      <InfoHeaderDiv>
-        <CategoryDiv>
-          <span>{wordStorage.category}</span>
-        </CategoryDiv>
-      </InfoHeaderDiv>
-      <InfoBodyDiv>
-        <DivTop>
-          <Title>{wordStorage.title}</Title>
-          <Description>{wordStorage.description}</Description>
-          <LastTest>
-            마지막 시험
-            <span>{wordStorage.lastTestAt}</span>
-          </LastTest>
-        </DivTop>
-        <DivBottom>
-          <Writer>
-            작성<span>{wordStorage.writer}</span>
-          </Writer>
-          <CreateAt>
-            제작<span>{wordStorage.createAt}</span>
-            <span>
-              <img src={expand} alt="like" />
-              {wordStorage.likeCount}
-            </span>
-          </CreateAt>
-        </DivBottom>
-      </InfoBodyDiv>
-
+      <HeaderDiv>
+        <p>{wordStorage.public ? "공개" : "비공개"}</p>
+        <span>{wordStorage.category}</span>
+      </HeaderDiv>
+      <BodyDiv>
+        <div>
+          <h1>{wordStorage.title}</h1>
+          <h2>{wordStorage.description}</h2>
+          <p>
+            마지막 시험 <span>{wordStorage.lastTestAt}</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            작성 <span>{wordStorage.writer}</span>
+          </p>
+          <p>
+            제작
+            <span>{wordStorage.createAt}</span>
+            <img src={expand} alt="like" />
+            {wordStorage.likeCount}
+          </p>
+        </div>
+      </BodyDiv>
       <MyVocaItemLayoutHover key={wordStorage.id}>
         <button onClick={() => moveToDetail(wordStorage.id)}>
           자세히 보기
@@ -70,6 +66,128 @@ const MyVocaItemLayout = styled.div`
 
   &:nth-child(4n) {
     margin-right: 0px;
+  }
+`;
+
+const HeaderDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin-left: 40px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.12px;
+    text-align: left;
+    color: #000;
+    border-bottom: 1px solid;
+  }
+
+  span {
+    width: 90px;
+    height: 52px;
+    padding: 12px;
+    text-align: center;
+    background-color: #949494;
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.68px;
+    color: #fff;
+  }
+`;
+
+const BodyDiv = styled.div`
+  width: 210px;
+  margin: auto;
+  margin-top: 20px;
+
+  h1 {
+    height: 105px;
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.68px;
+    text-align: left;
+    color: #000;
+  }
+
+  div:nth-child(2n + 1) {
+    height: 220px;
+    border-bottom: 1px solid;
+
+    h2 {
+      height: 80px;
+      font-family: NotoSansKR;
+      font-size: 18px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -1.26px;
+      text-align: left;
+      color: #666;
+    }
+
+    p {
+      font-family: NotoSansKR;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -1.12px;
+      text-align: left;
+      color: #333;
+    }
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  div:nth-child(2n) {
+    height: 105px;
+    margin-top: 20px;
+
+    p {
+      font-family: NotoSansKR;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -1.12px;
+      text-align: left;
+      color: #666;
+    }
+
+    span {
+      margin-left: 10px;
+      font-family: NotoSansKR;
+      font-size: 16px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -1.12px;
+      text-align: left;
+      color: #666;
+    }
+
+    img {
+      margin-left: 40px;
+    }
   }
 `;
 
@@ -101,149 +219,4 @@ const MyVocaItemLayoutHover = styled.div`
   }
 `;
 
-const InfoHeaderDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const InfoBodyDiv = styled.div`
-  width: 210px;
-  height: 350px;
-  margin: auto;
-`;
-
-const DivTop = styled.div`
-  height: 200px;
-`;
-
-const DivBottom = styled.div`
-  height: 150px;
-  border-top: 1px solid;
-`;
-
-const CategoryDiv = styled.div`
-  width: 90px;
-  height: 52px;
-  margin: 0 0 0 200px;
-  text-align: center;
-  background-color: #949494;
-  opacity: 0.5;
-
-  span {
-    font-family: NotoSansKR;
-    font-size: 24px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1px;
-    text-align: left;
-    color: #fff;
-  }
-`;
-
-const Title = styled.p`
-  font-family: NotoSansKR;
-  font-size: 24px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #000;
-`;
-
-const Description = styled.p`
-  font-family: NotoSansKR;
-  font-size: 18px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #666;
-`;
-
-const LastTest = styled.p`
-  margin-bottom: 14px;
-  font-family: NotoSansKR;
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #333;
-
-  span {
-    margin-left: 10px;
-    font-family: NotoSansKR;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #333;
-  }
-`;
-
-const Writer = styled.p`
-  font-family: NotoSansKR;
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #666;
-
-  span {
-    margin-left: 10px;
-    font-family: NotoSansKR;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1px;
-    text-align: left;
-    color: #666;
-  }
-`;
-
-const CreateAt = styled.p`
-  font-family: NotoSansKR;
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #666;
-
-  span {
-    margin-left: 10px;
-    font-family: NotoSansKR;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1.12px;
-    text-align: left;
-    color: #666;
-  }
-  img {
-    margin-left: 45px;
-    vertical-align: middle;
-  }
-`;
 export default MyVocaItem;

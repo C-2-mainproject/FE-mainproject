@@ -1,12 +1,57 @@
 import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
-import { expand } from "../../images";
+import { useState, ChangeEvent } from "react";
+import CustomSelect from "../CustomSelect";
 
 type ModalProps = {
   openAddStorageModal: () => void;
 };
 
+const category_list = [
+  { filterCategory: "카테고리", value: "토익" },
+  { filterCategory: "카테고리", value: "토플" },
+  { filterCategory: "카테고리", value: "텝스" },
+  { filterCategory: "카테고리", value: "초등" },
+  { filterCategory: "카테고리", value: "중등" },
+  { filterCategory: "카테고리", value: "고등" },
+  { filterCategory: "카테고리", value: "회화" },
+  { filterCategory: "카테고리", value: "기타" },
+];
+
+const shared_list = [
+  { filterCategory: "공개", value: "공개" },
+  { filterCategory: "공개", value: "비공개" },
+];
+
 const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
+  const [addWordStorageInput, setAddWordStorageInput] = useState({
+    title: "",
+    description: "",
+  });
+
+  const [addWordStorageSelect, setAddWordStorageSelect] = useState({
+    category: "",
+    status: "",
+  });
+
+  const { title, description } = addWordStorageInput;
+
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, id } = event.target;
+    setAddWordStorageInput({
+      ...addWordStorageInput,
+      [id]: value,
+    });
+  };
+
+  const addNewWordStorage = () => {
+    // api 통신: 특정 단어장 생성 -> post | /api/user/wordstorage
+    console.log("title ::", addWordStorageInput.title);
+    console.log("description ::", addWordStorageInput.description);
+    console.log("category ::", addWordStorageSelect.category);
+    console.log("status::", addWordStorageSelect.status);
+  };
+
   return (
     <ModalPortal>
       <Overlay>
@@ -22,25 +67,42 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
               <div>
                 <VocaName>
                   <p>단어장 제목</p>
-                  <input placeholder="단어장 이름을 입력해주세요" />
+                  <input
+                    id="title"
+                    placeholder="단어장 이름을 입력해주세요"
+                    value={title}
+                    onChange={onChangeHandler}
+                  />
                 </VocaName>
-                <UserInfo>
+                <VocaInfo>
                   <Div>
                     <p>카테고리</p>
-                    <div>
-                      <span>
-                        카테고리리 선택하기
-                        <img src={expand} alt="expand" />
-                      </span>
-                    </div>
+                    <CustomSelect
+                      props={category_list}
+                      addWordStorageSelect={addWordStorageSelect}
+                      setAddWordStorageSelect={setAddWordStorageSelect}
+                    />
                   </Div>
                   <Div>
                     <p>공개 범위</p>
-                    <div>성별을 선택해주세요</div>
+                    <CustomSelect
+                      props={shared_list}
+                      addWordStorageSelect={addWordStorageSelect}
+                      setAddWordStorageSelect={setAddWordStorageSelect}
+                    />
                   </Div>
-                </UserInfo>
+                </VocaInfo>
+                <VocaInput>
+                  <p>단어장 설명</p>
+                  <input
+                    placeholder="단어장을 소개해주세요"
+                    id="description"
+                    value={description}
+                    onChange={onChangeHandler}
+                  />
+                </VocaInput>
                 <Button>
-                  <span>회원가입 완료</span>
+                  <span onClick={addNewWordStorage}>새 단어장 추가</span>
                 </Button>
               </div>
             </Form>
@@ -58,12 +120,12 @@ const Overlay = styled.div`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 9999;
+  z-index: 999;
 `;
 
 const ModalWrap = styled.div`
   width: 640px;
-  height: fit-content;
+  height: 1000px;
   border-radius: 15px;
   background-color: #fff;
   position: absolute;
@@ -83,16 +145,10 @@ const CloseButton = styled.div`
 const Contents = styled.div`
   margin: 50px 30px;
   padding: 50px;
-  h1 {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 60px;
-  }
 `;
 
 const Title = styled.div`
   width: 480px;
-  padding-top: 33px;
   padding-bottom: 33px;
   border-bottom: 1px solid;
 
@@ -179,58 +235,71 @@ const VocaName = styled.div`
     background-color: #000;
   }
 `;
-const UserInfo = styled.div`
+const VocaInfo = styled.div`
   display: flex;
   margin-top: 60px;
 `;
 
 const Div = styled.div`
   margin-right: 20px;
+
   width: 230px;
   height: 60px;
-  border-bottom: 1px solid;
+
+  &:nth-child(2n) {
+    margin-right: 0px;
+  }
 
   p {
-    // width: 43px;
-    // height: 35px;
-    // font-family: NotoSansKR;
-    // font-size: 24px;
-    // font-weight: 500;
-    // font-stretch: normal;
-    // font-style: normal;
-    // line-height: normal;
-    // letter-spacing: -1px;
-    // text-align: left;
-
-    width: 84px;
     height: 35px;
-
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 500;
+    font-family: NotoSansKR;
     font-size: 24px;
-    line-height: 35px;
-    /* identical to box height */
-
-    letter-spacing: -0.07em;
-
-    color: #000000;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    text-align: left;
   }
 
   span {
-    width: 127px;
+    width: 158px;
     height: 26px;
-
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 500;
+    margin-right: 22px;
+    font-family: NotoSansKR;
     font-size: 18px;
-    line-height: 26px;
-    /* identical to box height */
-
-    letter-spacing: -0.07em;
-
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    text-align: left;
     color: #dbdbdb;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
+
+  select {
+    width: 230px;
+    height: 50px;
+    border: none;
+  }
+`;
+
+const VocaInput = styled.div`
+  width: 480px;
+  margin-top: 60px;
+
+  input {
+    margin-top: 10px;
+    width: 480px;
+    height: 180px;
   }
 `;
 
@@ -255,4 +324,71 @@ const Button = styled.button`
     color: #fff;
   }
 `;
+
+// const DropDownButton = styled.button`
+//   border: none;
+//   outline: none;
+//   background-color: rgba(0, 0, 0, 0);
+//   position: relative;
+
+//   font-family: NotoSansKR;
+//   font-size: 16px;
+//   font-weight: 500;
+//   font-stretch: normal;
+//   font-style: normal;
+//   line-height: normal;
+//   letter-spacing: -1px;
+//   text-align: center;
+//   color: #000;
+// `;
+
+// const Li = styled.li`
+//   list-style: none;
+//   height: 2.5rem;
+//   background-color: white;
+//   padding: 10px;
+//   border-top: 1px solid;
+
+//   &:first-child {
+//     border-top: 0px;
+//   }
+
+//   &:hover {
+//     background-color: #d7d7d7;
+//   }
+// `;
+
+// const Ul = styled.ul`
+//   width: 8rem;
+//   list-style: none;
+//   font-style: normal;
+//   font-weight: bold;
+//   font-size: 16px;
+//   color: black;
+//   line-height: 22px;
+// `;
+
+// const ListContainer = styled.div`
+//   border: 1px solid ${props => props.theme.borderColor};
+//   background-color: ${props => props.theme.bgColor};
+//   margin-top: 7px;
+//   // position: absolute;
+//   display: none;
+
+//   ${DropDownButton}:hover & {
+//     background-color: red;
+//     display: block;
+//     z-index: 999;
+//   }
+
+//   ${DropDownButton}:active & {
+//     display: block;
+//     z-index: 999;
+//   }
+
+//   ${DropDownButton}:focus & {
+//     display: block;
+//     z-index: 999;
+//   }
+// `;
 export default AddVocaModal;

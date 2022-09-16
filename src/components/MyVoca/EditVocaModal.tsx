@@ -1,65 +1,32 @@
-import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
-  openAddWordModal: () => void;
+  openEditVocaModal: () => void;
 };
 
-const AddWordModal = ({ openAddWordModal }: ModalProps) => {
-  const [count, setCount] = useState<number>(0);
-  const [addWord, setAddWord] = useState({
-    word: "",
-    mean: "",
-  });
-
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, id } = event.target;
-    setAddWord({
-      ...addWord,
-      [id]: value,
-    });
-  };
-
-  const makeWord = () => {
-    // api 통신 : 특정단어장 단어 편집 -> PUT | /api/user/wordstorage/id/{id}/word
-    console.log("hahahahahahah", addWord);
-  };
-
-  const add = () => {
-    console.log("aa");
-    setCount(count + 1);
-  };
-
+const EditVocaModal = ({ openEditVocaModal }: ModalProps) => {
   return (
     <ModalPortal>
       <Overlay>
         <ModalWrap>
-          <CloseButton onClick={openAddWordModal}>X</CloseButton>
+          <CloseButton onClick={openEditVocaModal}>X</CloseButton>
           <Contents>
-            <p>새 단어 추가</p>
+            <p>단어장 편집하기</p>
             <AddArea>
               <div>
                 <p>영어 단어</p>
-                <input
-                  id="word"
-                  placeholder="영어 단어를 입력하세요"
-                  onChange={onChangeHandler}
-                />
+                <input id="word" placeholder="영어 단어를 입력하세요" />
               </div>
               <div>
                 <p>한글 뜻</p>
-                <input
-                  id="mean"
-                  placeholder="한글 뜻을 입력하세요"
-                  onChange={onChangeHandler}
-                />
+                <input id="mean" placeholder="한글 뜻을 입력하세요" />
               </div>
-              <button onClick={add}>추가</button>
+              <button>추가</button>
             </AddArea>
 
             <Button>
-              <span onClick={makeWord}>단어 추가</span>
+              <span>새 단어장 추가</span>
             </Button>
           </Contents>
         </ModalWrap>
@@ -111,7 +78,6 @@ const Contents = styled.div`
 const AddArea = styled.div`
   height: 200px;
   border: 1px solid;
-  overflow-y: scroll;
 
   button {
     background-color: gray;
@@ -138,4 +104,4 @@ const Button = styled.button`
     color: #fff;
   }
 `;
-export default AddWordModal;
+export default EditVocaModal;
