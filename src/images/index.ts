@@ -10,6 +10,7 @@ import mainsub_csceneter from "./icon/cscenter.png";
 import mainsub_community from "./icon/community.png";
 import mainsub_myVoca from "./icon/my_word_book.png";
 import mainsub_sharebook from "./icon/share_book.png";
+import ildan from "./ildan.png";
 
 export {
   add,
@@ -24,4 +25,5 @@ export {
   mainsub_community,
   mainsub_csceneter,
   mainsub_game,
+  ildan,
 };
