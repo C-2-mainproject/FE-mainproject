@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { WordStorage } from "../../types/types";
+import { WordStorage, WrongAnswerWordStorage } from "../../types/types";
 import { expand } from "../../images";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  wordStorage: WordStorage;
+  wordStorage: WordStorage | WrongAnswerWordStorage;
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
@@ -128,7 +128,7 @@ const BodyDiv = styled.div`
     border-bottom: 1px solid;
 
     h2 {
-      height: 80px;
+      height: 70px;
       font-family: NotoSansKR;
       font-size: 18px;
       font-weight: 500;

@@ -2,6 +2,7 @@ import { useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { MyVocaList } from "../../components";
 import { expand, filter } from "../../images";
+import WrongAnswer from "./WrongAnswer";
 
 const category_list = [
   "토익",
@@ -129,7 +130,7 @@ const MyVocaFilter = ({ index }: IndexProps) => {
         </>
       ) : (
         <>
-          <MyVocaFilterLayout>
+          <WrongAnswerLayout>
             <div>
               <MenuSpan
                 className={activeIndex === 0 ? "active" : ""}
@@ -139,8 +140,8 @@ const MyVocaFilter = ({ index }: IndexProps) => {
                 전체보기
               </MenuSpan>
             </div>
-          </MyVocaFilterLayout>
-          <MyVocaList targetId="오답노트" />
+            <WrongAnswer targetId="오답노트" />
+          </WrongAnswerLayout>
         </>
       )}
     </div>
@@ -152,6 +153,10 @@ const MyVocaFilterLayout = styled.div`
   justify-content: space-between;
   margin-top: 7rem;
   align-items: center;
+`;
+
+const WrongAnswerLayout = styled.div`
+  margin-top: 7rem;
 `;
 
 const MenuSpan = styled.span`
