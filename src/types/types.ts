@@ -26,3 +26,26 @@ export interface WrongAnswerWordStorage {
   likeCount: number;
   bookmarked: boolean;
 }
+
+export interface WordStorageNew {
+  category: string;
+  createAt: string;
+  description: string;
+  id: number;
+  lastTestAt: string;
+  likeCount: number;
+  modifiedAt: string;
+  public: boolean;
+  title: string;
+}
+
+// AddVocaTypes
+export interface IFilterList {
+  filterCategory: string;
+  value: string;
+}
+
+export interface IAddWordStorageSelect {
+  category: string;
+  status: string;
+}

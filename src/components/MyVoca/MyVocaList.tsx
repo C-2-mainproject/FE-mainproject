@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { WordStorage } from "../../types/types";
 import { MyVocaItem } from "../../components";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 
 type TargetIdProps = {
   targetId: string;
@@ -10,27 +11,17 @@ type TargetIdProps = {
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
   // api 통신 : 내 단어장 목록 불러오기 -> GET | /api/user/wordstorage/my
-  const [wordStorageLists, setWordStorageLists] = useState<WordStorage[]>([]);
-
-  const getWordStorageList = async () => {
-    try {
-      const data = await axios.get(
-        "https://jdh3340.shop/api/user/wordstorage/my",
-        { withCredentials: true },
-      );
-      setWordStorageLists(data.data.content);
-      console.log(data.data.content);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const wordStorageResult = useAppSelector(
+    state => state.wordStorageSlice.wordStorage,
+  );
 
   useEffect(() => {
-    getWordStorageList();
+    dispatch(__getWordStorageList());
   }, []);
 
   if (targetId === "전체보기") {
-    const wordStorages = wordStorageLists.map((wordStorage, index) => {
+    const wordStorages = wordStorageResult.map((wordStorage, index) => {
       return <MyVocaItem key={index} wordStorage={wordStorage} />;
     });
 
@@ -40,7 +31,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   } else if (targetId === "좋아요") {
     // api 통신 : 좋아요 한 단어장 목록 불러오기 -> GET | /api/user/wordstorage/like
   } else if (targetId === "인기순") {
-    const wordStorages = wordStorageLists.sort(
+    const wordStorages = wordStorageResult.sort(
       (a: WordStorage, b: WordStorage): number => {
         return b.likeCount - a.likeCount;
       },
@@ -54,7 +45,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     );
   } else if (targetId === "오답노트") {
     // api 통신 : 오답노트 리스트 받아오기 -> GET | /api/user/wordstorage/test/history
-    const wrongWordStorages = wordStorageLists.map(
+    const wrongWordStorages = wordStorageResult.map(
       (wrongWordStorage, index) => {
         return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
       },
@@ -62,13 +53,13 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     return <MyVocaListLayout>{wrongWordStorages}</MyVocaListLayout>;
   }
 
-  const wordStorages = wordStorageLists.filter(wordStorage => {
-    return wordStorage.category === targetId;
-  });
+  // const wordStorages = wordStorageResult.filter(wordStorage => {
+  //   return wordStorage.category === targetId;
+  // });
 
   return (
     <MyVocaListLayout>
-      {wordStorages.map((wordStorage, index) => {
+      {wordStorageResult.map((wordStorage, index) => {
         return <MyVocaItem key={index} wordStorage={wordStorage} />;
       })}
     </MyVocaListLayout>
