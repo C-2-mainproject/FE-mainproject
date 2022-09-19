@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
 import { useState, ChangeEvent } from "react";
 import CustomSelect from "../CustomSelect";
-import axios from "axios";
+import { apis } from "../../shared/api";
 
 type ModalProps = {
   openAddStorageModal: () => void;
@@ -58,19 +58,15 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
     }
 
     try {
-      const data = await axios.post(
-        "https://jdh3340.shop/api/user/wordstorage",
-        {
-          title: addWordStorageInput.title,
-          category: addWordStorageSelect.category,
-          description: addWordStorageInput.description,
-          status: statusBool,
-        },
-        { withCredentials: true },
-      );
-      console.log(data);
+      await apis.addWordStorage({
+        title: addWordStorageInput.title,
+        category: addWordStorageSelect.category,
+        description: addWordStorageInput.description,
+        status: statusBool,
+      });
     } catch (error) {
       console.log(error);
+      throw error;
     }
 
     openAddStorageModal();

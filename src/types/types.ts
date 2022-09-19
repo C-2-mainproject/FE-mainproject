@@ -49,3 +49,28 @@ export interface IAddWordStorageSelect {
   category: string;
   status: string;
 }
+
+export interface IAddWordStorage {
+  title: string;
+  category: string;
+  status: boolean;
+  description: string;
+}
+
+export interface IWordStorage {
+  category: string;
+  createAt: string;
+  description: string;
+  id: number;
+  lastTestAt: string;
+  likeCount: number;
+  modifiedAt: string;
+  public: boolean;
+  title: string;
+}
+
+export interface IWordStorageInitialState {
+  wordStorage: IWordStorage[];
+  isLoading: boolean;
+  isFinish: boolean;
+}

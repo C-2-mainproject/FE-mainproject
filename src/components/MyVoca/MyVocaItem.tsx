@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { WordStorage, WrongAnswerWordStorage } from "../../types/types";
-import { expand } from "../../images";
+import { IWordStorage } from "../../types/types";
+import { like } from "../../images";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  wordStorage: WordStorage | WrongAnswerWordStorage;
+  wordStorage: IWordStorage;
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
@@ -28,18 +28,22 @@ const MyVocaItem = ({ wordStorage }: Props) => {
         <div>
           <h1>{wordStorage.title}</h1>
           <h2>{wordStorage.description}</h2>
-          <p>
-            마지막 시험 <span>{wordStorage.lastTestAt}</span>
-          </p>
+          {wordStorage.lastTestAt === null ? (
+            <p></p>
+          ) : (
+            <p>
+              마지막 시험 <span>{wordStorage.lastTestAt.split("T")[0]}</span>
+            </p>
+          )}
         </div>
         <div>
           <p>
-            작성 <span>{wordStorage.writer}</span>
+            작성 <span>일단이</span>
           </p>
           <p>
             제작
-            <span>{wordStorage.createAt}</span>
-            <img src={expand} alt="like" />
+            <span>{wordStorage.createAt.split("T")[0]}</span>
+            <img src={like} alt="like" />
             {wordStorage.likeCount}
           </p>
         </div>

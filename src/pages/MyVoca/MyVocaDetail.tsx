@@ -1,30 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
 import EditVocaModal from "../../components/MyVoca/EditVocaModal";
-import { expand, ildan } from "../../images";
-
-const voca_item = {
-  id: 6,
-  title: "테스트 단어장6",
-  wrongWords: 2,
-  description: "테스트 단어장입니다.",
-  category: "텝스",
-  likeCount: 11,
-  bookmarked: true,
-  public: true,
-  writer: "일단이",
-  createAt: "2022.09.05",
-  modifiedAt: "2022.09.05",
-  lastTestAt: "2022.09.05",
-};
+import { ildan, like } from "../../images";
+import { useAppSelector } from "../../shared/reduxHooks";
+import { IWordStorage } from "../../types/types";
 
 const MyVocaDetail = () => {
-  // api 통신: 특정 단어장 조회 -> GET | /api/user/wordstorage/id/{id}
+  const { id } = useParams();
+
+  const { wordStorage, isFinish } = useAppSelector(
+    state => state.wordStorageSlice,
+  );
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isAddOpenModal, setIsAddOpenModal] = useState(false);
   const [isEditOpenModal, setIsEditOpenModal] = useState(false);
+  const [detail, setDetail] = useState<IWordStorage>();
 
   const todoEdit = () => {
     setIsEdit(!isEdit);
@@ -37,67 +31,86 @@ const MyVocaDetail = () => {
     setIsAddOpenModal(!isAddOpenModal);
   };
 
-  return (
-    <MyVocaDetailLayout>
-      <MyVocaDetailWrapper>
-        <MyVocaDetailBox>
-          <div>
-            <DivA>
-              <p>지금 보고 있는 단어장</p>
-              <div>
-                <Button onClick={addWord}>
-                  <span>단어 추가하기</span>
-                </Button>
-                {isAddOpenModal && <AddWordModal openAddWordModal={addWord} />}
-                <Button onClick={todoEdit}>
-                  <span>단어장 편집하기</span>
-                </Button>
-                {isEditOpenModal && (
-                  <EditVocaModal openEditVocaModal={todoEdit} />
-                )}
-              </div>
-            </DivA>
-            <DivB>
-              <MyVocaItem wordStorage={voca_item} />
-              <DetailInfo>
-                <div>
-                  <p>
-                    카테고리<span>{voca_item.category}</span>
-                    <img src={expand} alt="expand" />
-                    <span>{voca_item.likeCount}</span>
-                  </p>
-                  <h1>{voca_item.title}</h1>
-                  <h2>{voca_item.description}</h2>
-                  <h3>{voca_item.public ? "공개" : "비공개"}</h3>
-                  <p>
-                    마지막 시험<span>{voca_item.lastTestAt}</span>
-                    모르는 단어<span>{voca_item.wrongWords} 개</span>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    작성<span>{voca_item.writer}</span>
-                  </p>
-                  <p>
-                    제작<span>{voca_item.createAt}</span>
-                  </p>
-                </div>
+  const getDetail = () => {
+    const newId = Number(id);
+    const newWordStorage = wordStorage.find(value => {
+      return value.id === newId;
+    });
 
-                <Balloon>
-                  <p>일단이</p>
-                  <span>잘하고 있어! 너무 멋진데?</span>
-                </Balloon>
-                <Ildan src={ildan} alt="ildan" />
-              </DetailInfo>
-            </DivB>
-          </div>
+    setDetail(newWordStorage);
+  };
 
-          <WordList />
-          {isEdit ? <div></div> : <div></div>}
-        </MyVocaDetailBox>
-      </MyVocaDetailWrapper>
-    </MyVocaDetailLayout>
-  );
+  useEffect(() => {
+    getDetail();
+  }, [id]);
+
+  if (isFinish && detail) {
+    return (
+      <MyVocaDetailLayout>
+        <MyVocaDetailWrapper>
+          <MyVocaDetailBox>
+            <div>
+              <DivA>
+                <p>지금 보고 있는 단어장</p>
+                <div>
+                  <Button onClick={addWord}>
+                    <span>단어 추가하기</span>
+                  </Button>
+                  {isAddOpenModal && (
+                    <AddWordModal openAddWordModal={addWord} />
+                  )}
+                  <Button onClick={todoEdit}>
+                    <span>단어장 편집하기</span>
+                  </Button>
+                  {isEditOpenModal && (
+                    <EditVocaModal openEditVocaModal={todoEdit} />
+                  )}
+                </div>
+              </DivA>
+              <DivB>
+                <MyVocaItem wordStorage={detail as IWordStorage} />
+                <DetailInfo>
+                  <div>
+                    <p>
+                      카테고리<span>{detail?.category}</span>
+                      <img src={like} alt="like" />
+                      <span>{detail?.likeCount}</span>
+                    </p>
+                    <h1>{detail?.title}</h1>
+                    <h2>{detail?.description}</h2>
+                    <h3>{detail?.public ? "공개" : "비공개"}</h3>
+                    <p>
+                      마지막 시험<span>{detail?.lastTestAt}</span>
+                      모르는 단어<span> 개</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p>
+                      작성<span>일단이</span>
+                    </p>
+                    <p>
+                      제작<span>{detail?.createAt.split("T")[0]}</span>
+                    </p>
+                  </div>
+
+                  <Balloon>
+                    <p>일단이</p>
+                    <span>잘하고 있어! 너무 멋진데?</span>
+                  </Balloon>
+                  <Ildan src={ildan} alt="ildan" />
+                </DetailInfo>
+              </DivB>
+            </div>
+
+            <WordList />
+            {isEdit ? <div></div> : <div></div>}
+          </MyVocaDetailBox>
+        </MyVocaDetailWrapper>
+      </MyVocaDetailLayout>
+    );
+  } else {
+    return <div>로딩중</div>;
+  }
 };
 
 const MyVocaDetailLayout = styled.div`
@@ -202,7 +215,7 @@ const DetailInfo = styled.div`
   h3 {
     margin-bottom: 60px;
     border-bottom: 1px solid;
-    width: 29px;
+    width: 40px;
     height: 23px;
     font-size: 16px;
     font-weight: 500;
@@ -210,7 +223,7 @@ const DetailInfo = styled.div`
     font-style: normal;
     line-height: normal;
     letter-spacing: -1px;
-    text-align: left;
+    text-align: center;
     color: #000;
   }
 
