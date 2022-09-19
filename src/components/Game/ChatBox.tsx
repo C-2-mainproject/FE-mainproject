@@ -56,16 +56,16 @@ const ChatBox = () => {
     }
   };
 
-  const sendMessage = () => {
-    console.log("sendMessage!!");
-    stompClient.send(
-      `/pub/chat/message`,
-      headers,
-      JSON.stringify({
-        roomId: id,
-      }),
-    );
-  };
+  // const sendMessage = () => {
+  //   console.log("sendMessage!!");
+  //   stompClient.send(
+  //     `/pub/chat/message`,
+  //     headers,
+  //     JSON.stringify({
+  //       roomId: id,
+  //     }),
+  //   );
+  // };
 
   return (
     <ChatBoxLayout>
