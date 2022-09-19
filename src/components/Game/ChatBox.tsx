@@ -24,7 +24,7 @@ const ChatBox = () => {
     };
   }, []);
 
-  const id = 1;
+  // const id = 1;
   const onConnected = () => {
     console.log("onConnected!!");
     try {
