@@ -22,6 +22,20 @@ export const __getWordStorageList = createAsyncThunk(
   },
 );
 
+export const __searchWordStorage = createAsyncThunk(
+  "wordStorageSlice/__searchWordStorage",
+  async (payload: string, thunkAPI) => {
+    try {
+      const data = await apis.searchWordStorage(payload);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
 export const wordStorageSlice = createSlice({
   name: "wordStorageSlice",
   initialState,
@@ -39,6 +53,21 @@ export const wordStorageSlice = createSlice({
     },
     [__getWordStorageList.rejected.type]: state => {
       // console.log(state, action);
+      state.isFinish = true;
+    },
+
+    [__searchWordStorage.pending.type]: (state, action) => {
+      console.log(state, action);
+      state.isLoading = true;
+    },
+    [__searchWordStorage.fulfilled.type]: (state, action) => {
+      console.log("hahahah", state, action);
+      state.wordStorage = action.payload;
+      state.isLoading = false;
+      state.isFinish = true;
+    },
+    [__searchWordStorage.rejected.type]: (state, action) => {
+      console.log(state, action);
       state.isFinish = true;
     },
   },

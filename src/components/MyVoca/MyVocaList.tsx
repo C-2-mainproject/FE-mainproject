@@ -11,13 +11,14 @@ type TargetIdProps = {
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
   const dispatch = useAppDispatch();
+
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
 
   useEffect(() => {
     dispatch(__getWordStorageList());
-  }, []);
+  }, [targetId]);
 
   if (isFinish) {
     if (targetId === "전체보기") {

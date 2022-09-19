@@ -14,6 +14,9 @@ export const apis = {
   addWordStorage: (addWordStorage: IAddWordStorage) =>
     api.post("/api/user/wordstorage", addWordStorage),
 
+  searchWordStorage: (word: string) =>
+    api.get(`/api/user/wordstorage/my/search?search=${word}`),
+
   getDetailWordStorage: (id: string) =>
     api.get(`/api/user/wordstorage/id/${id}`),
 
