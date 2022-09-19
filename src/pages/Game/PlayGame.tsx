@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { ChatBox, GameInput, Quiz } from "../../components";
 
 const PlayGame = () => {
   return (
     <PlayGameLayout>
       <PlayGameWrapper>
-        <PlayGameBox>Play Game</PlayGameBox>
+        <PlayGameBox>
+          <Quiz />
+          <ChatBox />
+          <GameInput />
+        </PlayGameBox>
       </PlayGameWrapper>
     </PlayGameLayout>
   );
