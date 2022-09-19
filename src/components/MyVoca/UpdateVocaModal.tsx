@@ -2,9 +2,12 @@ import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
 import { useState, ChangeEvent } from "react";
 import CustomSelect from "../CustomSelect";
+import { apis } from "../../shared/api";
+import { useAppSelector } from "../../shared/reduxHooks";
 
 type ModalProps = {
   openAddStorageModal: () => void;
+  id: string;
 };
 
 const category_list = [
@@ -23,11 +26,21 @@ const shared_list = [
   { filterCategory: "공개", value: "비공개" },
 ];
 
-const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
-  const [addWordStorageInput, setAddWordStorageInput] = useState({
-    title: "",
-    description: "",
-  });
+const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
+  const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
+  console.log(detailWordStorage);
+
+  const [addWordStorageInput, setAddWordStorageInput] = useState(
+    id === "add"
+      ? {
+          title: "",
+          description: "",
+        }
+      : {
+          title: detailWordStorage[0].title,
+          description: detailWordStorage[0].description,
+        },
+  );
 
   const [addWordStorageSelect, setAddWordStorageSelect] = useState({
     category: "",
@@ -44,12 +57,35 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
     });
   };
 
-  const addNewWordStorage = () => {
-    // api 통신: 특정 단어장 생성 -> post | /api/user/wordstorage
-    console.log("title ::", addWordStorageInput.title);
-    console.log("description ::", addWordStorageInput.description);
-    console.log("category ::", addWordStorageSelect.category);
-    console.log("status::", addWordStorageSelect.status);
+  const addNewWordStorage = async () => {
+    let statusBool = false;
+
+    if (addWordStorageSelect.status === "공개") {
+      statusBool = true;
+    }
+
+    try {
+      if (id === "add") {
+        await apis.addWordStorage({
+          title: addWordStorageInput.title,
+          category: addWordStorageSelect.category,
+          description: addWordStorageInput.description,
+          status: statusBool,
+        });
+      } else {
+        await apis.editWordStorage(detailWordStorage[0].id, {
+          title: addWordStorageInput.title,
+          category: addWordStorageSelect.category,
+          description: addWordStorageInput.description,
+          status: statusBool,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+
+    openAddStorageModal();
   };
 
   return (
@@ -63,7 +99,11 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
               <span>일단이와 함께하는 완전 단어 학습</span>
             </Title>
             <Form>
-              <h1>새 단어장 만들기</h1>
+              {id === "add" ? (
+                <h1>새 단어장 만들기</h1>
+              ) : (
+                <h1>단어장 수정하기</h1>
+              )}
               <div>
                 <VocaName>
                   <p>단어장 제목</p>
@@ -153,7 +193,6 @@ const Title = styled.div`
   border-bottom: 1px solid;
 
   h1 {
-    font-family: NotoSansKR;
     font-size: 36px;
     font-weight: 500;
     font-stretch: normal;
@@ -165,7 +204,6 @@ const Title = styled.div`
   }
 
   span {
-    font-family: NotoSansKR;
     font-size: 36px;
     font-weight: 300;
     font-stretch: normal;
@@ -180,7 +218,6 @@ const Title = styled.div`
 const Form = styled.div`
   h1 {
     margin-top: 52px;
-    font-family: NotoSansKR;
     font-size: 36px;
     font-weight: 500;
     font-stretch: normal;
@@ -192,7 +229,6 @@ const Form = styled.div`
   }
 
   p {
-    font-family: NotoSansKR;
     font-size: 24px;
     font-weight: 500;
     font-stretch: normal;
@@ -204,7 +240,6 @@ const Form = styled.div`
   }
 
   span {
-    font-family: NotoSansKR;
     font-size: 18px;
     font-weight: 500;
     font-stretch: normal;
@@ -252,7 +287,6 @@ const Div = styled.div`
 
   p {
     height: 35px;
-    font-family: NotoSansKR;
     font-size: 24px;
     font-weight: 500;
     font-stretch: normal;
@@ -266,7 +300,6 @@ const Div = styled.div`
     width: 158px;
     height: 26px;
     margin-right: 22px;
-    font-family: NotoSansKR;
     font-size: 18px;
     font-weight: 500;
     font-stretch: normal;
@@ -313,8 +346,7 @@ const Button = styled.button`
   span {
     width: 96px;
     height: 26px;
-    font-family: NotoSansKR;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -325,70 +357,4 @@ const Button = styled.button`
   }
 `;
 
-// const DropDownButton = styled.button`
-//   border: none;
-//   outline: none;
-//   background-color: rgba(0, 0, 0, 0);
-//   position: relative;
-
-//   font-family: NotoSansKR;
-//   font-size: 16px;
-//   font-weight: 500;
-//   font-stretch: normal;
-//   font-style: normal;
-//   line-height: normal;
-//   letter-spacing: -1px;
-//   text-align: center;
-//   color: #000;
-// `;
-
-// const Li = styled.li`
-//   list-style: none;
-//   height: 2.5rem;
-//   background-color: white;
-//   padding: 10px;
-//   border-top: 1px solid;
-
-//   &:first-child {
-//     border-top: 0px;
-//   }
-
-//   &:hover {
-//     background-color: #d7d7d7;
-//   }
-// `;
-
-// const Ul = styled.ul`
-//   width: 8rem;
-//   list-style: none;
-//   font-style: normal;
-//   font-weight: bold;
-//   font-size: 16px;
-//   color: black;
-//   line-height: 22px;
-// `;
-
-// const ListContainer = styled.div`
-//   border: 1px solid ${props => props.theme.borderColor};
-//   background-color: ${props => props.theme.bgColor};
-//   margin-top: 7px;
-//   // position: absolute;
-//   display: none;
-
-//   ${DropDownButton}:hover & {
-//     background-color: red;
-//     display: block;
-//     z-index: 999;
-//   }
-
-//   ${DropDownButton}:active & {
-//     display: block;
-//     z-index: 999;
-//   }
-
-//   ${DropDownButton}:focus & {
-//     display: block;
-//     z-index: 999;
-//   }
-// `;
-export default AddVocaModal;
+export default UpdateVocaModal;

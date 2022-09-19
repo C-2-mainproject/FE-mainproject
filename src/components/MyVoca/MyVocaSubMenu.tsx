@@ -2,9 +2,13 @@ import { ChangeEvent, useState, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { MyVocaFilter } from "../../components";
 import { add, search } from "../../images";
-import AddVocaModal from "./AddVocaModal";
+import { __searchWordStorage } from "../../redux/modules/wordStorageSlice";
+import { useAppDispatch } from "../../shared/reduxHooks";
+import AddVocaModal from "./UpdateVocaModal";
 
 const MyVocaSubMenu = () => {
+  const dispatch = useAppDispatch();
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [text, setText] = useState<string>("");
@@ -32,9 +36,9 @@ const MyVocaSubMenu = () => {
   };
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    // api 통신 : 내 단어장 내 제목+내용 검색 -> GET | /api/user/wordstorage/my/search?search={word}
     if (event.key === "Enter") {
       console.log("text is :: ", text);
+      dispatch(__searchWordStorage(text));
       setText("");
     }
   };
@@ -67,7 +71,7 @@ const MyVocaSubMenu = () => {
               <span>새 단어장 추가</span>
             </AddButton>
             {isOpenModal && (
-              <AddVocaModal openAddStorageModal={addWordStorage} />
+              <AddVocaModal id="add" openAddStorageModal={addWordStorage} />
             )}
           </>
         ) : (
@@ -76,7 +80,10 @@ const MyVocaSubMenu = () => {
               <span>오답 노트 가이드</span>
             </GuideButton>
             {isOpenModal && (
-              <AddVocaModal openAddStorageModal={addWordStorage} />
+              <AddVocaModal
+                id="wrongAnswer"
+                openAddStorageModal={addWordStorage}
+              />
             )}
           </>
         )}

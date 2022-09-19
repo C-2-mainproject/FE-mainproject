@@ -2,7 +2,6 @@ import Main from "./Main";
 import MyVoca from "./MyVoca/MyVoca";
 import MyVocaDetail from "./MyVoca/MyVocaDetail";
 import WordTestService from "./WordTestService";
-import WrongAnswer from "./MyVoca/WrongAnswer";
 import SharedVoca from "./SharedVoca";
 import Game from "./Game/Game";
 import Board from "./Board/Board";
@@ -17,7 +16,6 @@ export {
   MyVoca,
   MyVocaDetail,
   WordTestService,
-  WrongAnswer,
   SharedVoca,
   Game,
   Board,
