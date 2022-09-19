@@ -100,14 +100,11 @@ const SlickMyBook = () => {
     },
   ]);
 
-  console.log(setmyVocaList);
-
   return (
     <>
       <WordBookSlicder {...settings}>
         {myVocaList.map((myVoca, list) => {
-          console.log(list);
-          return <MyWordCard wordStorage={myVoca} />;
+          return <MyWordCard wordStorage={myVoca} key={list} />;
         })}
       </WordBookSlicder>
     </>
