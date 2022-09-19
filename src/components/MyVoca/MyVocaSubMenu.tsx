@@ -4,7 +4,7 @@ import { MyVocaFilter } from "../../components";
 import { add, search } from "../../images";
 import { __searchWordStorage } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch } from "../../shared/reduxHooks";
-import AddVocaModal from "./AddVocaModal";
+import AddVocaModal from "./UpdateVocaModal";
 
 const MyVocaSubMenu = () => {
   const dispatch = useAppDispatch();
@@ -71,7 +71,7 @@ const MyVocaSubMenu = () => {
               <span>새 단어장 추가</span>
             </AddButton>
             {isOpenModal && (
-              <AddVocaModal openAddStorageModal={addWordStorage} />
+              <AddVocaModal id="add" openAddStorageModal={addWordStorage} />
             )}
           </>
         ) : (
@@ -80,7 +80,10 @@ const MyVocaSubMenu = () => {
               <span>오답 노트 가이드</span>
             </GuideButton>
             {isOpenModal && (
-              <AddVocaModal openAddStorageModal={addWordStorage} />
+              <AddVocaModal
+                id="wrongAnswer"
+                openAddStorageModal={addWordStorage}
+              />
             )}
           </>
         )}

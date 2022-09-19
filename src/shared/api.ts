@@ -20,6 +20,9 @@ export const apis = {
   getDetailWordStorage: (id: string) =>
     api.get(`/api/user/wordstorage/id/${id}`),
 
+  editWordStorage: (id: number, addWordStorage: IAddWordStorage) =>
+    api.put(`/api/user/wordstorage/id/${id}`, addWordStorage),
+
   // 로그인
   login: () =>
     api.post("/login", {

@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
-import EditVocaModal from "../../components/MyVoca/EditVocaModal";
+import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
 import { ildan, like } from "../../images";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { IWordStorage } from "../../types/types";
 
 const MyVocaDetail = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
 
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
@@ -23,7 +25,7 @@ const MyVocaDetail = () => {
   const todoEdit = () => {
     setIsEdit(!isEdit);
     setIsEditOpenModal(!isEditOpenModal);
-    console.log("dodjoj", isEdit);
+    console.log(isEdit, detail);
   };
 
   const addWord = () => {
@@ -36,7 +38,7 @@ const MyVocaDetail = () => {
     const newWordStorage = wordStorage.find(value => {
       return value.id === newId;
     });
-
+    dispatch(getDetailWordStorage(newWordStorage));
     setDetail(newWordStorage);
   };
 
@@ -63,7 +65,7 @@ const MyVocaDetail = () => {
                     <span>단어장 편집하기</span>
                   </Button>
                   {isEditOpenModal && (
-                    <EditVocaModal openEditVocaModal={todoEdit} />
+                    <UpdateVocaModal id="edit" openAddStorageModal={todoEdit} />
                   )}
                 </div>
               </DivA>

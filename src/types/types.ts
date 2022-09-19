@@ -71,6 +71,7 @@ export interface IWordStorage {
 
 export interface IWordStorageInitialState {
   wordStorage: IWordStorage[];
+  detailWordStorage: IWordStorage[];
   isLoading: boolean;
   isFinish: boolean;
 }

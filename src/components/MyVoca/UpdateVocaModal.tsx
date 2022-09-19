@@ -3,9 +3,11 @@ import ModalPortal from "../ModalPortal";
 import { useState, ChangeEvent } from "react";
 import CustomSelect from "../CustomSelect";
 import { apis } from "../../shared/api";
+import { useAppSelector } from "../../shared/reduxHooks";
 
 type ModalProps = {
   openAddStorageModal: () => void;
+  id: string;
 };
 
 const category_list = [
@@ -24,11 +26,21 @@ const shared_list = [
   { filterCategory: "공개", value: "비공개" },
 ];
 
-const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
-  const [addWordStorageInput, setAddWordStorageInput] = useState({
-    title: "",
-    description: "",
-  });
+const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
+  const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
+  console.log(detailWordStorage);
+
+  const [addWordStorageInput, setAddWordStorageInput] = useState(
+    id === "add"
+      ? {
+          title: "",
+          description: "",
+        }
+      : {
+          title: detailWordStorage[0].title,
+          description: detailWordStorage[0].description,
+        },
+  );
 
   const [addWordStorageSelect, setAddWordStorageSelect] = useState({
     category: "",
@@ -46,11 +58,6 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
   };
 
   const addNewWordStorage = async () => {
-    // api 통신: 특정 단어장 생성 -> post | /api/user/wordstorage
-    console.log("title ::", addWordStorageInput.title);
-    console.log("description ::", addWordStorageInput.description);
-    console.log("category ::", addWordStorageSelect.category);
-    console.log("status::", addWordStorageSelect.status);
     let statusBool = false;
 
     if (addWordStorageSelect.status === "공개") {
@@ -58,12 +65,21 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
     }
 
     try {
-      await apis.addWordStorage({
-        title: addWordStorageInput.title,
-        category: addWordStorageSelect.category,
-        description: addWordStorageInput.description,
-        status: statusBool,
-      });
+      if (id === "add") {
+        await apis.addWordStorage({
+          title: addWordStorageInput.title,
+          category: addWordStorageSelect.category,
+          description: addWordStorageInput.description,
+          status: statusBool,
+        });
+      } else {
+        await apis.editWordStorage(detailWordStorage[0].id, {
+          title: addWordStorageInput.title,
+          category: addWordStorageSelect.category,
+          description: addWordStorageInput.description,
+          status: statusBool,
+        });
+      }
     } catch (error) {
       console.log(error);
       throw error;
@@ -83,7 +99,11 @@ const AddVocaModal = ({ openAddStorageModal }: ModalProps) => {
               <span>일단이와 함께하는 완전 단어 학습</span>
             </Title>
             <Form>
-              <h1>새 단어장 만들기</h1>
+              {id === "add" ? (
+                <h1>새 단어장 만들기</h1>
+              ) : (
+                <h1>단어장 수정하기</h1>
+              )}
               <div>
                 <VocaName>
                   <p>단어장 제목</p>
@@ -326,7 +346,7 @@ const Button = styled.button`
   span {
     width: 96px;
     height: 26px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -337,4 +357,4 @@ const Button = styled.button`
   }
 `;
 
-export default AddVocaModal;
+export default UpdateVocaModal;

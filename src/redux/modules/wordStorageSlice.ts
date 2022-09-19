@@ -4,6 +4,7 @@ import { IWordStorageInitialState } from "../../types/types";
 
 const initialState: IWordStorageInitialState = {
   wordStorage: [],
+  detailWordStorage: [],
   isLoading: false,
   isFinish: false,
 };
@@ -39,7 +40,12 @@ export const __searchWordStorage = createAsyncThunk(
 export const wordStorageSlice = createSlice({
   name: "wordStorageSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    getDetailWordStorage: (state, action) => {
+      console.log(state, action.payload);
+      state.detailWordStorage = [action.payload];
+    },
+  },
   extraReducers: {
     [__getWordStorageList.pending.type]: state => {
       // console.log(state, action);
@@ -73,6 +79,6 @@ export const wordStorageSlice = createSlice({
   },
 });
 
-// export const {} = wordStorageSlice.actions;
+export const { getDetailWordStorage } = wordStorageSlice.actions;
 
 export default wordStorageSlice.reducer;
