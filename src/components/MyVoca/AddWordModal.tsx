@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { apis } from "../../shared/api";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
@@ -7,28 +9,42 @@ type ModalProps = {
 };
 
 const AddWordModal = ({ openAddWordModal }: ModalProps) => {
-  const [count, setCount] = useState<number>(0);
-  const [addWord, setAddWord] = useState({
-    word: "",
-    mean: "",
+  const { id } = useParams();
+  const [word, setWord] = useState<string[]>([]);
+  const [mean, setMean] = useState<string[][]>([]);
+
+  const [inputWord, setInputWord] = useState({
+    words: "",
+    meanings: "",
   });
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
-    setAddWord({
-      ...addWord,
+    setInputWord({
+      ...inputWord,
       [id]: value,
     });
   };
 
-  const makeWord = () => {
-    // api 통신 : 특정단어장 단어 편집 -> PUT | /api/user/wordstorage/id/{id}/word
-    console.log("hahahahahahah", addWord);
+  const makeWord = async () => {
+    console.log(word, mean);
+    const newId = Number(id);
+    try {
+      await apis
+        .editWord(newId, {
+          words: word,
+          meanings: mean,
+        })
+        .then(data => console.log(data));
+    } catch (error) {
+      console.log(error);
+    }
+    openAddWordModal();
   };
 
-  const add = () => {
-    console.log("aa");
-    setCount(count + 1);
+  const addWordList = () => {
+    setWord([...word, inputWord.words]);
+    setMean([...mean, inputWord.meanings.split(",")]);
   };
 
   return (
@@ -42,7 +58,7 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
               <div>
                 <p>영어 단어</p>
                 <input
-                  id="word"
+                  id="words"
                   placeholder="영어 단어를 입력하세요"
                   onChange={onChangeHandler}
                 />
@@ -50,12 +66,12 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
               <div>
                 <p>한글 뜻</p>
                 <input
-                  id="mean"
+                  id="meanings"
                   placeholder="한글 뜻을 입력하세요"
                   onChange={onChangeHandler}
                 />
               </div>
-              <button onClick={add}>추가</button>
+              <button onClick={addWordList}>입력할 단어 추가</button>
             </AddArea>
 
             <Button>

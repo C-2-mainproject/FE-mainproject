@@ -26,3 +26,57 @@ export interface WrongAnswerWordStorage {
   likeCount: number;
   bookmarked: boolean;
 }
+
+export interface WordStorageNew {
+  category: string;
+  createAt: string;
+  description: string;
+  id: number;
+  lastTestAt: string;
+  likeCount: number;
+  modifiedAt: string;
+  public: boolean;
+  title: string;
+}
+
+// AddVocaTypes
+export interface IFilterList {
+  filterCategory: string;
+  value: string;
+}
+
+export interface IAddWordStorageSelect {
+  category: string;
+  status: string;
+}
+
+export interface IAddWordStorage {
+  title: string;
+  category: string;
+  status: boolean;
+  description: string;
+}
+
+export interface IWordStorage {
+  category: string;
+  createAt: string;
+  description: string;
+  id: number;
+  lastTestAt: string;
+  likeCount: number;
+  modifiedAt: string;
+  public: boolean;
+  title: string;
+}
+
+export interface IWordStorageInitialState {
+  wordStorage: IWordStorage[];
+  detailWordStorage: IWordStorage[];
+  isLoading: boolean;
+  isFinish: boolean;
+}
+
+export interface IUpdateWord {
+  words: string[];
+  meanings: string[][];
+}

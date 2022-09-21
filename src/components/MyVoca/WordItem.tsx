@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
-const WordItem = () => {
+type ValueProps = {
+  wordValue: string;
+  meaningValue: string[];
+};
+
+const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
+  const deleteWord = () => {
+    console.log("delete word");
+  };
+
   return (
     <WordItemLayout>
-      <p>Capability</p>
-      <p>능력,가능성,재능</p>
+      <p>{wordValue}</p>
+      <p>{meaningValue.join(", ")}</p>
+      <WordItemLayoutHover>
+        <button onClick={deleteWord}>삭제하기</button>
+      </WordItemLayoutHover>
     </WordItemLayout>
   );
 };
 
 const WordItemLayout = styled.div`
+  position: relative;
   width: 290px;
   height: 300px;
   background-color: #f3f3f3;
@@ -44,6 +57,34 @@ const WordItemLayout = styled.div`
     letter-spacing: -1px;
     text-align: center;
     color: #666;
+  }
+`;
+
+const WordItemLayoutHover = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  width: 290px;
+  height: 300px;
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: black;
+  opacity: 0;
+
+  :hover {
+    opacity: 0.5;
+  }
+
+  button {
+    width: 160px;
+    height: 52px;
+    margin: 0 65px 20px 65px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid;
   }
 `;
 export default WordItem;

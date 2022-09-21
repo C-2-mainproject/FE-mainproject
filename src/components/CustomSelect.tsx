@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { IFilterList, IAddWordStorageSelect } from "../types/AddVocaTypes";
+import { IFilterList, IAddWordStorageSelect } from "../types/types";
 
 type SelectProps = {
   props: IFilterList[];
