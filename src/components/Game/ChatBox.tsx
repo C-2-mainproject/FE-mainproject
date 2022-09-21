@@ -1,39 +1,37 @@
-import { Stomp } from "@stomp/stompjs";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
+import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import styled from "styled-components";
 import { getSessionId } from "../../shared/Cookie";
-import ChatList from "./ChatList";
+import { GameInput, ChatList } from "../index";
 
 const ChatBox = () => {
-  const socket = new SockJS("http://newlno.com/wss/websocket");
-  const stompClient = Stomp.over(socket);
+  const [roomId, setRoomId] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [returnMsg, setReturnMsg] = useState<string[]>([]);
 
-  // console.log(socket, stompClient);
+  const socket = new SockJS("http://newlno.com/ws");
+  const stompClient = Stomp.over(socket);
 
   const headers = {
     simpSessionId: getSessionId(),
   };
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect!!");
     onConnected();
-
-    return () => {
-      onDisConnected();
-    };
   }, []);
 
-  // const id = 1;
   const onConnected = () => {
     console.log("onConnected!!");
     try {
       stompClient.connect(headers, () => {
-        console.log("INININI");
         stompClient.subscribe(
-          `/topic/a`,
+          `/sub/chat/join`,
           data => {
-            console.log("result :: ", JSON.parse(data.body));
+            const returnMessage = JSON.parse(data.body);
+            setRoomId(returnMessage.roomId);
+
+            reSubscribe(returnMessage.roomId);
           },
           headers,
         );
@@ -44,33 +42,44 @@ const ChatBox = () => {
     }
   };
 
-  const onDisConnected = () => {
-    console.log("onDisConnected!!");
+  const reSubscribe = (room: string) => {
     try {
-      stompClient.disconnect(() => {
-        stompClient.unsubscribe("sub-0");
-      }, headers);
+      stompClient.unsubscribe("sub-0");
+      stompClient.subscribe(
+        `/sub/chat/enter/${room}`,
+        data => {
+          const returnMessage = JSON.parse(data.body);
+          console.log("return msg::", returnMessage);
+          setReturnMsg(returnMsg => [...returnMsg, returnMessage.message]);
+        },
+        headers,
+      );
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
 
-  // const sendMessage = () => {
-  //   console.log("sendMessage!!");
-  //   stompClient.send(
-  //     `/pub/chat/message`,
-  //     headers,
-  //     JSON.stringify({
-  //       roomId: id,
-  //     }),
-  //   );
-  // };
+  const sendMessage = () => {
+    stompClient.send(
+      `/pub/chat/enter`,
+      headers,
+      JSON.stringify({
+        sessionId: getSessionId(),
+        message: message,
+        roomId: roomId,
+        messageType: "CHAT",
+      }),
+    );
+  };
 
   return (
-    <ChatBoxLayout>
-      <ChatList />
-    </ChatBoxLayout>
+    <div>
+      <ChatBoxLayout>
+        <ChatList returnMsg={returnMsg} />
+      </ChatBoxLayout>
+      <GameInput setMessage={setMessage} sendMessage={sendMessage} />
+    </div>
   );
 };
 

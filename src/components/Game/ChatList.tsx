@@ -1,5 +1,14 @@
-const ChatList = () => {
-  return <h1>'일단이' 님이 입장하였습니다.</h1>;
+type MessageProps = {
+  returnMsg: string[];
+};
+const ChatList = ({ returnMsg }: MessageProps) => {
+  return (
+    <>
+      {returnMsg.map((message, index) => {
+        return <div key={index}>{message}</div>;
+      })}
+    </>
+  );
 };
 
 export default ChatList;
