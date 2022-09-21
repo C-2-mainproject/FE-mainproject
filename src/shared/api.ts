@@ -29,6 +29,10 @@ export const apis = {
   editWord: (id: number, updateWord: IUpdateWord) =>
     api.put(`/api/user/wordstorage/id/${id}/word`, updateWord),
 
+  // 단어 시험 서비스
+  getWrongAnswerWordStorages: () =>
+    api.get("/api/user/wordstorage/test/history"),
+
   // 로그인
   login: () =>
     api.post("/login", {
