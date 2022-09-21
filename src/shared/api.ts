@@ -23,6 +23,9 @@ export const apis = {
   editWordStorage: (id: number, addWordStorage: IAddWordStorage) =>
     api.put(`/api/user/wordstorage/id/${id}`, addWordStorage),
 
+  deleteWordStorage: (id: number) =>
+    api.delete(`/api/user/wordstorage/id/${id}`),
+
   // 로그인
   login: () =>
     api.post("/login", {
