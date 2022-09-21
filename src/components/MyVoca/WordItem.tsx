@@ -1,14 +1,19 @@
 import styled from "styled-components";
 
-const WordItem = () => {
+type ValueProps = {
+  wordValue: string;
+  meaningValue: string[];
+};
+
+const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
   const deleteWord = () => {
     console.log("delete word");
   };
 
   return (
     <WordItemLayout>
-      <p>Capability</p>
-      <p>능력,가능성,재능</p>
+      <p>{wordValue}</p>
+      <p>{meaningValue.join(", ")}</p>
       <WordItemLayoutHover>
         <button onClick={deleteWord}>삭제하기</button>
       </WordItemLayoutHover>

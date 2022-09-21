@@ -75,3 +75,8 @@ export interface IWordStorageInitialState {
   isLoading: boolean;
   isFinish: boolean;
 }
+
+export interface IUpdateWord {
+  words: string[];
+  meanings: string[][];
+}

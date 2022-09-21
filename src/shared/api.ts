@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IAddWordStorage } from "../types/types";
+import { IAddWordStorage, IUpdateWord } from "../types/types";
 
 const api = axios.create({
   baseURL: "https://jdh3340.shop",
@@ -17,11 +17,17 @@ export const apis = {
   searchWordStorage: (word: string) =>
     api.get(`/api/user/wordstorage/my/search?search=${word}`),
 
-  getDetailWordStorage: (id: string) =>
+  getDetailWordStorage: (id: number) =>
     api.get(`/api/user/wordstorage/id/${id}`),
 
   editWordStorage: (id: number, addWordStorage: IAddWordStorage) =>
     api.put(`/api/user/wordstorage/id/${id}`, addWordStorage),
+
+  deleteWordStorage: (id: number) =>
+    api.delete(`/api/user/wordstorage/id/${id}`),
+
+  editWord: (id: number, updateWord: IUpdateWord) =>
+    api.put(`/api/user/wordstorage/id/${id}/word`, updateWord),
 
   // 로그인
   login: () =>

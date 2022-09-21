@@ -6,6 +6,7 @@ import AddWordModal from "../../components/MyVoca/AddWordModal";
 import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
 import { ildan, like } from "../../images";
 import { getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
+import { apis } from "../../shared/api";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { IWordStorage } from "../../types/types";
 
@@ -40,6 +41,16 @@ const MyVocaDetail = () => {
     });
     dispatch(getDetailWordStorage(newWordStorage));
     setDetail(newWordStorage);
+  };
+
+  const deleteWordStorage = async () => {
+    const newId = Number(id);
+    alert("단어장을 삭제하시겠습니까?");
+    try {
+      await apis.deleteWordStorage(newId).then(data => console.log(data));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -99,7 +110,7 @@ const MyVocaDetail = () => {
                     <p>일단이</p>
                     <span>잘하고 있어! 너무 멋진데?</span>
                   </Balloon>
-                  <Ildan src={ildan} alt="ildan" />
+                  <Ildan src={ildan} alt="ildan" onClick={deleteWordStorage} />
                 </DetailInfo>
               </DivB>
             </div>
@@ -271,6 +282,7 @@ const Ildan = styled.img`
   position: relative;
   left: 700px;
   bottom: 400px;
+  cursor: pointer;
 `;
 
 const Balloon = styled.div`
