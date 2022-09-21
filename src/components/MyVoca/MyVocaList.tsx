@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { MyVocaItem } from "../../components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 import { IWordStorage } from "../../types/types";
+import { apis } from "../../shared/api";
 
 type TargetIdProps = {
   targetId: string;
@@ -16,9 +17,21 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     state => state.wordStorageSlice,
   );
 
+  const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
+
+  const getWrongAnswerWordStorageList = async () => {
+    await apis.getWrongAnswerWordStorages().then(data => {
+      setWrongAnswerWordStorage(data.data);
+    });
+  };
+
   useEffect(() => {
     dispatch(__getWordStorageList());
   }, [targetId]);
+
+  useEffect(() => {
+    getWrongAnswerWordStorageList();
+  }, [targetId === "오답노트"]);
 
   if (isFinish) {
     if (targetId === "전체보기") {
@@ -45,9 +58,11 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
         </MyVocaListLayout>
       );
     } else if (targetId === "오답노트") {
-      const wrongWordStorages = wordStorage.map((wrongWordStorage, index) => {
-        return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
-      });
+      const wrongWordStorages = wrongAnswerWordStorage.map(
+        (wrongWordStorage, index) => {
+          return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
+        },
+      );
       return <MyVocaListLayout>{wrongWordStorages}</MyVocaListLayout>;
     }
 

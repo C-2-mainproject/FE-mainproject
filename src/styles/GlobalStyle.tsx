@@ -46,23 +46,22 @@ footer, header, hgroup, menu, nav, section {
   p {
     font-size: 1rem;
   }
+
   section {
     max-width: 1360px;
-  width: 100%;
-
+    width: 100%;
     padding: 0px 40px;
-margin: 0 auto;
+    margin: 0 auto;
   }
-  button{
-  outline: none;
-  border: none;
-  background-color: transparent;
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
-  padding: 0;
-  cursor: pointer;
-}
 
-
+  button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    padding: 0;
+    cursor: pointer;
+  }
 `;
