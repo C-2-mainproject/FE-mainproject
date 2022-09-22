@@ -16,11 +16,14 @@ const CustomSelect = ({
   setAddWordStorageSelect,
 }: SelectProps) => {
   let initValue = "";
-
   if (props[0].filterCategory === "카테고리") {
     initValue = "카테고리를 선택하세요";
   } else if (props[0].filterCategory === "공개") {
     initValue = "공개 여부를 선택하세요";
+  } else if (props[0].filterCategory === "나이") {
+    initValue = "나이를 선택하세요";
+  } else if (props[0].filterCategory === "성별") {
+    initValue = "성별을 선택하세요";
   }
 
   const [currentValue, setCurrentValue] = useState(initValue);
@@ -34,7 +37,17 @@ const CustomSelect = ({
         ...addWordStorageSelect,
         category: newTarget.innerText,
       });
-    } else {
+    } else if (newTarget.id === "공개") {
+      setAddWordStorageSelect({
+        ...addWordStorageSelect,
+        status: newTarget.innerText,
+      });
+    } else if (newTarget.id === "나이") {
+      setAddWordStorageSelect({
+        ...addWordStorageSelect,
+        category: newTarget.innerText,
+      });
+    } else if (newTarget.id === "성별") {
       setAddWordStorageSelect({
         ...addWordStorageSelect,
         status: newTarget.innerText,
