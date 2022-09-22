@@ -1,10 +1,20 @@
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 
-const GameInput = () => {
+type GameInputProps = {
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  sendMessage: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
   return (
     <GameInputLayout>
-      <input placeholder="답을 입력하세요" />
-      <button>입력</button>
+      <input placeholder="답을 입력하세요" onChange={onChangeHandler} />
+      <button onClick={sendMessage}>입력</button>
     </GameInputLayout>
   );
 };

@@ -39,4 +39,7 @@ export const apis = {
       username: "user@user.com",
       password: "1234",
     }),
+
+  checkNickname: (nickname: string) =>
+    api.post("/api/check/nickname", { nickname }),
 };
