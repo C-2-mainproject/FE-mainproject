@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import styled from "styled-components";
+import { useAxios } from "../../hooks/useAxios";
 
-const data = [
+const mok = [
   { categoryName: "토익", count: 232 },
   {
     categoryName: "토플",
@@ -16,11 +17,22 @@ const data = [
 ];
 
 const WordChart = () => {
+  const [chartData, setChartData] = useState();
   const [category, setCategory] = useState<string[]>([]);
   const [series, setSeries] = useState<number[]>([]);
+  const { data, loading, error } = useAxios({
+    url: "/api/wordstorage/statistic",
+    method: "get",
+  });
+  useEffect(() => {
+    if (data !== null) {
+      setChartData(data);
+    }
+  }, [chartData]);
+  console.log(data);
 
   useEffect(() => {
-    for (const x of data) {
+    for (const x of mok) {
       setCategory(category => category.concat(x.categoryName));
       setSeries(series => series.concat(x.count));
     }
@@ -29,7 +41,6 @@ const WordChart = () => {
       setSeries([]);
     };
   }, []);
-  console.log(category, series);
   const options: ApexOptions = {
     chart: {
       type: "donut",
@@ -46,12 +57,17 @@ const WordChart = () => {
 
   return (
     <div>
+      {error && (
+        <div>
+          <p>{error}</p>
+        </div>
+      )}
       <div id="chart">
         <ReactApexChart
           options={options}
           series={options.series}
           type="donut"
-          width="500"
+          width="350"
         />
       </div>
     </div>
@@ -61,5 +77,5 @@ const WordChart = () => {
 export default WordChart;
 
 const ChartBox = styled.div`
-  
-`
+  width: 150px;
+`;

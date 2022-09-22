@@ -4,6 +4,7 @@ import SlickMyBook from "../components/Main/SlickMyBook";
 import Header from "../Layout/Header";
 import Dlfeksdl from "../images/top_dlfeksdl.png";
 import RunDlfeksdl from "../images/run_dlfeksdl.png";
+import { useAxios } from "../hooks/useAxios";
 const Main = () => {
   return (
     <>
@@ -56,11 +57,14 @@ const Main = () => {
             </p>
             <RunDlfeksd src={RunDlfeksdl} />
           </ChartTitle>
-          <div>
-            <span> 일단이의 총 단어장 </span>
-            <span> 카테고리별 총 단어장 갯수 실시간 통계 </span>
+          <ChartText>
+            <ChartSubText>
+              <h4> 일단이의 총 단어장 </h4>
+              <h5> 카테고리별 총 단어장 갯수 실시간 통계 </h5>
+            </ChartSubText>
+
             <WordChart />
-          </div>
+          </ChartText>
         </BookChartItems>
       </BookChart>
     </>
@@ -190,5 +194,44 @@ const ChartTitle = styled.div`
     line-height: 26px;
     margin-top: 21px;
     letter-spacing: -0.07em;
+  }
+`;
+
+const ChartText = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding-left: 60px;
+  flex-direction: column;
+`;
+const ChartSubText = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 80px;
+  justify-content: space-between;
+  align-items: center;
+  &:first-child:after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  h4 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: -0.07em;
+
+    color: #000000;
+  }
+  h5 {
+    position: relative;
+    top: 12px;
+    color: #999;
   }
 `;
