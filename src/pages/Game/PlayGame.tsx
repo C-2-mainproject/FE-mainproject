@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ChatBox, GameInput, Quiz } from "../../components";
+import { ChatBox, Quiz } from "../../components";
 
 const PlayGame = () => {
   return (
@@ -8,7 +8,6 @@ const PlayGame = () => {
         <PlayGameBox>
           <Quiz />
           <ChatBox />
-          <GameInput />
         </PlayGameBox>
       </PlayGameWrapper>
     </PlayGameLayout>
