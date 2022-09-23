@@ -33,6 +33,9 @@ export const apis = {
   getWrongAnswerWordStorages: () =>
     api.get("/api/user/wordstorage/test/history"),
 
+  makeWordTest: (wordStorageId: number) =>
+    api.post("/api/user/wordstorage/test", { wordStorageId }),
+
   // 로그인
   login: () =>
     api.post("/login", {

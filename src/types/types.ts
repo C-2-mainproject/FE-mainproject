@@ -80,3 +80,21 @@ export interface IUpdateWord {
   words: string[];
   meanings: string[][];
 }
+
+export interface ITestWordStorage {
+  wordStorageId: number;
+  words: string[];
+  meanings: string[][];
+}
+
+export interface IAnswer {
+  index: number;
+  words: string;
+  meanings: string[];
+}
+
+export interface IAnswerInitialState {
+  answerStorage: IAnswer[];
+  isLoading: boolean;
+  isFinish: boolean;
+}

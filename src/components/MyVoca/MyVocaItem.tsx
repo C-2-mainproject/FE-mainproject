@@ -2,20 +2,23 @@ import styled from "styled-components";
 import { IWordStorage } from "../../types/types";
 import { like } from "../../images";
 import { useNavigate } from "react-router-dom";
+import WordTestSereviceModal from "../WordTestService/WordTestServiceModal";
+import { useState } from "react";
 
 type Props = {
   wordStorage: IWordStorage;
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const moveToDetail = (id: number) => {
     navigate(`/myvoca-detail/${id}`);
   };
 
-  const moveToTestService = (id: number) => {
-    navigate(`/wordtest/${id}`);
+  const wordTestServiceModal = () => {
+    setIsOpenModal(!isOpenModal);
   };
 
   return (
@@ -52,9 +55,13 @@ const MyVocaItem = ({ wordStorage }: Props) => {
         <button onClick={() => moveToDetail(wordStorage.id)}>
           자세히 보기
         </button>
-        <button onClick={() => moveToTestService(wordStorage.id)}>
-          시험보기
-        </button>
+        <button onClick={wordTestServiceModal}>시험보기</button>
+        {isOpenModal && (
+          <WordTestSereviceModal
+            id={wordStorage.id}
+            openWordTestServiceModal={wordTestServiceModal}
+          />
+        )}
       </MyVocaItemLayoutHover>
     </MyVocaItemLayout>
   );
