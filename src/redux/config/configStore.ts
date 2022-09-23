@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import wordStorageSlice from "../modules/wordStorageSlice";
+import answerSlice from "../modules/answerSlice";
 
 const store = configureStore({
-  reducer: { wordStorageSlice },
+  reducer: { wordStorageSlice, answerSlice },
 
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -16,6 +16,8 @@ import SharedVocaSubMenu from "./SharedVoca/SharedVocaMenu";
 import SharedVocaFilter from "./SharedVoca/SharedVocaFilter";
 import SharedVocaList from "./SharedVoca/SharedVocaList";
 import SharedVocaItem from "./SharedVoca/SharedVocaItem";
+import WordTestList from "./WordTestService/WordTestList";
+import WordTestItem from "./WordTestService/WordTestItem";
 
 export {
   MyWordCard,
@@ -36,4 +38,6 @@ export {
   SharedVocaFilter,
   SharedVocaList,
   SharedVocaItem,
+  WordTestList,
+  WordTestItem,
 };

@@ -13,6 +13,7 @@ import mainsub_sharebook from "./icon/share_book.png";
 import ildan from "./ildan.png";
 import like_fill from "./like_fill.png";
 import like from "./like.png";
+import cancel from "./cancel.png";
 
 export {
   add,
@@ -30,4 +31,5 @@ export {
   ildan,
   like_fill,
   like,
+  cancel,
 };
