@@ -22,14 +22,16 @@ const Footer = () => {
             </div>
           </FooterLogo>
           <FooterLogo>
-            <div>팀원소개</div>
+            <MadeBy>
+              <span>FE</span> 소재범 <span>BE</span>이태민 장동하 유은정 이윤종
+              <span>FE-SUPPOTER</span>이태훈
+            </MadeBy>
             <div>
-              <p>© 2022 일단이의 단어장. ALL RIGHTS RESERVED</p>
+              <h5>© 2022 일단이의 단어장. ALL RIGHTS RESERVED</h5>
             </div>
           </FooterLogo>
         </FooterTextBox>
       </section>
-      {/* <section>Footer 컴포넌트입니다!</section> */}
     </FooterMenu>
   );
 };
@@ -77,6 +79,7 @@ const FooterText = styled.div`
   font-size: 48px !important;
   line-height: 70px;
   letter-spacing: -0.07em;
+  margin-bottom: 12rem;
   p {
     font-size: 48px;
     font-weight: 300;
@@ -85,10 +88,32 @@ const FooterText = styled.div`
 const FooterLogo = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
   div {
     &:nth-child(2) {
       display: flex;
       flex-direction: row;
+      gap: 60px;
+      p {
+        font-size: 24px;
+      }
+      h5 {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+`;
+
+const MadeBy = styled.div`
+  font-size: 16px;
+  font-weight: 300;
+  span {
+    font-weight: 500;
+    margin: 0px 15px;
+    &:first-child {
+      margin-left: 0px;
     }
   }
 `;

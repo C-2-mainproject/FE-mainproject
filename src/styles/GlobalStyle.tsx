@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Helvetica", "Arial", sans-serif;
+    font-family: NotoSansKR;
     line-height: 1.5;
   }
 
@@ -46,22 +46,23 @@ footer, header, hgroup, menu, nav, section {
   p {
     font-size: 1rem;
   }
-
   section {
     max-width: 1360px;
-    width: 100%;
-    padding: 0px 40px;
-    margin: 0 auto;
-  }
+  width: 100%;
 
-  button {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
-    padding: 0;
-    cursor: pointer;
+    padding: 0px 40px;
+margin: 0 auto;
   }
+  button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  padding: 0;
+  cursor: pointer;
+}
+
+
 `;
