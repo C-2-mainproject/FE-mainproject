@@ -12,6 +12,7 @@ import {
   BoardEdit,
   PlayGame,
   MyPage,
+  SharedVocaDetail,
 } from "../pages";
 
 const Router = () => {
@@ -24,6 +25,7 @@ const Router = () => {
           <Route path="/myvoca-detail/:id" element={<MyVocaDetail />} />
           <Route path="/wordtest/:id" element={<WordTestService />} />
           <Route path="/sharedvoca" element={<SharedVoca />} />
+          <Route path="/sharedvoca-detail/:id" element={<SharedVocaDetail />} />
           <Route path="/game" element={<Game />} />
           <Route path="/board" element={<Board />} />
           <Route path="/board-detail/:id" element={<BoardDetail />} />

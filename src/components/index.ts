@@ -12,6 +12,10 @@ import ChatBox from "./Game/ChatBox";
 import GameInput from "./Game/GameInput";
 import Quiz from "./Game/Quiz";
 import ChatList from "./Game/ChatList";
+import SharedVocaSubMenu from "./SharedVoca/SharedVocaMenu";
+import SharedVocaFilter from "./SharedVoca/SharedVocaFilter";
+import SharedVocaList from "./SharedVoca/SharedVocaList";
+import SharedVocaItem from "./SharedVoca/SharedVocaItem";
 import WordTestList from "./WordTestService/WordTestList";
 import WordTestItem from "./WordTestService/WordTestItem";
 
@@ -30,6 +34,10 @@ export {
   GameInput,
   Quiz,
   ChatList,
+  SharedVocaSubMenu,
+  SharedVocaFilter,
+  SharedVocaList,
+  SharedVocaItem,
   WordTestList,
   WordTestItem,
 };
