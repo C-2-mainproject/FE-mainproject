@@ -12,6 +12,9 @@ import ChatBox from "./Game/ChatBox";
 import GameInput from "./Game/GameInput";
 import Quiz from "./Game/Quiz";
 import ChatList from "./Game/ChatList";
+import WordTestList from "./WordTestService/WordTestList";
+import WordTestItem from "./WordTestService/WordTestItem";
+
 export {
   MyWordCard,
   PopularWordBook,
@@ -27,4 +30,6 @@ export {
   GameInput,
   Quiz,
   ChatList,
+  WordTestList,
+  WordTestItem,
 };
