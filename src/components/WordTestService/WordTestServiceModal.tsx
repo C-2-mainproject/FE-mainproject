@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { apis } from "../../shared/api";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
@@ -18,14 +17,6 @@ const WordTestSereviceModal = ({
     navigate(`/wordtest/${id}`);
   };
 
-  const test = async () => {
-    try {
-      await apis.makeWordTest(id).then(data => console.log(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <ModalPortal>
       <Overlay>
@@ -33,9 +24,6 @@ const WordTestSereviceModal = ({
           <CloseButton onClick={openWordTestServiceModal}>X</CloseButton>
           <Contents>
             <p>시험지 만들기</p>
-            <Button>
-              <span onClick={test}>시험지 만들기</span>
-            </Button>
             <Button>
               <span onClick={moveToTestService}>시험 보러 가기</span>
             </Button>

@@ -73,8 +73,6 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
 const WordTestItemLayout = styled.div`
   width: 619px;
   height: 400px;
-  left: 320px;
-  top: 163px;
 
   background: #ffffff;
   border: 1px solid #000000;

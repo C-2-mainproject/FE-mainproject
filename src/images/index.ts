@@ -14,6 +14,9 @@ import ildan from "./ildan.png";
 import like_fill from "./like_fill.png";
 import like from "./like.png";
 import cancel from "./cancel.png";
+import check from "./check.png";
+import circle from "./circle.png";
+import star from "./star.png";
 
 export {
   add,
@@ -32,4 +35,7 @@ export {
   like_fill,
   like,
   cancel,
+  check,
+  circle,
+  star,
 };

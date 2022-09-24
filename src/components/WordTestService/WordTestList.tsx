@@ -1,54 +1,44 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { cancel, mainsub_myVoca } from "../../images";
-import { apis } from "../../shared/api";
-import { useAppSelector } from "../../shared/reduxHooks";
-import { ITestWordStorage } from "../../types/types";
+import { __makeWordTest } from "../../redux/modules/answerSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { WordTestItem } from "../index";
 
 const WordTestList = () => {
   const { id } = useParams();
-  const [testList, setTestList] = useState<ITestWordStorage>();
 
-  const { answerStorage } = useAppSelector(state => state.answerSlice);
+  const navigate = useNavigate();
+  const newId = Number(id);
 
-  const makeWordTest = async () => {
-    const newId = Number(id);
-
-    try {
-      await apis.makeWordTest(newId).then(data => {
-        setTestList(data.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { testWordStorage } = useAppSelector(state => state.answerSlice);
 
   useEffect(() => {
-    makeWordTest();
+    dispatch(__makeWordTest(newId));
   }, []);
 
-  const testListResult = testList?.words.map((word, index) => {
+  const testListResult = testWordStorage[0]?.words.map((word, index) => {
     return (
       <WordTestItem
         key={index}
         id={index}
-        length={testList.words.length}
+        length={testWordStorage[0].words.length}
         word={word}
-        meaing={testList.meanings[index]}
+        meaing={testWordStorage[0].meanings[index]}
       />
     );
   });
 
   const submit = () => {
-    console.log(answerStorage);
+    navigate("/wordtest-result");
   };
 
   return (
     <WordTestListLayout>
       <WordTestListHeader>
-        <p>{testList?.wordStorageId}번 단어장 시험</p>
+        <p>{testWordStorage[0]?.wordStorageId}번 단어장 시험</p>
         <img src={cancel} alt="cancel" />
       </WordTestListHeader>
       <WordTestListItem>{testListResult}</WordTestListItem>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { WordTestList } from "../components";
+import { WordTestList } from "../../components";
 
 const WordTestService = () => {
   return (
