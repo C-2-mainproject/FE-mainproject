@@ -14,7 +14,7 @@ export const __getWordStorageList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await apis.getWordStorages();
-      console.log(data);
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data.content);
     } catch (error) {
       console.log(error);
