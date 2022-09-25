@@ -14,7 +14,7 @@ import ildan from "./ildan.png";
 import like_fill from "./like_fill.png";
 import like from "./like.png";
 import cancel from "./cancel.png";
-
+import game_logo from "./game_logo.png";
 export {
   add,
   logo_w,
@@ -32,4 +32,5 @@ export {
   like_fill,
   like,
   cancel,
+  game_logo,
 };

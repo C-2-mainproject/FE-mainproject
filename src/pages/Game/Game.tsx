@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
-import { logo } from "../../images";
+import { game_logo, logo } from "../../images";
 
 const Game = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Game = () => {
               </MyInfo>
               <GameImg>
                 <div>
-                  <img src={logo} alt="항해" />
+                  <img src={game_logo} alt="game_logo" />
                   <button onClick={playGame}>게임 시작</button>
                 </div>
               </GameImg>
@@ -125,7 +125,8 @@ const BottomSection = styled.div`
   height: 334px;
   display: flex;
   margin-bottom: 232px;
-  border: 1px solid;
+  border: 1px solid #00b4db;
+  background-color: #f4fcfd;
 
   h1 {
     margin: 80px;
@@ -134,10 +135,7 @@ const BottomSection = styled.div`
     font-weight: 700;
     font-size: 48px;
     line-height: 70px;
-    /* identical to box height */
-
     letter-spacing: -0.07em;
-
     color: #000000;
   }
 
@@ -148,8 +146,6 @@ const BottomSection = styled.div`
     font-weight: 500;
     font-size: 24px;
     line-height: 35px;
-    /* identical to box height */
-
     letter-spacing: -0.07em;
 
     color: #999999;
@@ -218,7 +214,7 @@ const MyInfo = styled.div`
   width: 573px;
   height: 264px;
   display: flex;
-  border: 1px solid #999999;
+  border: 1px solid #00b4db;
 `;
 
 const GameImg = styled.div`
@@ -228,6 +224,7 @@ const GameImg = styled.div`
   height: 644px;
   border: 1px solid #00b4db;
   text-align: center;
+  background: linear-gradient(360deg, rgba(0, 180, 219, 0.2) -1.83%, rgba(0, 180, 219, 0) 92.32%), #FFFFFF;
   
   div {
     margin-top: 55px;
@@ -242,9 +239,8 @@ const GameImg = styled.div`
   button {
     width: 300px;
     height: 83px;
+    background-color: #00B4DB;
   }
-
-  
 }
 `;
 
