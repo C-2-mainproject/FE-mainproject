@@ -1,5 +1,30 @@
+// import axios from "axios";
+import { useState } from "react";
 import styled from "styled-components";
+// import LoginModal from "../components/Login/LoginModal";
+import SocialLoginModal from "../components/Login/SocialLoginModal";
+// import SocialLoginModal from "../components/Login/SocialLoginModal";
+// import { apis } from "../shared/api";
+// import { setSessionId } from "../shared/Cookie";
+
 const Header = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  // const login = async () => {
+  //   try {
+  //     await apis.login().then(data => {
+  //       console.log("data is :: ", data.headers.cookie);
+  //       setSessionId(data.headers.cookie);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const loginModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
   return (
     <HeaderBar>
       <HeaderContent>
@@ -21,9 +46,13 @@ const Header = () => {
           </p>
         </div>
         <div>
-          <span>검색</span>
-          <span>아이콘</span>
-          <span>로그인</span>
+          {/* <span onClick={login}>검색</span> */}
+          <a href="https://jdh3340.shop/logout">로그아웃</a>
+          <span>
+            <A href="/mypage">아이콘</A>
+          </span>
+          <span onClick={loginModal}>로그인</span>
+          {isOpenModal && <SocialLoginModal openLoginModal={loginModal} />}
         </div>
       </HeaderContent>
     </HeaderBar>
