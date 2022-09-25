@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IAddWordStorage, IUpdateWord } from "../types/types";
+import { IAddWordStorage, IEndWordTestItem, IUpdateWord } from "../types/types";
 
 const api = axios.create({
   baseURL: "https://jdh3340.shop",
@@ -35,6 +35,9 @@ export const apis = {
 
   makeWordTest: (wordStorageId: number) =>
     api.post("/api/user/wordstorage/test", { wordStorageId }),
+
+  endWordTest: (endWordTestItem: IEndWordTestItem) =>
+    api.post("/api/user/wordstorage/test/end", endWordTestItem),
 
   // 로그인
   login: () =>

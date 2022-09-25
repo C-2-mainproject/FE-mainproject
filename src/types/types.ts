@@ -95,6 +95,24 @@ export interface IAnswer {
 
 export interface IAnswerInitialState {
   answerStorage: IAnswer[];
+  testWordStorage: ITestWordStorage[];
   isLoading: boolean;
   isFinish: boolean;
+}
+
+export interface IEndWordTestItem {
+  wordStorageId: number;
+  testType: string;
+  totalWords: number;
+  wrongWords: number;
+  time: number;
+  collectionWrongWord: {
+    word: string[];
+    meaning: string[][];
+  };
+}
+
+export interface ICollectionWrongWord {
+  words: string[];
+  meanings: string[][];
 }
