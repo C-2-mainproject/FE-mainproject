@@ -18,6 +18,8 @@ import SharedVocaList from "./SharedVoca/SharedVocaList";
 import SharedVocaItem from "./SharedVoca/SharedVocaItem";
 import WordTestList from "./WordTestService/WordTestList";
 import WordTestItem from "./WordTestService/WordTestItem";
+import WordTestResultList from "./WordTestService/WordTestResultList";
+import WordTestResultItem from "./WordTestService/WordTestResultItem";
 
 export {
   MyWordCard,
@@ -40,4 +42,6 @@ export {
   SharedVocaItem,
   WordTestList,
   WordTestItem,
+  WordTestResultList,
+  WordTestResultItem,
 };

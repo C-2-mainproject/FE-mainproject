@@ -1,3 +1,4 @@
+import axios from "axios";
 import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
 type ModalProps = {
@@ -5,6 +6,18 @@ type ModalProps = {
 };
 
 const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
+  const test = async () => {
+    try {
+      const data = await axios.get(
+        "https://jdh3340.shop/oauth2/authorization/google",
+        { withCredentials: true },
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ModalPortal>
       <Overlay>
@@ -20,10 +33,13 @@ const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
                 <SelectLogin>
                   <p>로그인</p>
                   <Button>
-                    <span>네이버 계정으로 로그인</span>
+                    <span onClick={test}>네이버 계정으로 로그인</span>
                   </Button>
                   <Button>
-                    <span>Google 계정으로 로그인</span>
+                    {/* <span>Google 계정으로 로그인</span> */}
+                    <a href="https://jdh3340.shop/oauth2/authorization/google">
+                      네이버 계정으로 로그인
+                    </a>
                   </Button>
                   <GuideDiv>
                     <h2>

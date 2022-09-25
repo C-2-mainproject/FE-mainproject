@@ -13,6 +13,7 @@ import {
   PlayGame,
   MyPage,
   SharedVocaDetail,
+  WordTestResult,
 } from "../pages";
 
 const Router = () => {
@@ -33,6 +34,7 @@ const Router = () => {
           <Route path="/board-edit/:id" element={<BoardEdit />} />
           <Route path="/playgame" element={<PlayGame />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/wordtest-result" element={<WordTestResult />} />
           <Route path="*" element={<div>404 Error</div>} />
         </Routes>
       </BrowserRouter>
