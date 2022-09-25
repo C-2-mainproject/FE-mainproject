@@ -14,6 +14,7 @@ import ildan from "./ildan.png";
 import like_fill from "./like_fill.png";
 import like from "./like.png";
 import cancel from "./cancel.png";
+import game_logo from "./game_logo.png";
 import check from "./check.png";
 import circle from "./circle.png";
 import star from "./star.png";
@@ -35,6 +36,7 @@ export {
   like_fill,
   like,
   cancel,
+  game_logo,
   check,
   circle,
   star,
