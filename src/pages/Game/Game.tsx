@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
 import { game_logo, logo } from "../../images";
+import { useAppSelector } from "../../shared/reduxHooks";
 
 const Game = () => {
   const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const playGame = () => {
     navigate("/playgame");
@@ -24,12 +27,12 @@ const Game = () => {
             <div>
               <MyInfo>
                 <ImgSection>
-                  <img src={logo} alt="항해" />
+                  <img src={userInfo.profileImage} alt="profileImage" />
                 </ImgSection>
                 <InfoSection>
                   <h1>나의 점수</h1>
                   <p>
-                    아이디<span>hang9999</span>
+                    아이디<span>{userInfo.nickname}</span>
                   </p>
                   <p>
                     승리수<span>99</span>
@@ -39,7 +42,9 @@ const Game = () => {
               <GameImg>
                 <div>
                   <img src={game_logo} alt="game_logo" />
-                  <button onClick={playGame}>게임 시작</button>
+                  <button onClick={playGame}>
+                    <span>게임 시작</span>
+                  </button>
                 </div>
               </GameImg>
             </div>
@@ -68,7 +73,9 @@ const Game = () => {
               <h1>게임 방법 안내</h1>
               <p>일단이의 영단어 대결 게임 방법 가이드</p>
             </div>
-            <button onClick={gameGuide}>바로 가기</button>
+            <button onClick={gameGuide}>
+              <span>바로 가기</span>
+            </button>
             {isOpenModal && <GameGuideModal openGameGuideModal={gameGuide} />}
           </BottomSection>
         </GameBox>
@@ -124,13 +131,14 @@ const BottomSection = styled.div`
   width: 1276px;
   height: 334px;
   display: flex;
+  justify-content: space-between;
+
   margin-bottom: 232px;
   border: 1px solid #00b4db;
   background-color: #f4fcfd;
 
   h1 {
-    margin: 80px;
-    font-family: "Noto Sans KR";
+    margin-top: 80px;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -141,7 +149,7 @@ const BottomSection = styled.div`
 
   p {
     margin-left: 80px;
-    font-family: "Noto Sans KR";
+    margin-top: 60px;
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -154,9 +162,19 @@ const BottomSection = styled.div`
   button {
     width: 300px;
     height: 83px;
-    margin: 125px;
+    margin-top: 125px;
+    margin-right: 100px;
     background: #00b4db;
     border: none;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.07em;
+    color: #ffffff;
   }
 `;
 
@@ -241,6 +259,14 @@ const GameImg = styled.div`
     height: 83px;
     background-color: #00B4DB;
   }
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.07em;
+    color: #FFFFFF;
+  }
 }
 `;
 
@@ -255,11 +281,13 @@ const ImgSection = styled.div`
   img {
     width: 140px;
     height: 140px;
+    border-radius: 70px;
   }
 `;
 
 const InfoSection = styled.div`
   height: 100%;
+  text-align: left;
 
   h1 {
     margin-top: 52px;
