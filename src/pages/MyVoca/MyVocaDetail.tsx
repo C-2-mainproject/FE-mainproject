@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
 import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
-import { ildan, like } from "../../images";
+import { top_dlfeksdl, like, like_fill } from "../../images";
 import { getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
 import { apis } from "../../shared/api";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
@@ -12,6 +12,7 @@ import { IWordStorage } from "../../types/types";
 
 const MyVocaDetail = () => {
   const { id } = useParams();
+  const newId = Number(id);
   const dispatch = useAppDispatch();
 
   const { wordStorage, isFinish } = useAppSelector(
@@ -35,7 +36,6 @@ const MyVocaDetail = () => {
   };
 
   const getDetail = () => {
-    const newId = Number(id);
     const newWordStorage = wordStorage.find(value => {
       return value.id === newId;
     });
@@ -44,13 +44,18 @@ const MyVocaDetail = () => {
   };
 
   const deleteWordStorage = async () => {
-    const newId = Number(id);
     alert("단어장을 삭제하시겠습니까?");
     try {
       await apis.deleteWordStorage(newId).then(data => console.log(data));
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onLikeHandler = async () => {
+    console.log("aa");
+    const newId = Number(id);
+    await apis.suggestionWordStorage(newId).then(data => console.log(data));
   };
 
   useEffect(() => {
@@ -86,7 +91,15 @@ const MyVocaDetail = () => {
                   <div>
                     <p>
                       카테고리<span>{detail?.category}</span>
-                      <img src={like} alt="like" />
+                      {detail?.likeCount === 0 ? (
+                        <img onClick={onLikeHandler} src={like} alt="like" />
+                      ) : (
+                        <img
+                          onClick={onLikeHandler}
+                          src={like_fill}
+                          alt="like"
+                        />
+                      )}
                       <span>{detail?.likeCount}</span>
                     </p>
                     <h1>{detail?.title}</h1>
@@ -110,13 +123,16 @@ const MyVocaDetail = () => {
                     <p>일단이</p>
                     <span>잘하고 있어! 너무 멋진데?</span>
                   </Balloon>
-                  <Ildan src={ildan} alt="ildan" onClick={deleteWordStorage} />
+                  <Ildan
+                    src={top_dlfeksdl}
+                    alt="ildan"
+                    onClick={deleteWordStorage}
+                  />
                 </DetailInfo>
               </DivB>
             </div>
 
             <WordList />
-            {isEdit ? <div></div> : <div></div>}
           </MyVocaDetailBox>
         </MyVocaDetailWrapper>
       </MyVocaDetailLayout>
@@ -280,7 +296,9 @@ const DetailInfo = styled.div`
 
 const Ildan = styled.img`
   position: relative;
-  left: 700px;
+  width: 280px;
+  height: 280px;
+  left: 370px;
   bottom: 400px;
   cursor: pointer;
 `;
@@ -294,14 +312,14 @@ const Balloon = styled.div`
   width: 220px;
   height: 100px;
   color: #fff;
-  background-color: gray;
+  background-color: #e4f5fa;
 
   &:after {
     content: "";
     position: absolute;
     top: 21px;
     right: -30px;
-    border-left: 30px solid gray;
+    border-left: 30px solid #e4f5fa;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
   }
@@ -311,7 +329,7 @@ const Balloon = styled.div`
   }
 
   span {
-    color: white;
+    color: black;
   }
 `;
 export default MyVocaDetail;

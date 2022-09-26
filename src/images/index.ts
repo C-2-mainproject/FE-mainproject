@@ -18,6 +18,7 @@ import game_logo from "./game_logo.png";
 import check from "./check.png";
 import circle from "./circle.png";
 import star from "./star.png";
+import top_dlfeksdl from "./top_dlfeksdl.png";
 
 export {
   add,
@@ -40,4 +41,5 @@ export {
   check,
   circle,
   star,
+  top_dlfeksdl,
 };

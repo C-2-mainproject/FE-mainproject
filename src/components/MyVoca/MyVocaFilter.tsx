@@ -242,7 +242,7 @@ const Li = styled.li`
   }
 
   &:hover {
-    background-color: #d7d7d7;
+    background-color: #e4f5fa;
   }
 `;
 
