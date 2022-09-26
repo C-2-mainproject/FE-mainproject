@@ -14,9 +14,9 @@ const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
     <WordItemLayout>
       <p>{wordValue}</p>
       <p>{meaningValue.join(", ")}</p>
-      <WordItemLayoutHover>
+      {/* <WordItemLayoutHover>
         <button onClick={deleteWord}>삭제하기</button>
-      </WordItemLayoutHover>
+      </WordItemLayoutHover> */}
     </WordItemLayout>
   );
 };
@@ -25,7 +25,7 @@ const WordItemLayout = styled.div`
   position: relative;
   width: 290px;
   height: 300px;
-  background-color: #f3f3f3;
+  background-color: #e4f5fa;
   margin-right: 40px;
   margin-bottom: 40px;
 
@@ -46,7 +46,7 @@ const WordItemLayout = styled.div`
     color: #000;
   }
 
-  p: nth-child(2) {
+  p:nth-child(2) {
     margin-top: 20px;
     font-family: NotoSansKR;
     font-size: 18px;

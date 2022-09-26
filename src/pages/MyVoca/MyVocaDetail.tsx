@@ -53,7 +53,6 @@ const MyVocaDetail = () => {
   };
 
   const onLikeHandler = async () => {
-    console.log("aa");
     const newId = Number(id);
     await apis.suggestionWordStorage(newId).then(data => console.log(data));
   };
