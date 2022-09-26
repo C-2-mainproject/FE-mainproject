@@ -48,4 +48,7 @@ export const apis = {
 
   checkNickname: (nickname: string) =>
     api.post("/api/check/nickname", { nickname }),
+
+  // 마이페이지
+  getUserInfo: () => api.get("/api/user"),
 };
