@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { WordTestList } from "../../components";
 
 const WordTestService = () => {
   return (
     <WordTestServiceLayout>
       <WordTestServiceWrapper>
-        <WordTestServiceBox>WordTestService 페이지!!</WordTestServiceBox>
+        <WordTestServiceBox>
+          <WordTestList />
+        </WordTestServiceBox>
       </WordTestServiceWrapper>
     </WordTestServiceLayout>
   );
@@ -19,13 +22,11 @@ const WordTestServiceLayout = styled.div`
 const WordTestServiceWrapper = styled.div`
   width: 1360px;
   margin: auto;
-  background-color: gray;
 `;
 
 const WordTestServiceBox = styled.div`
   width: 1280px;
   margin: auto;
-  background-color: white;
 `;
 
 export default WordTestService;

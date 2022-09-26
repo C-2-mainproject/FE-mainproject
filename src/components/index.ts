@@ -8,10 +8,19 @@ import MyVocaList from "./MyVoca/MyVocaList";
 import MyVocaItem from "./MyVoca/MyVocaItem";
 import WordList from "./MyVoca/WordList";
 import WordItem from "./MyVoca/WordItem";
-import ChatBox from "./Game/ChatBox";
+import ChatSection from "./Game/ChatSection";
 import GameInput from "./Game/GameInput";
-import Quiz from "./Game/Quiz";
+import QuizInfoSection from "./Game/QuizInfoSection";
 import ChatList from "./Game/ChatList";
+import SharedVocaSubMenu from "./SharedVoca/SharedVocaMenu";
+import SharedVocaFilter from "./SharedVoca/SharedVocaFilter";
+import SharedVocaList from "./SharedVoca/SharedVocaList";
+import SharedVocaItem from "./SharedVoca/SharedVocaItem";
+import WordTestList from "./WordTestService/WordTestList";
+import WordTestItem from "./WordTestService/WordTestItem";
+import WordTestResultList from "./WordTestService/WordTestResultList";
+import WordTestResultItem from "./WordTestService/WordTestResultItem";
+
 export {
   MyWordCard,
   PopularWordBook,
@@ -23,8 +32,16 @@ export {
   MyVocaItem,
   WordList,
   WordItem,
-  ChatBox,
+  ChatSection,
   GameInput,
-  Quiz,
+  QuizInfoSection,
   ChatList,
+  SharedVocaSubMenu,
+  SharedVocaFilter,
+  SharedVocaList,
+  SharedVocaItem,
+  WordTestList,
+  WordTestItem,
+  WordTestResultList,
+  WordTestResultItem,
 };

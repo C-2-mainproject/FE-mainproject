@@ -14,27 +14,24 @@ const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
   return (
     <GameInputLayout>
       <input placeholder="답을 입력하세요" onChange={onChangeHandler} />
-      <button onClick={sendMessage}>입력</button>
+      <button onClick={sendMessage}>전송</button>
     </GameInputLayout>
   );
 };
 
 const GameInputLayout = styled.div`
-  height: 100px;
-  border: 10px solid yellow;
+  width: 530px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #dedede;
 
   input {
-    width: 900px;
-    height: 70px;
-    border: 10px solid;
-    margin-right: 50px;
-  }
-
-  button {
-    width: 300px;
-    height: 70px;
-    color: white;
-    background-color: black;
+    width: 450px;
+    border: none;
+    outline: none;
+    background-color: #dedede;
   }
 `;
 export default GameInput;

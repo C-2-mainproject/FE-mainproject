@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { SharedVocaSubMenu } from "../../components";
 
 const SharedVoca = () => {
   return (
     <SharedVocaLayout>
       <SharedVocaWrapper>
-        <SharedVocaBox>SharedVoca 페이지</SharedVocaBox>
+        <SharedVocaBox>
+          <SharedVocaSubMenu />
+        </SharedVocaBox>
       </SharedVocaWrapper>
     </SharedVocaLayout>
   );
@@ -19,13 +22,11 @@ const SharedVocaLayout = styled.div`
 const SharedVocaWrapper = styled.div`
   width: 1360px;
   margin: auto;
-  background-color: gray;
 `;
 
 const SharedVocaBox = styled.div`
   width: 1280px;
   margin: auto;
-  background-color: white;
 `;
 
 export default SharedVoca;

@@ -12,6 +12,8 @@ import {
   BoardEdit,
   PlayGame,
   MyPage,
+  SharedVocaDetail,
+  WordTestResult,
 } from "../pages";
 
 const Router = () => {
@@ -24,6 +26,7 @@ const Router = () => {
           <Route path="/myvoca-detail/:id" element={<MyVocaDetail />} />
           <Route path="/wordtest/:id" element={<WordTestService />} />
           <Route path="/sharedvoca" element={<SharedVoca />} />
+          <Route path="/sharedvoca-detail/:id" element={<SharedVocaDetail />} />
           <Route path="/game" element={<Game />} />
           <Route path="/board" element={<Board />} />
           <Route path="/board-detail/:id" element={<BoardDetail />} />
@@ -31,6 +34,7 @@ const Router = () => {
           <Route path="/board-edit/:id" element={<BoardEdit />} />
           <Route path="/playgame" element={<PlayGame />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/wordtest-result" element={<WordTestResult />} />
           <Route path="*" element={<div>404 Error</div>} />
         </Routes>
       </BrowserRouter>
