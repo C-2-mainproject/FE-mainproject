@@ -51,4 +51,8 @@ export const apis = {
 
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),
+
+  // 공인 단어장
+  suggestionWordStorage: (id: number) =>
+    api.post(`/api/wordstorage/like/${id}`),
 };
