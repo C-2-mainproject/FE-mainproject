@@ -43,8 +43,16 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
   };
 
   const addWordList = () => {
-    setWord([...word, inputWord.words]);
-    setMean([...mean, inputWord.meanings.split(",")]);
+    if (inputWord.words && inputWord.meanings) {
+      console.log("inini", inputWord);
+      setWord([...word, inputWord.words]);
+      setMean([...mean, inputWord.meanings.split(",")]);
+
+      setInputWord({
+        meanings: "",
+        words: "",
+      });
+    }
   };
 
   return (
@@ -53,25 +61,44 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
         <ModalWrap>
           <CloseButton onClick={openAddWordModal}>X</CloseButton>
           <Contents>
-            <p>새 단어 추가</p>
+            <Title>
+              <h1>단어장의 기준이 되다</h1>
+              <span>일단이와 함께하는 완전 단어 학습</span>
+            </Title>
+            <Form>
+              <h1>영어단어 추가하기</h1>
+              <button onClick={addWordList}>추가</button>
+            </Form>
             <AddArea>
               <div>
-                <p>영어 단어</p>
+                <p>영어</p>
                 <input
                   id="words"
-                  placeholder="영어 단어를 입력하세요"
+                  placeholder="영어 단어를 입력해주세요"
+                  value={inputWord.words}
                   onChange={onChangeHandler}
                 />
               </div>
               <div>
-                <p>한글 뜻</p>
+                <p>의미 (뜻)</p>
                 <input
                   id="meanings"
-                  placeholder="한글 뜻을 입력하세요"
+                  placeholder="한글로된 뜻을 입력해주세요"
+                  value={inputWord.meanings}
                   onChange={onChangeHandler}
                 />
               </div>
-              <button onClick={addWordList}>입력할 단어 추가</button>
+              <p>
+                <span>
+                  TIP! 의미(뜻)가(이) 여러개라면 콤마(,)를 사용하여
+                  구분해주세요!
+                </span>
+              </p>
+              <p>
+                <span>
+                  여러개의 단어를 추가하고 싶다면 추가 버튼을 눌러주세요!
+                </span>
+              </p>
             </AddArea>
 
             <Button>
@@ -97,7 +124,6 @@ const Overlay = styled.div`
 const ModalWrap = styled.div`
   width: 640px;
   height: fit-content;
-  border-radius: 15px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -113,6 +139,79 @@ const CloseButton = styled.div`
   cursor: pointer;
 `;
 
+const Title = styled.div`
+  width: 480px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid;
+
+  h1 {
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2px;
+    text-align: left;
+    color: #000;
+  }
+
+  span {
+    font-size: 36px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2px;
+    text-align: left;
+    color: #000;
+  }
+`;
+
+const Form = styled.div`
+  display: flex;
+  h1 {
+    margin-top: 20px;
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2.52px;
+    text-align: left;
+    color: #000;
+  }
+
+  p {
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.68px;
+    text-align: left;
+    color: #000;
+  }
+
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.26px;
+    text-align: left;
+    color: #dbdbdb;
+  }
+
+  button {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-left: 30px;
+    background-color: black;
+    color: white;
+  }
+`;
 const Contents = styled.div`
   margin: 50px 30px;
   padding: 50px;
@@ -120,17 +219,34 @@ const Contents = styled.div`
   h1 {
     font-size: 30px;
     font-weight: 600;
-    margin-bottom: 60px;
   }
 `;
 
 const AddArea = styled.div`
-  height: 200px;
-  border: 1px solid;
-  overflow-y: scroll;
+  p {
+    margin-top: 40px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    color: #000000;
+    margin-bottom: 10px;
+  }
 
-  button {
-    background-color: gray;
+  input {
+    width: 480px;
+    height: 60px;
+    border: 0px;
+    border-bottom: 1px solid;
+    background: #ffffff;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    color: #000000;
   }
 `;
 const Button = styled.button`

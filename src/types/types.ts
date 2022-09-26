@@ -74,6 +74,8 @@ export interface IWordStorageInitialState {
   detailWordStorage: IWordStorage[];
   isLoading: boolean;
   isFinish: boolean;
+  pageNum: number;
+  lastPage: boolean;
 }
 
 export interface IUpdateWord {

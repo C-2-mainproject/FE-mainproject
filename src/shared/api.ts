@@ -9,7 +9,10 @@ const api = axios.create({
 
 export const apis = {
   // 나의 단어장 관리
-  getWordStorages: () => api.get("/api/user/wordstorage/my"),
+  getWordStorages: (num: number) =>
+    api.get(`/api/user/wordstorage/my?page=${num}`),
+
+  getLikeWordStorage: () => api.get("/api/user/wordstorage/like"),
 
   addWordStorage: (addWordStorage: IAddWordStorage) =>
     api.post("/api/user/wordstorage", addWordStorage),
@@ -51,4 +54,8 @@ export const apis = {
 
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),
+
+  // 공인 단어장
+  suggestionWordStorage: (id: number) =>
+    api.post(`/api/wordstorage/like/${id}`),
 };

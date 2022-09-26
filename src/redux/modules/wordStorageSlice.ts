@@ -7,15 +7,17 @@ const initialState: IWordStorageInitialState = {
   detailWordStorage: [],
   isLoading: false,
   isFinish: false,
+  pageNum: 0,
+  lastPage: false,
 };
 
 export const __getWordStorageList = createAsyncThunk(
   "wordStorageSlice/__getWordStorageList",
-  async (payload, thunkAPI) => {
+  async (payload: number, thunkAPI) => {
     try {
-      const data = await apis.getWordStorages();
-      // console.log(data);
-      return thunkAPI.fulfillWithValue(data.data.content);
+      const data = await apis.getWordStorages(payload);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
       throw error;
@@ -52,8 +54,10 @@ export const wordStorageSlice = createSlice({
       state.isLoading = true;
     },
     [__getWordStorageList.fulfilled.type]: (state, action) => {
-      // console.log("hahahah", state, action);
-      state.wordStorage = action.payload;
+      // console.log("hahahah", state, action.payload);
+      state.wordStorage = action.payload.content;
+      state.pageNum = action.payload.number;
+      state.lastPage = action.payload.last;
       state.isLoading = false;
       state.isFinish = true;
     },
@@ -63,17 +67,17 @@ export const wordStorageSlice = createSlice({
     },
 
     [__searchWordStorage.pending.type]: (state, action) => {
-      console.log(state, action);
+      // console.log(state, action);
       state.isLoading = true;
     },
     [__searchWordStorage.fulfilled.type]: (state, action) => {
-      console.log("hahahah", state, action);
+      // console.log("hahahah", state, action);
       state.wordStorage = action.payload;
       state.isLoading = false;
       state.isFinish = true;
     },
     [__searchWordStorage.rejected.type]: (state, action) => {
-      console.log(state, action);
+      // console.log(state, action);
       state.isFinish = true;
     },
   },
