@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 // import { useNavigate } from "react-router-dom";
-import { WordStorage } from "../../types/types";
+import { IWordStorage } from "../../types/types";
 
 type Props = {
-  wordStorage: WordStorage;
+  wordStorage: IWordStorage;
 };
 
 const MyWordCard = ({ wordStorage }: Props) => {
@@ -14,11 +14,10 @@ const MyWordCard = ({ wordStorage }: Props) => {
     title,
     lastTestAt,
     description,
-    writer,
     createAt,
     // likeCount,
   } = wordStorage;
-
+  console.log(wordStorage);
   // const navigate = useNavigate();
 
   // const moveToDetail = (id: number) => {
@@ -37,19 +36,13 @@ const MyWordCard = ({ wordStorage }: Props) => {
       </VocaCategory>
 
       <CardTitle>
-        <div>
-          {title}
-          ㄴㅇㄹㄴㅇㄹㅁㄴㅇㅁㄴㅇㅁㄴㄴㅇsdafasdfasdsdssdfaasdsdfasdfㄹㄴㅇㄹ
-        </div>
-        <div>
-          {description}
-          ㅁㄴㅇㅁㄴㄹ야ㅐㅔㅕㅁ갸ㅐ험게ㅐ햐ㅓ메개댜asdasdasdsa허메ㅑㅐasdfasdfasdfasdfasdfasㄹ어헴앨햐ㅓF
-        </div>
+        <div>{title}</div>
+        <div>{description}</div>
       </CardTitle>
 
       <AboutCard>
         <span> 마지막 시험 &nbsp;&nbsp;{lastTestAt}</span>
-        <div>작성 &nbsp;&nbsp;{writer}</div>
+        {/* <div>작성 &nbsp;&nbsp;{writer}</div> */}
         <div>제작 &nbsp;&nbsp;{createAt}</div>
       </AboutCard>
     </CardContainer>

@@ -42,4 +42,7 @@ export const apis = {
 
   checkNickname: (nickname: string) =>
     api.post("/api/check/nickname", { nickname }),
+
+  // chart
+  getChartData: () => api.get("/api/wordstorage/statistic"),
 };

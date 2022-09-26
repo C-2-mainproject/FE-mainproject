@@ -1,5 +1,17 @@
+import { useEffect } from "react";
 import styled from "styled-components";
+import { apis } from "../shared/api";
 const Header = () => {
+  const login = async () => {
+    try {
+      await apis.login().then(res => console.log(res));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    login();
+  }, []);
   return (
     <HeaderBar>
       <HeaderContent>

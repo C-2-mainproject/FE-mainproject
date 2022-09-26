@@ -6,8 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import goPrev from "../../images/arrow_back_ios.png";
 import goNext from "../../images/arrow_forward_ios.png";
 // import arrow_foward from "../../images/icon/arrow_foward.png";
-import { useState } from "react";
-import { WordStorage } from "../../types/types";
+import { useState, useEffect } from "react";
+import { IWordStorage } from "../../types/types";
+
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 
 // interface sliderProps {
 //   /** 슬라이더 아이템 요소 */
@@ -23,87 +26,30 @@ import { WordStorage } from "../../types/types";
 // }
 
 const SlickMyBook = () => {
+  const [myVocaList, setmyVocaList] = useState<IWordStorage[]>([]);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(__getWordStorageList());
+  }, []);
+
+  const { wordStorage, isFinish } = useAppSelector(
+    state => state.wordStorageSlice,
+  );
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToScroll: 4,
-    slidesToShow: 4,
+    slidesToScroll: 2,
+    slidesToShow: 2,
     loop: true,
   };
-
-  const [myVocaList, setmyVocaList] = useState<WordStorage[]>([
-    {
-      id: 1,
-      title: "테스트 단어장1",
-      description: "테스트 단어장입니다.",
-      category: "토익",
-      likeCount: 13,
-      bookmarked: true,
-      public: true,
-      writer: "일단이",
-      createAt: "2022.09.01",
-      modifiedAt: "2022.09.01",
-      lastTestAt: "2022.09.01",
-    },
-    {
-      id: 2,
-      title: "테스트 단어장2",
-      description: "테스트 단어장입니다.",
-      category: "토익",
-      likeCount: 11,
-      bookmarked: true,
-      public: true,
-      writer: "일단이",
-      createAt: "2022.09.02",
-      modifiedAt: "2022.09.02",
-      lastTestAt: "2022.09.02",
-    },
-    {
-      id: 3,
-      title: "테스트 단어장3",
-      description: "테스트 단어장입니다.",
-      category: "토익",
-      likeCount: 11,
-      bookmarked: true,
-      public: true,
-      writer: "일단이",
-      createAt: "2022.09.02",
-      modifiedAt: "2022.09.02",
-      lastTestAt: "2022.09.02",
-    },
-    {
-      id: 4,
-      title: "테스트 단어장4",
-      description: "테스트 단어장입니다.",
-      category: "토익",
-      likeCount: 11,
-      bookmarked: true,
-      public: true,
-      writer: "일단이",
-      createAt: "2022.09.02",
-      modifiedAt: "2022.09.02",
-      lastTestAt: "2022.09.02",
-    },
-    {
-      id: 5,
-      title: "테스트 단어장5",
-      description: "테스트 단어장입니다.",
-      category: "토익",
-      likeCount: 11,
-      bookmarked: true,
-      public: true,
-      writer: "일단이",
-      createAt: "2022.09.02",
-      modifiedAt: "2022.09.02",
-      lastTestAt: "2022.09.02",
-    },
-  ]);
-
+  if (!isFinish) {
+    return null;
+  }
   return (
     <>
       <WordBookSlicder {...settings}>
-        {myVocaList.map((myVoca, list) => {
+        {wordStorage?.map((myVoca, list) => {
           return <MyWordCard wordStorage={myVoca} key={list} />;
         })}
       </WordBookSlicder>
