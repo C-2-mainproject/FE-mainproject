@@ -155,6 +155,7 @@ const BottomSection = styled.div`
 
   h1 {
     margin-top: 80px;
+    margin-left: 80px;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
