@@ -1,22 +1,34 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
+import GameWaitting from "../../components/Game/GameWaitting";
 import { game_logo, logo } from "../../images";
+import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 
 const Game = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isWaittingModal, setIsWaittingModal] = useState(false);
 
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
-  const playGame = () => {
-    navigate("/playgame");
-  };
+  // const playGame = () => {
+  //   navigate("/playgame");
+  // };
 
   const gameGuide = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  const gameWaitting = () => {
+    setIsWaittingModal(!isWaittingModal);
+  };
+
+  const test1 = async () => {
+    // await apis.getRecod().then(data => console.log(data));
+    await apis.getRank().then(data => console.log(data));
   };
 
   return (
@@ -25,6 +37,7 @@ const Game = () => {
         <GameBox>
           <TopSection>
             <div>
+              <button onClick={test1}>test!!!!</button>
               <MyInfo>
                 <ImgSection>
                   <img src={userInfo.profileImage} alt="profileImage" />
@@ -42,8 +55,11 @@ const Game = () => {
               <GameImg>
                 <div>
                   <img src={game_logo} alt="game_logo" />
-                  <button onClick={playGame}>
+                  <button onClick={gameWaitting}>
                     <span>게임 시작</span>
+                    {isWaittingModal && (
+                      <GameWaitting openWattingModal={gameWaitting} />
+                    )}
                   </button>
                 </div>
               </GameImg>

@@ -19,6 +19,7 @@ import check from "./check.png";
 import circle from "./circle.png";
 import star from "./star.png";
 import top_dlfeksdl from "./top_dlfeksdl.png";
+import game_ildan from "./game_ildan.png";
 
 export {
   add,
@@ -42,4 +43,5 @@ export {
   circle,
   star,
   top_dlfeksdl,
+  game_ildan,
 };
