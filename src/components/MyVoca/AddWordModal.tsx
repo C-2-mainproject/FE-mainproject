@@ -67,7 +67,6 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
             </Title>
             <Form>
               <h1>영어단어 추가하기</h1>
-              <button onClick={addWordList}>추가</button>
             </Form>
             <AddArea>
               <div>
@@ -96,8 +95,9 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
               </p>
               <p>
                 <span>
-                  여러개의 단어를 추가하고 싶다면 추가 버튼을 눌러주세요!
+                  여러개의 단어를 추가하고 싶다면 추가 버튼을 눌러주세요! 👉🏻
                 </span>
+                <button onClick={addWordList}>추가</button>
               </p>
             </AddArea>
 
@@ -202,15 +202,6 @@ const Form = styled.div`
     text-align: left;
     color: #dbdbdb;
   }
-
-  button {
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    margin-left: 30px;
-    background-color: black;
-    color: white;
-  }
 `;
 const Contents = styled.div`
   margin: 50px 30px;
@@ -224,7 +215,7 @@ const Contents = styled.div`
 
 const AddArea = styled.div`
   p {
-    margin-top: 40px;
+    margin-top: 20px;
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -247,6 +238,15 @@ const AddArea = styled.div`
     font-size: 16px;
     line-height: 23px;
     color: #000000;
+  }
+
+  button {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-left: 10px;
+    background-color: black;
+    color: white;
   }
 `;
 const Button = styled.button`

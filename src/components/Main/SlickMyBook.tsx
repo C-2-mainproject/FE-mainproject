@@ -41,6 +41,7 @@ const SlickMyBook = () => {
     slidesToShow: wordStorage.length > 4 ? 4 : wordStorage.length,
     loop: true,
   };
+
   if (!isFinish) {
     return null;
   }
