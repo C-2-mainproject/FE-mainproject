@@ -52,10 +52,14 @@ export const apis = {
   checkNickname: (nickname: string) =>
     api.post("/api/check/nickname", { nickname }),
 
+  // chart
+  getChartData: () => api.get("/api/wordstorage/statistic"),
+
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),
 
   // 공인 단어장
   suggestionWordStorage: (id: number) =>
     api.post(`/api/wordstorage/like/${id}`),
+
 };

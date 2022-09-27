@@ -4,20 +4,20 @@ import { ApexOptions } from "apexcharts";
 import styled from "styled-components";
 import { useAxios } from "../../hooks/useAxios";
 
-const mok = [
-  { categoryName: "토익", count: 232 },
-  {
-    categoryName: "토플",
-    count: 112,
-  },
-  {
-    categoryName: "영어",
-    count: 128,
-  },
-];
+// const mok = [
+//   { categoryName: "토익", count: 232 },
+//   {
+//     categoryName: "토플",
+//     count: 112,
+//   },
+//   {
+//     categoryName: "영어",
+//     count: 128,
+//   },
+// ];
 
 const WordChart = () => {
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState<any>();
   const [category, setCategory] = useState<string[]>([]);
   const [series, setSeries] = useState<number[]>([]);
   const { data, loading, error } = useAxios({
@@ -25,22 +25,21 @@ const WordChart = () => {
     method: "get",
   });
   useEffect(() => {
-    if (data !== null) {
-      setChartData(data);
-    }
-  }, [chartData]);
-  console.log(data);
-
+    setChartData(data);
+  }, [data]);
   useEffect(() => {
-    for (const x of mok) {
-      setCategory(category => category.concat(x.categoryName));
-      setSeries(series => series.concat(x.count));
+    if (chartData) {
+      for (const x of chartData) {
+        setCategory(category => category.concat(x.categoryName));
+        setSeries(series => series.concat(x.count));
+      }
     }
     return () => {
       setCategory([]);
       setSeries([]);
     };
-  }, []);
+  }, [chartData]);
+
   const options: ApexOptions = {
     chart: {
       type: "donut",
