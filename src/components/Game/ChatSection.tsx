@@ -1,11 +1,13 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import styled from "styled-components";
-import { getSessionId } from "../../shared/Cookie";
+// import { getSessionId } from "../../shared/Cookie";
 import { GameInput, ChatList } from "../index";
-import axios from "axios";
+// import axios from "axios";
 import { ildan } from "../../images";
+import { useAppSelector } from "../../shared/reduxHooks";
+// import { apis } from "../../shared/api";
 
 // JOIN
 // DISCONNECTED
@@ -14,25 +16,36 @@ import { ildan } from "../../images";
 // GAME
 // NEXT
 // FINISH
-
 const quiz_list = ["aaa", "bbb", "ccc", "ddd"];
 const ChatSection = () => {
-  const [roomId, setRoomId] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  // const [stringInfo, setStringInfo] = useState({
+  //   roomId: "",
+  //   message: "",
+  //   sessionId: "",
+  // });
+
   const [returnMsg, setReturnMsg] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
   const [number, setNumber] = useState<number>(0);
   const [answer, setAnswer] = useState<number>(0);
 
+  const { gameInfo } = useAppSelector(state => state.gameInfoSlice);
+  const { userInfo } = useAppSelector(state => state.userInfoSlice);
+  console.log("userInfo is :: ", userInfo);
+
   const socket = new SockJS("http://newlno.com/ws");
   const stompClient = Stomp.over(socket);
 
   const headers = {
-    simpSessionId: getSessionId(),
+    nickname: userInfo.nickname,
+    profileImg: userInfo.profileImage,
+    answerNumber: 0,
   };
 
   useLayoutEffect(() => {
     onConnected();
+
     return () => {
       onDisconnect();
     };
@@ -57,18 +70,18 @@ const ChatSection = () => {
     console.log("onConnected!!");
     try {
       stompClient.connect(headers, () => {
-        stompClient.subscribe(
-          `/sub/chat/join`,
-          data => {
-            const returnMessage = JSON.parse(data.body);
-            setRoomId(returnMessage.roomId);
-
-            reSubscribe(returnMessage.roomId);
-          },
-          headers,
-        );
+        reSubscribe();
+        // stompClient.subscribe(
+        //   `/sub/chat/join`,
+        //   data => {
+        //     const returnMessage = JSON.parse(data.body);
+        //     // setRoomId(returnMessage.roomId);
+        //     // setSessionId(returnMessage.sessionId);
+        //     reSubscribe();
+        //   },
+        //   headers,
+        // );
       });
-      // stompClient.unsubscribe("sub-0");
     } catch (error) {
       console.log(error);
       throw error;
@@ -81,11 +94,12 @@ const ChatSection = () => {
     });
   };
 
-  const reSubscribe = (room: string) => {
+  const reSubscribe = () => {
     try {
       stompClient.unsubscribe("sub-0");
+
       stompClient.subscribe(
-        `/sub/chat/enter/${room}`,
+        `/sub/chat/enter/${gameInfo.roomId}`,
         data => {
           const returnMessage = JSON.parse(data.body);
           console.log("return msg::", returnMessage);
@@ -96,10 +110,27 @@ const ChatSection = () => {
           }
 
           if (returnMessage.messageType === "GAME") {
-            if (quiz_list[returnMessage.number] === returnMessage.message) {
-              console.log("정답입니다.", quiz_list[returnMessage.number]);
-              setNumber(returnMessage.number + 1);
-              setAnswer(returnMessage.answer + 1);
+            if (quiz_list[returnMessage.quizNumber] === returnMessage.message) {
+              console.log(
+                "정답입니다.",
+                quiz_list[returnMessage.quizNumber],
+                answer,
+              );
+
+              setNumber(returnMessage.quizNumber + 1);
+
+              if (userInfo.nickname === returnMessage.nickname) {
+                console.log(
+                  "12312312313123",
+                  "나 : ",
+                  userInfo.nickname,
+                  "/ 보낸사람 :",
+                  returnMessage.nickname,
+                  "/ 내 점수",
+                  answer,
+                );
+                setAnswer(prev => prev + 1);
+              }
             }
           }
         },
@@ -113,32 +144,35 @@ const ChatSection = () => {
 
   const sendMessage = () => {
     stompClient.send(
-      `/pub/chat/enter/${roomId}`,
+      `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
-        sessionId: getSessionId(),
+        answerUser1: answer,
+        answerUser2: 0,
         message: message,
-        roomId: roomId,
-        number: number,
-        answer: answer,
         messageType: isReady ? "GAME" : "CHAT",
+        nickname: userInfo.nickname,
+        quizNumber: number,
+        roomId: gameInfo.roomId,
+        sessionId: gameInfo.sessionId,
       }),
     );
   };
 
   const ready = () => {
     console.log("ready!!!");
-
-    stompClient.send(
-      `/pub/chat/enter/${roomId}`,
-      headers,
-      JSON.stringify({
-        sessionId: getSessionId(),
-        message: "게임을 시작합니다",
-        roomId: roomId,
-        messageType: "READY",
-      }),
-    );
+    if (!isReady) {
+      stompClient.send(
+        `/pub/chat/enter/${gameInfo.roomId}`,
+        headers,
+        JSON.stringify({
+          sessionId: gameInfo.sessionId,
+          message: "게임을 시작합니다",
+          roomId: gameInfo.roomId,
+          messageType: "READY",
+        }),
+      );
+    }
   };
 
   return (

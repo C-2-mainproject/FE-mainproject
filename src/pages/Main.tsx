@@ -4,7 +4,7 @@ import SlickMyBook from "../components/Main/SlickMyBook";
 import Header from "../Layout/Header";
 import Dlfeksdl from "../images/top_dlfeksdl.png";
 import RunDlfeksdl from "../images/run_dlfeksdl.png";
-import { useAxios } from "../hooks/useAxios";
+
 const Main = () => {
   return (
     <>

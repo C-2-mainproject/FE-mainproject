@@ -60,4 +60,12 @@ export const apis = {
   // 공인 단어장
   suggestionWordStorage: (id: number) =>
     api.post(`/api/wordstorage/like/${id}`),
+
+  // 1대1 영단어 게임
+  getRecod: () => api.get("/api/game/my/record"),
+
+  getGameWordStorage: (roomId: string) =>
+    api.get(`/api/game/word?roomId=${roomId}`),
+
+  getRank: () => api.get("/api/game/rank"),
 };

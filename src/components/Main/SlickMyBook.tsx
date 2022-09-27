@@ -27,12 +27,13 @@ const SlickMyBook = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(__getWordStorageList(pageNum));
+    dispatch(__getWordStorageList(0));
   }, []);
 
-  const { wordStorage, isFinish, pageNum } = useAppSelector(
+  const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
+
   const settings = {
     dots: false,
     infinite: true,

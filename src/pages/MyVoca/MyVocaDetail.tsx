@@ -297,7 +297,7 @@ const Ildan = styled.img`
   position: relative;
   width: 280px;
   height: 280px;
-  left: 370px;
+  left: 700px;
   bottom: 400px;
   cursor: pointer;
 `;

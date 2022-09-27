@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ildan } from "../../images";
 
-const quiz_list = ["Apple", "Banana", "Tree", "Star", "Fruit", "Bag"];
+// const quiz_list = ["Apple", "Banana", "Tree", "Star", "Fruit", "Bag"];
 
 const QuizInfoSection = () => {
   return (
