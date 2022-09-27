@@ -74,9 +74,47 @@ export interface IWordStorageInitialState {
   detailWordStorage: IWordStorage[];
   isLoading: boolean;
   isFinish: boolean;
+  pageNum: number;
+  lastPage: boolean;
 }
 
 export interface IUpdateWord {
+  words: string[];
+  meanings: string[][];
+}
+
+export interface ITestWordStorage {
+  wordStorageId: number;
+  words: string[];
+  meanings: string[][];
+}
+
+export interface IAnswer {
+  index: number;
+  words: string;
+  meanings: string[];
+}
+
+export interface IAnswerInitialState {
+  answerStorage: IAnswer[];
+  testWordStorage: ITestWordStorage[];
+  isLoading: boolean;
+  isFinish: boolean;
+}
+
+export interface IEndWordTestItem {
+  wordStorageId: number;
+  testType: string;
+  totalWords: number;
+  wrongWords: number;
+  time: number;
+  collectionWrongWord: {
+    word: string[];
+    meaning: string[][];
+  };
+}
+
+export interface ICollectionWrongWord {
   words: string[];
   meanings: string[][];
 }

@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { ChatBox, Quiz } from "../../components";
+import { ChatSection, QuizInfoSection } from "../../components";
 
 const PlayGame = () => {
   return (
     <PlayGameLayout>
       <PlayGameWrapper>
         <PlayGameBox>
-          <Quiz />
-          <ChatBox />
+          <QuizInfoSection />
+          <ChatSection />
         </PlayGameBox>
       </PlayGameWrapper>
     </PlayGameLayout>
@@ -23,13 +23,12 @@ const PlayGameLayout = styled.div`
 const PlayGameWrapper = styled.div`
   width: 1360px;
   margin: auto;
-  background-color: gray;
 `;
 
 const PlayGameBox = styled.div`
   width: 1280px;
   margin: auto;
-  background-color: white;
+  display: flex;
 `;
 
 export default PlayGame;

@@ -43,6 +43,7 @@ const SlickMyBook = () => {
     slidesToShow: 2,
     loop: true,
   };
+
   if (!isFinish) {
     return null;
   }
