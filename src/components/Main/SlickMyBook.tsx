@@ -6,8 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import goPrev from "../../images/arrow_back_ios.png";
 import goNext from "../../images/arrow_forward_ios.png";
 // import arrow_foward from "../../images/icon/arrow_foward.png";
-import { useState, useEffect } from "react";
-import { IWordStorage } from "../../types/types";
+import { useEffect } from "react";
+// import { IWordStorage } from "../../types/types";
 
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
@@ -26,15 +26,16 @@ import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 // }
 
 const SlickMyBook = () => {
-  const [myVocaList, setmyVocaList] = useState<IWordStorage[]>([]);
+  // const [myVocaList, setmyVocaList] = useState<IWordStorage[]>([]);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(__getWordStorageList());
+    dispatch(__getWordStorageList(0));
   }, []);
 
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
+
   const settings = {
     dots: false,
     infinite: true,

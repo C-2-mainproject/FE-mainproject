@@ -66,7 +66,7 @@ export const wordStorageSlice = createSlice({
       state.isFinish = true;
     },
 
-    [__searchWordStorage.pending.type]: (state, action) => {
+    [__searchWordStorage.pending.type]: state => {
       // console.log(state, action);
       state.isLoading = true;
     },
@@ -76,7 +76,7 @@ export const wordStorageSlice = createSlice({
       state.isLoading = false;
       state.isFinish = true;
     },
-    [__searchWordStorage.rejected.type]: (state, action) => {
+    [__searchWordStorage.rejected.type]: state => {
       // console.log(state, action);
       state.isFinish = true;
     },
