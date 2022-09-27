@@ -1,17 +1,22 @@
 import styled from "styled-components";
 
-const WordItem = () => {
-  const deleteWord = () => {
-    console.log("delete word");
-  };
+type ValueProps = {
+  wordValue: string;
+  meaningValue: string[];
+};
+
+const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
+  // const deleteWord = () => {
+  //   console.log("delete word");
+  // };
 
   return (
     <WordItemLayout>
-      <p>Capability</p>
-      <p>능력,가능성,재능</p>
-      <WordItemLayoutHover>
+      <p>{wordValue}</p>
+      <p>{meaningValue.join(", ")}</p>
+      {/* <WordItemLayoutHover>
         <button onClick={deleteWord}>삭제하기</button>
-      </WordItemLayoutHover>
+      </WordItemLayoutHover> */}
     </WordItemLayout>
   );
 };
@@ -20,7 +25,7 @@ const WordItemLayout = styled.div`
   position: relative;
   width: 290px;
   height: 300px;
-  background-color: #f3f3f3;
+  background-color: #e4f5fa;
   margin-right: 40px;
   margin-bottom: 40px;
 
@@ -41,7 +46,7 @@ const WordItemLayout = styled.div`
     color: #000;
   }
 
-  p: nth-child(2) {
+  p:nth-child(2) {
     margin-top: 20px;
     font-family: NotoSansKR;
     font-size: 18px;
@@ -55,31 +60,31 @@ const WordItemLayout = styled.div`
   }
 `;
 
-const WordItemLayoutHover = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9;
-  width: 290px;
-  height: 300px;
-  display: flex;
-  flex-direction: column-reverse;
-  font-size: 1.5rem;
-  font-weight: bold;
-  background-color: black;
-  opacity: 0;
+// const WordItemLayoutHover = styled.div`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   z-index: 9;
+//   width: 290px;
+//   height: 300px;
+//   display: flex;
+//   flex-direction: column-reverse;
+//   font-size: 1.5rem;
+//   font-weight: bold;
+//   background-color: black;
+//   opacity: 0;
 
-  :hover {
-    opacity: 0.5;
-  }
+//   :hover {
+//     opacity: 0.5;
+//   }
 
-  button {
-    width: 160px;
-    height: 52px;
-    margin: 0 65px 20px 65px;
-    color: white;
-    background-color: transparent;
-    border: 1px solid;
-  }
-`;
+//   button {
+//     width: 160px;
+//     height: 52px;
+//     margin: 0 65px 20px 65px;
+//     color: white;
+//     background-color: transparent;
+//     border: 1px solid;
+//   }
+// `;
 export default WordItem;

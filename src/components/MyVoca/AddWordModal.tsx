@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { apis } from "../../shared/api";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
@@ -7,28 +9,50 @@ type ModalProps = {
 };
 
 const AddWordModal = ({ openAddWordModal }: ModalProps) => {
-  const [count, setCount] = useState<number>(0);
-  const [addWord, setAddWord] = useState({
-    word: "",
-    mean: "",
+  const { id } = useParams();
+  const [word, setWord] = useState<string[]>([]);
+  const [mean, setMean] = useState<string[][]>([]);
+
+  const [inputWord, setInputWord] = useState({
+    words: "",
+    meanings: "",
   });
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
-    setAddWord({
-      ...addWord,
+    setInputWord({
+      ...inputWord,
       [id]: value,
     });
   };
 
-  const makeWord = () => {
-    // api 통신 : 특정단어장 단어 편집 -> PUT | /api/user/wordstorage/id/{id}/word
-    console.log("hahahahahahah", addWord);
+  const makeWord = async () => {
+    console.log(word, mean);
+    const newId = Number(id);
+    try {
+      await apis
+        .editWord(newId, {
+          words: word,
+          meanings: mean,
+        })
+        .then(data => console.log(data));
+    } catch (error) {
+      console.log(error);
+    }
+    openAddWordModal();
   };
 
-  const add = () => {
-    console.log("aa");
-    setCount(count + 1);
+  const addWordList = () => {
+    if (inputWord.words && inputWord.meanings) {
+      console.log("inini", inputWord);
+      setWord([...word, inputWord.words]);
+      setMean([...mean, inputWord.meanings.split(",")]);
+
+      setInputWord({
+        meanings: "",
+        words: "",
+      });
+    }
   };
 
   return (
@@ -37,25 +61,44 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
         <ModalWrap>
           <CloseButton onClick={openAddWordModal}>X</CloseButton>
           <Contents>
-            <p>새 단어 추가</p>
+            <Title>
+              <h1>단어장의 기준이 되다</h1>
+              <span>일단이와 함께하는 완전 단어 학습</span>
+            </Title>
+            <Form>
+              <h1>영어단어 추가하기</h1>
+            </Form>
             <AddArea>
               <div>
-                <p>영어 단어</p>
+                <p>영어</p>
                 <input
-                  id="word"
-                  placeholder="영어 단어를 입력하세요"
+                  id="words"
+                  placeholder="영어 단어를 입력해주세요"
+                  value={inputWord.words}
                   onChange={onChangeHandler}
                 />
               </div>
               <div>
-                <p>한글 뜻</p>
+                <p>의미 (뜻)</p>
                 <input
-                  id="mean"
-                  placeholder="한글 뜻을 입력하세요"
+                  id="meanings"
+                  placeholder="한글로된 뜻을 입력해주세요"
+                  value={inputWord.meanings}
                   onChange={onChangeHandler}
                 />
               </div>
-              <button onClick={add}>추가</button>
+              <p>
+                <span>
+                  TIP! 의미(뜻)가(이) 여러개라면 콤마(,)를 사용하여
+                  구분해주세요!
+                </span>
+              </p>
+              <p>
+                <span>
+                  여러개의 단어를 추가하고 싶다면 추가 버튼을 눌러주세요! 👉🏻
+                </span>
+                <button onClick={addWordList}>추가</button>
+              </p>
             </AddArea>
 
             <Button>
@@ -81,7 +124,6 @@ const Overlay = styled.div`
 const ModalWrap = styled.div`
   width: 640px;
   height: fit-content;
-  border-radius: 15px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -97,6 +139,70 @@ const CloseButton = styled.div`
   cursor: pointer;
 `;
 
+const Title = styled.div`
+  width: 480px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid;
+
+  h1 {
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2px;
+    text-align: left;
+    color: #000;
+  }
+
+  span {
+    font-size: 36px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2px;
+    text-align: left;
+    color: #000;
+  }
+`;
+
+const Form = styled.div`
+  display: flex;
+  h1 {
+    margin-top: 20px;
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2.52px;
+    text-align: left;
+    color: #000;
+  }
+
+  p {
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.68px;
+    text-align: left;
+    color: #000;
+  }
+
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.26px;
+    text-align: left;
+    color: #dbdbdb;
+  }
+`;
 const Contents = styled.div`
   margin: 50px 30px;
   padding: 50px;
@@ -104,17 +210,43 @@ const Contents = styled.div`
   h1 {
     font-size: 30px;
     font-weight: 600;
-    margin-bottom: 60px;
   }
 `;
 
 const AddArea = styled.div`
-  height: 200px;
-  border: 1px solid;
-  overflow-y: scroll;
+  p {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 480px;
+    height: 60px;
+    border: 0px;
+    border-bottom: 1px solid;
+    background: #ffffff;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    color: #000000;
+  }
 
   button {
-    background-color: gray;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-left: 10px;
+    background-color: black;
+    color: white;
   }
 `;
 const Button = styled.button`

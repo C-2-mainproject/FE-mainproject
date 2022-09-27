@@ -164,9 +164,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 640px;
-  height: 1000px;
-  border-radius: 15px;
+  width: 600px;
+  height: 900px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -183,13 +182,12 @@ const CloseButton = styled.div`
 `;
 
 const Contents = styled.div`
-  margin: 50px 30px;
   padding: 50px;
 `;
 
 const Title = styled.div`
   width: 480px;
-  padding-bottom: 33px;
+  padding-bottom: 20px;
   border-bottom: 1px solid;
 
   h1 {
@@ -217,7 +215,7 @@ const Title = styled.div`
 
 const Form = styled.div`
   h1 {
-    margin-top: 52px;
+    margin-top: 20px;
     font-size: 36px;
     font-weight: 500;
     font-stretch: normal;
@@ -340,7 +338,7 @@ const Button = styled.button`
   width: 480px;
   height: 60px;
   padding: 17px 192px;
-  margin-top: 60px;
+  margin-top: 25px;
   background-color: #d4d4d4;
 
   span {

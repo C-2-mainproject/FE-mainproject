@@ -1,21 +1,25 @@
 import styled from "styled-components";
 import { IWordStorage } from "../../types/types";
-import { like } from "../../images";
-import { useNavigate } from "react-router-dom";
+import { like, like_fill } from "../../images";
+import { useNavigate, useParams } from "react-router-dom";
+import WordTestSereviceModal from "../WordTestService/WordTestServiceModal";
+import { useState } from "react";
 
 type Props = {
   wordStorage: IWordStorage;
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
+  const { id } = useParams();
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const moveToDetail = (id: number) => {
     navigate(`/myvoca-detail/${id}`);
   };
 
-  const moveToTestService = (id: number) => {
-    navigate(`/wordtest/${id}`);
+  const wordTestServiceModal = () => {
+    setIsOpenModal(!isOpenModal);
   };
 
   return (
@@ -43,18 +47,30 @@ const MyVocaItem = ({ wordStorage }: Props) => {
           <p>
             제작
             <span>{wordStorage.createAt.split("T")[0]}</span>
-            <img src={like} alt="like" />
+            {wordStorage.likeCount === 0 ? (
+              <img src={like} alt="like" />
+            ) : (
+              <img src={like_fill} alt="like" />
+            )}
             {wordStorage.likeCount}
           </p>
         </div>
       </BodyDiv>
       <MyVocaItemLayoutHover key={wordStorage.id}>
-        <button onClick={() => moveToDetail(wordStorage.id)}>
-          자세히 보기
-        </button>
-        <button onClick={() => moveToTestService(wordStorage.id)}>
-          시험보기
-        </button>
+        {!id ? (
+          <button onClick={() => moveToDetail(wordStorage.id)}>
+            자세히 보기
+          </button>
+        ) : (
+          ""
+        )}
+        <button onClick={wordTestServiceModal}>시험보기</button>
+        {isOpenModal && (
+          <WordTestSereviceModal
+            id={wordStorage.id}
+            openWordTestServiceModal={wordTestServiceModal}
+          />
+        )}
       </MyVocaItemLayoutHover>
     </MyVocaItemLayout>
   );
@@ -66,7 +82,7 @@ const MyVocaItemLayout = styled.div`
   height: 400px;
   margin-right: 40px;
   margin-bottom: 40px;
-  background-color: #e7e7e7;
+  background-color: #e4f5fa;
 
   &:nth-child(4n) {
     margin-right: 0px;
@@ -97,7 +113,7 @@ const HeaderDiv = styled.div`
     height: 52px;
     padding: 12px;
     text-align: center;
-    background-color: #949494;
+    background-color: #00b4db;
     font-family: NotoSansKR;
     font-size: 24px;
     font-weight: 500;

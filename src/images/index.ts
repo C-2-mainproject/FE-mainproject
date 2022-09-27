@@ -13,6 +13,13 @@ import mainsub_sharebook from "./icon/share_book.png";
 import ildan from "./ildan.png";
 import like_fill from "./like_fill.png";
 import like from "./like.png";
+import cancel from "./cancel.png";
+import game_logo from "./game_logo.png";
+import check from "./check.png";
+import circle from "./circle.png";
+import star from "./star.png";
+import top_dlfeksdl from "./top_dlfeksdl.png";
+import game_ildan from "./game_ildan.png";
 
 export {
   add,
@@ -30,4 +37,11 @@ export {
   ildan,
   like_fill,
   like,
+  cancel,
+  game_logo,
+  check,
+  circle,
+  star,
+  top_dlfeksdl,
+  game_ildan,
 };

@@ -1,19 +1,34 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
-import { logo } from "../../images";
+import GameWaitting from "../../components/Game/GameWaitting";
+import { game_logo, logo } from "../../images";
+import { apis } from "../../shared/api";
+import { useAppSelector } from "../../shared/reduxHooks";
 
 const Game = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isWaittingModal, setIsWaittingModal] = useState(false);
 
-  const playGame = () => {
-    navigate("/playgame");
-  };
+  const { userInfo } = useAppSelector(state => state.userInfoSlice);
+
+  // const playGame = () => {
+  //   navigate("/playgame");
+  // };
 
   const gameGuide = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  const gameWaitting = () => {
+    setIsWaittingModal(!isWaittingModal);
+  };
+
+  const test1 = async () => {
+    // await apis.getRecod().then(data => console.log(data));
+    await apis.getRank().then(data => console.log(data));
   };
 
   return (
@@ -22,14 +37,15 @@ const Game = () => {
         <GameBox>
           <TopSection>
             <div>
+              <button onClick={test1}>test!!!!</button>
               <MyInfo>
                 <ImgSection>
-                  <img src={logo} alt="항해" />
+                  <img src={userInfo.profileImage} alt="profileImage" />
                 </ImgSection>
                 <InfoSection>
                   <h1>나의 점수</h1>
                   <p>
-                    아이디<span>hang9999</span>
+                    아이디<span>{userInfo.nickname}</span>
                   </p>
                   <p>
                     승리수<span>99</span>
@@ -38,8 +54,13 @@ const Game = () => {
               </MyInfo>
               <GameImg>
                 <div>
-                  <img src={logo} alt="항해" />
-                  <button onClick={playGame}>게임 시작</button>
+                  <img src={game_logo} alt="game_logo" />
+                  <button onClick={gameWaitting}>
+                    <span>게임 시작</span>
+                    {isWaittingModal && (
+                      <GameWaitting openWattingModal={gameWaitting} />
+                    )}
+                  </button>
                 </div>
               </GameImg>
             </div>
@@ -68,7 +89,9 @@ const Game = () => {
               <h1>게임 방법 안내</h1>
               <p>일단이의 영단어 대결 게임 방법 가이드</p>
             </div>
-            <button onClick={gameGuide}>바로 가기</button>
+            <button onClick={gameGuide}>
+              <span>바로 가기</span>
+            </button>
             {isOpenModal && <GameGuideModal openGameGuideModal={gameGuide} />}
           </BottomSection>
         </GameBox>
@@ -124,32 +147,30 @@ const BottomSection = styled.div`
   width: 1276px;
   height: 334px;
   display: flex;
+  justify-content: space-between;
+
   margin-bottom: 232px;
-  border: 1px solid;
+  border: 1px solid #00b4db;
+  background-color: #f4fcfd;
 
   h1 {
-    margin: 80px;
-    font-family: "Noto Sans KR";
+    margin-top: 80px;
+    margin-left: 80px;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
     line-height: 70px;
-    /* identical to box height */
-
     letter-spacing: -0.07em;
-
     color: #000000;
   }
 
   p {
     margin-left: 80px;
-    font-family: "Noto Sans KR";
+    margin-top: 60px;
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
     line-height: 35px;
-    /* identical to box height */
-
     letter-spacing: -0.07em;
 
     color: #999999;
@@ -158,9 +179,19 @@ const BottomSection = styled.div`
   button {
     width: 300px;
     height: 83px;
-    margin: 125px;
+    margin-top: 125px;
+    margin-right: 100px;
     background: #00b4db;
     border: none;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.07em;
+    color: #ffffff;
   }
 `;
 
@@ -218,7 +249,7 @@ const MyInfo = styled.div`
   width: 573px;
   height: 264px;
   display: flex;
-  border: 1px solid #999999;
+  border: 1px solid #00b4db;
 `;
 
 const GameImg = styled.div`
@@ -228,6 +259,7 @@ const GameImg = styled.div`
   height: 644px;
   border: 1px solid #00b4db;
   text-align: center;
+  background: linear-gradient(360deg, rgba(0, 180, 219, 0.2) -1.83%, rgba(0, 180, 219, 0) 92.32%), #FFFFFF;
   
   div {
     margin-top: 55px;
@@ -242,9 +274,16 @@ const GameImg = styled.div`
   button {
     width: 300px;
     height: 83px;
+    background-color: #00B4DB;
   }
-
-  
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.07em;
+    color: #FFFFFF;
+  }
 }
 `;
 
@@ -259,11 +298,13 @@ const ImgSection = styled.div`
   img {
     width: 140px;
     height: 140px;
+    border-radius: 70px;
   }
 `;
 
 const InfoSection = styled.div`
   height: 100%;
+  text-align: left;
 
   h1 {
     margin-top: 52px;

@@ -1,12 +1,68 @@
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import ModalPortal from "../ModalPortal";
-import { expand } from "../../images";
+import { apis } from "../../shared/api";
+import CustomSelect from "../CustomSelect";
 
 type ModalProps = {
   openLoginModal: () => void;
 };
 
+const age_list = [
+  { filterCategory: "나이", value: "10대" },
+  { filterCategory: "나이", value: "20대" },
+  { filterCategory: "나이", value: "30대" },
+  { filterCategory: "나이", value: "40대 이상" },
+];
+
+const gender_list = [
+  { filterCategory: "성별", value: "남성" },
+  { filterCategory: "성별", value: "여성" },
+];
+
 const LoginModal = ({ openLoginModal }: ModalProps) => {
+  const [nickname, setNickname] = useState<string>("");
+  const [validNickname, setValidNickname] = useState<boolean>(false);
+  const [isClick, setIsClick] = useState<boolean>(false);
+
+  const [addWordStorageSelect, setAddWordStorageSelect] = useState({
+    category: "",
+    status: "",
+  });
+
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setNickname(event.target.value);
+  };
+
+  const checkNickName = async () => {
+    if (nickname) {
+      try {
+        if (!isClick) {
+          setIsClick(true);
+        }
+
+        await apis.checkNickname(nickname).then(data => {
+          console.log(data);
+          if (!data.data) {
+            setValidNickname(false);
+          } else {
+            setValidNickname(true);
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const onSubmitHandler = () => {
+    console.log(
+      nickname,
+      addWordStorageSelect.category,
+      addWordStorageSelect.status,
+    );
+  };
+
   return (
     <ModalPortal>
       <Overlay>
@@ -22,29 +78,45 @@ const LoginModal = ({ openLoginModal }: ModalProps) => {
               <div>
                 <Nickname>
                   <p>닉네임</p>
-                  <input placeholder="닉네임을 입력해주세요" />
+                  <input
+                    id="nickname"
+                    value={nickname}
+                    placeholder="닉네임을 입력해주세요"
+                    onChange={onChangeHandler}
+                  />
                   <button>
-                    <span>확인</span>
+                    <span onClick={checkNickName}>확인</span>
                   </button>
+                  {isClick ? (
+                    validNickname ? (
+                      <div>다른 닉네임을 입력해주세요.</div>
+                    ) : (
+                      <div>사용 가능한 닉네임입니다.</div>
+                    )
+                  ) : (
+                    ""
+                  )}
                 </Nickname>
                 <UserInfo>
                   <Div>
                     <p>나이</p>
-                    <div>
-                      <span>나이대를 선택해주세요</span>
-                      <img src={expand} alt="expand" />
-                    </div>
+                    <CustomSelect
+                      props={age_list}
+                      addWordStorageSelect={addWordStorageSelect}
+                      setAddWordStorageSelect={setAddWordStorageSelect}
+                    />
                   </Div>
                   <Div>
                     <p>성별</p>
-                    <div>
-                      <span>성별을 선택해주세요</span>
-                      <img src={expand} alt="expand" />
-                    </div>
+                    <CustomSelect
+                      props={gender_list}
+                      addWordStorageSelect={addWordStorageSelect}
+                      setAddWordStorageSelect={setAddWordStorageSelect}
+                    />
                   </Div>
                 </UserInfo>
                 <Button>
-                  <span>회원가입 완료</span>
+                  <span onClick={onSubmitHandler}>회원가입 완료</span>
                 </Button>
               </div>
             </Form>
@@ -68,7 +140,6 @@ const Overlay = styled.div`
 const ModalWrap = styled.div`
   width: 640px;
   height: fit-content;
-  border-radius: 15px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -91,7 +162,6 @@ const Contents = styled.div`
 
 const Title = styled.div`
   width: 480px;
-  padding-top: 33px;
   padding-bottom: 33px;
   border-bottom: 1px solid;
 
@@ -156,8 +226,8 @@ const Nickname = styled.div`
     margin-top: 10px;
     margin-right: 20px;
 
-    outline: 0;
-    border-width: 0 0 1px;
+    border: none;
+    border-bottom: 1px solid;
   }
 
   span {
