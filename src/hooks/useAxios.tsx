@@ -32,7 +32,6 @@ const useAxios = ({ url, method, body, config }: AxiosProps) => {
   useEffect(() => {
     setLoading(true);
     fetchData();
-    console.log(11);
   }, [url]);
 
   return { loading, error, data };

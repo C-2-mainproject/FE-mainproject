@@ -7,8 +7,6 @@ import goPrev from "../../images/arrow_back_ios.png";
 import goNext from "../../images/arrow_forward_ios.png";
 // import arrow_foward from "../../images/icon/arrow_foward.png";
 import { useState, useEffect } from "react";
-import { IWordStorage } from "../../types/types";
-
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 
@@ -26,21 +24,21 @@ import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 // }
 
 const SlickMyBook = () => {
-  const [myVocaList, setmyVocaList] = useState<IWordStorage[]>([]);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
-    dispatch(__getWordStorageList());
+    dispatch(__getWordStorageList(pageNum));
   }, []);
 
-  const { wordStorage, isFinish } = useAppSelector(
+  const { wordStorage, isFinish, pageNum } = useAppSelector(
     state => state.wordStorageSlice,
   );
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToScroll: 2,
-    slidesToShow: 2,
+    slidesToScroll: 1,
+    slidesToShow: wordStorage.length > 4 ? 4 : wordStorage.length,
     loop: true,
   };
   if (!isFinish) {

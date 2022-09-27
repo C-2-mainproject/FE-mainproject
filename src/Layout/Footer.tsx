@@ -21,6 +21,7 @@ const Footer = () => {
               <p>운영방침</p>
             </div>
           </FooterLogo>
+          <Line />
           <FooterLogo>
             <MadeBy>
               <span>FE</span> 소재범 <span>BE</span>이태민 장동하 유은정 이윤종
@@ -91,6 +92,8 @@ const FooterLogo = styled.div`
   align-items: center;
 
   div {
+    position: relative;
+
     &:nth-child(2) {
       display: flex;
       flex-direction: row;
@@ -116,4 +119,10 @@ const MadeBy = styled.div`
       margin-left: 0px;
     }
   }
+`;
+
+const Line = styled.span`
+  height: 1px;
+  margin: 60px 0px;
+  background-color: #fff;
 `;
