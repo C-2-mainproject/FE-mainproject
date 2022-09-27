@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { useAxios } from "../../hooks/useAxios";
 
 // const mok = [
@@ -20,7 +20,7 @@ const WordChart = () => {
   const [chartData, setChartData] = useState<any>();
   const [category, setCategory] = useState<string[]>([]);
   const [series, setSeries] = useState<number[]>([]);
-  const { data, loading, error } = useAxios({
+  const { data, error } = useAxios({
     url: "/api/wordstorage/statistic",
     method: "get",
   });
@@ -75,6 +75,6 @@ const WordChart = () => {
 
 export default WordChart;
 
-const ChartBox = styled.div`
-  width: 150px;
-`;
+// const ChartBox = styled.div`
+//   width: 150px;
+// `;

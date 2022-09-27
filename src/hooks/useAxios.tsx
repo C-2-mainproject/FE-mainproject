@@ -10,7 +10,7 @@ type AxiosProps = {
   body?: any;
 };
 
-const useAxios = ({ url, method, body, config }: AxiosProps) => {
+const useAxios = ({ url, method, body }: AxiosProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);

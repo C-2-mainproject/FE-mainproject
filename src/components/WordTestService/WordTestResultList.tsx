@@ -1,17 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { apis } from "../../shared/api";
+// import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
-import { IAnswer, ICollectionWrongWord } from "../../types/types";
+import { IAnswer } from "../../types/types";
 import WordTestResultItem from "./WordTestResultItem";
 
 const WordTestResultList = () => {
   let countnumber = 0;
 
   const [sort, setSort] = useState<IAnswer[]>();
-  const [collectionWrongWord, setCollectionWrongWord] =
-    useState<ICollectionWrongWord>();
 
   const { testWordStorage, answerStorage } = useAppSelector(
     state => state.answerSlice,

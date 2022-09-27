@@ -6,9 +6,9 @@ type ValueProps = {
 };
 
 const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
-  const deleteWord = () => {
-    console.log("delete word");
-  };
+  // const deleteWord = () => {
+  //   console.log("delete word");
+  // };
 
   return (
     <WordItemLayout>
@@ -60,31 +60,31 @@ const WordItemLayout = styled.div`
   }
 `;
 
-const WordItemLayoutHover = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9;
-  width: 290px;
-  height: 300px;
-  display: flex;
-  flex-direction: column-reverse;
-  font-size: 1.5rem;
-  font-weight: bold;
-  background-color: black;
-  opacity: 0;
+// const WordItemLayoutHover = styled.div`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   z-index: 9;
+//   width: 290px;
+//   height: 300px;
+//   display: flex;
+//   flex-direction: column-reverse;
+//   font-size: 1.5rem;
+//   font-weight: bold;
+//   background-color: black;
+//   opacity: 0;
 
-  :hover {
-    opacity: 0.5;
-  }
+//   :hover {
+//     opacity: 0.5;
+//   }
 
-  button {
-    width: 160px;
-    height: 52px;
-    margin: 0 65px 20px 65px;
-    color: white;
-    background-color: transparent;
-    border: 1px solid;
-  }
-`;
+//   button {
+//     width: 160px;
+//     height: 52px;
+//     margin: 0 65px 20px 65px;
+//     color: white;
+//     background-color: transparent;
+//     border: 1px solid;
+//   }
+// `;
 export default WordItem;
