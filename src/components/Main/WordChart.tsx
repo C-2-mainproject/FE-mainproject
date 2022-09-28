@@ -1,44 +1,34 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-// import styled from "styled-components";
-import { useAxios } from "../../hooks/useAxios";
-
-// const mok = [
-//   { categoryName: "토익", count: 232 },
-//   {
-//     categoryName: "토플",
-//     count: 112,
-//   },
-//   {
-//     categoryName: "영어",
-//     count: 128,
-//   },
-// ];
+import styled from "styled-components";
+import { apis } from "../../shared/api";
 
 const WordChart = () => {
-  const [chartData, setChartData] = useState<any>();
   const [category, setCategory] = useState<string[]>([]);
   const [series, setSeries] = useState<number[]>([]);
-  const { data, error } = useAxios({
-    url: "/api/wordstorage/statistic",
-    method: "get",
-  });
-  useEffect(() => {
-    setChartData(data);
-  }, [data]);
-  useEffect(() => {
-    if (chartData) {
-      for (const x of chartData) {
-        setCategory(category => category.concat(x.categoryName));
-        setSeries(series => series.concat(x.count));
-      }
+
+  const getWordChart = async () => {
+    try {
+      await apis.getChartData().then(res => {
+        console.log(res.data);
+        for (const x of res.data) {
+          setCategory(category => category.concat(x.categoryName));
+          setSeries(series => series.concat(Number(x.count)));
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  useEffect(() => {
+    getWordChart();
     return () => {
       setCategory([]);
       setSeries([]);
     };
-  }, [chartData]);
+  }, []);
 
   const options: ApexOptions = {
     chart: {
@@ -56,25 +46,21 @@ const WordChart = () => {
 
   return (
     <div>
-      {error && (
-        <div>
-          <p>{error}</p>
-        </div>
-      )}
-      <div id="chart">
+      <ChartBox id="chart">
         <ReactApexChart
           options={options}
           series={options.series}
           type="donut"
           width="350"
         />
-      </div>
+      </ChartBox>
     </div>
   );
 };
 
 export default WordChart;
 
-// const ChartBox = styled.div`
-//   width: 150px;
-// `;
+const ChartBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;

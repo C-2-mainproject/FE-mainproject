@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { PopularWordBook, MainSubMenu, WordChart } from "../components/index";
+import { MainSubMenu, WordChart } from "../components/index";
 import SlickMyBook from "../components/Main/SlickMyBook";
+import SlickBestBook from "../components/Main/SlickBestVoca";
 import Header from "../Layout/Header";
 import Dlfeksdl from "../images/top_dlfeksdl.png";
 import RunDlfeksdl from "../images/run_dlfeksdl.png";
@@ -43,7 +44,8 @@ const Main = () => {
               단어장을 찾아볼 수 있어요.
             </p>
           </PopularText>
-          <PopularWordBook />
+          {/* <PopularWordBook /> */}
+          <SlickBestBook />
         </section>
       </PopularList>
       <BookChart>

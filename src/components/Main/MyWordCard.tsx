@@ -8,6 +8,7 @@ type Props = {
 };
 
 const MyWordCard = ({ wordStorage }: Props) => {
+  console.log(wordStorage);
   const {
     id,
     category,

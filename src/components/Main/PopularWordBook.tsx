@@ -1,15 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-
-const PopularWordBook = () => {
+import { IBestVoca } from "../../types/types";
+type Props = {
+  BestVoca: IBestVoca;
+};
+const PopularWordBook = ({ BestVoca }: Props) => {
+  const { id, title, description, haveStorage } = BestVoca;
   return (
     <>
       <WordBookBox>
-        <span>
+        <div>
           <p>토익</p>
-          <h3>보카바이블 3.0</h3>
-          <h4>시험에 꼭 나오는 영단어 모음집</h4>
-          <button>내 단어장에 담기</button>
+          <h3> {title}</h3>
+          <h4>{description}</h4>
+        </div>
+        <span>
+          <button>
+            내 단어장에 담기<p>&gt;</p>
+          </button>
         </span>
       </WordBookBox>
     </>
@@ -23,14 +31,45 @@ const WordBookBox = styled.div`
   height: 400px;
   background-color: #eff9fc;
   padding: 0 100px;
-  span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  button {
+    margin-top: 61px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.07em;
+    color: #ffffff;
+    background-color: #2b98be;
+    padding: 13px 24px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 26px;
+    p {
+      margin-left: 25px;
+    }
+  }
+  div {
     display: flex;
     flex-direction: column;
+    h3 {
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 52px;
+      letter-spacing: -0.07em;
+    }
+    h4 {
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 35px;
+      /* identical to box height */
+    }
     p {
       width: 30px;
       position: relative;
       color: #0083b0;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       &::after {
         content: "";
         width: 100%;

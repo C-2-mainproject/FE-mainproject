@@ -61,6 +61,9 @@ export const apis = {
   suggestionWordStorage: (id: number) =>
     api.post(`/api/wordstorage/like/${id}`),
 
+  getBestLikeVoca: (page: number) =>
+    api.get(`/api/wordstorage/public/filter/like?page=${page}`),
+
   // 1대1 영단어 게임
   getRecod: () => api.get("/api/game/my/record"),
 
