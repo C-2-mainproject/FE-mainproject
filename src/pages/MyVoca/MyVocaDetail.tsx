@@ -214,7 +214,6 @@ const DetailInfo = styled.div`
   height: 400px;
 
   h1 {
-    width: 167px;
     height: 35px;
     font-size: 24px;
     font-weight: 500;
