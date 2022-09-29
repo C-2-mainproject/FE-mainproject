@@ -3,7 +3,8 @@ import ModalPortal from "../ModalPortal";
 import { useState, ChangeEvent } from "react";
 import CustomSelect from "../CustomSelect";
 import { apis } from "../../shared/api";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 
 type ModalProps = {
   openAddStorageModal: () => void;
@@ -27,8 +28,10 @@ const shared_list = [
 ];
 
 const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
-  const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
-  console.log(detailWordStorage);
+  const dispatch = useAppDispatch();
+  const { detailWordStorage, pageNum } = useAppSelector(
+    state => state.wordStorageSlice,
+  );
 
   const [addWordStorageInput, setAddWordStorageInput] = useState(
     id === "add"
@@ -84,7 +87,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
       console.log(error);
       throw error;
     }
-
+    dispatch(__getWordStorageList(pageNum));
     openAddStorageModal();
   };
 
@@ -142,7 +145,9 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
                   />
                 </VocaInput>
                 <Button>
-                  <span onClick={addNewWordStorage}>새 단어장 추가</span>
+                  <span onClick={addNewWordStorage}>
+                    {id === "add" ? "새 단어장 추가" : "단어장 수정하기"}
+                  </span>
                 </Button>
               </div>
             </Form>

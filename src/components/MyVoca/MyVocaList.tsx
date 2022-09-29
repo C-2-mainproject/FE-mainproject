@@ -16,11 +16,12 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   const { wordStorage, isFinish, pageNum } = useAppSelector(
     state => state.wordStorageSlice,
   );
-
-  const observerRef = useRef<IntersectionObserver>();
+  console.log(wordStorage);
   const boxRef = useRef<HTMLDivElement>(null);
+
   const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
   const [likeWordStorage, setLikeWordStorage] = useState([]);
+  const [page, setPage] = useState<number>(pageNum);
 
   const getWrongAnswerWordStorageList = async () => {
     await apis.getWrongAnswerWordStorages().then(data => {
@@ -34,26 +35,21 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     });
   };
 
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(intersectionObserver);
-    boxRef.current && observerRef.current.observe(boxRef.current);
-  }, [pageNum]);
-
-  useEffect(() => {
-    dispatch(__getWordStorageList(pageNum));
-  }, [targetId]);
-
-  const intersectionObserver = (
+  const onIntersect = (
     entries: IntersectionObserverEntry[],
-    io: IntersectionObserver,
+    observer: IntersectionObserver,
   ) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        io.unobserve(entry.target);
-        dispatch(__getWordStorageList(pageNum));
+        setPage(page => page + 1);
+        observer.observe(entry.target);
       }
     });
   };
+
+  useEffect(() => {
+    dispatch(__getWordStorageList(page));
+  }, [page]);
 
   useEffect(() => {
     getWrongAnswerWordStorageList();
@@ -63,17 +59,28 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     getLike();
   }, [targetId === "좋아요"]);
 
+  useEffect(() => {
+    let observer: IntersectionObserver;
+
+    if (boxRef.current !== null) {
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+      observer.observe(boxRef.current);
+    }
+    return () => observer && observer.disconnect();
+  }, [boxRef]);
+
   if (isFinish) {
     if (targetId === "전체보기") {
-      console.log("전체보기!!!");
-      const wordStorages = wordStorage.map((wordStorage, index) => {
-        return <MyVocaItem key={index} wordStorage={wordStorage} />;
-      });
-
       return (
         <>
-          <MyVocaListLayout>{wordStorages}</MyVocaListLayout>
-          <div ref={boxRef}></div>
+          <MyVocaListLayout>
+            {wordStorage.map((wordStorage, index) => {
+              return <MyVocaItem key={index} wordStorage={wordStorage} />;
+            })}
+          </MyVocaListLayout>
+          <div className="box" ref={boxRef}>
+            .
+          </div>
         </>
       );
     }
@@ -83,88 +90,105 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "좋아요") {
-      const wordStorages = likeWordStorage.map((wordStorage, index) => {
-        return <MyVocaItem key={index} wordStorage={wordStorage} />;
-      });
-
       return (
-        <>
-          <MyVocaListLayout>{wordStorages}</MyVocaListLayout>
-          <div ref={boxRef}></div>
-        </>
+        <MyVocaListLayout>
+          {likeWordStorage.map((wordStorage, index) => {
+            return <MyVocaItem key={index} wordStorage={wordStorage} />;
+          })}
+        </MyVocaListLayout>
       );
     }
 
     if (targetId === "인기순") {
-      const wordStorages = wordStorage
-        .slice()
-        .sort((a: IWordStorage, b: IWordStorage): number => {
-          return b.likeCount - a.likeCount;
-        });
       return (
         <>
           <MyVocaListLayout>
-            {wordStorages.map((wordStorage, index) => {
-              return <MyVocaItem key={index} wordStorage={wordStorage} />;
-            })}
+            {wordStorage
+              .slice()
+              .sort((a: IWordStorage, b: IWordStorage): number => {
+                return b.likeCount - a.likeCount;
+              })
+              .map((wordStorage, index) => {
+                return <MyVocaItem key={index} wordStorage={wordStorage} />;
+              })}
           </MyVocaListLayout>
-          <div ref={boxRef}></div>
         </>
       );
     }
 
     if (targetId === "공개") {
       console.log("공개");
-      const wordStorages = wordStorage.filter(wordStorage => {
-        return wordStorage.public === true;
-      });
 
       return (
-        <MyVocaListLayout>
-          {wordStorages.map((wordStorage, index) => {
-            return <MyVocaItem key={index} wordStorage={wordStorage} />;
-          })}
-        </MyVocaListLayout>
+        <>
+          <MyVocaListLayout>
+            {wordStorage
+              .filter(wordStorage => {
+                return wordStorage.public === true;
+              })
+              .map((wordStorage, index) => {
+                return <MyVocaItem key={index} wordStorage={wordStorage} />;
+              })}
+          </MyVocaListLayout>
+        </>
       );
     }
 
     if (targetId === "비공개") {
       console.log("비공개");
-      const wordStorages = wordStorage.filter(wordStorage => {
-        return wordStorage.public === false;
-      });
-
       return (
-        <MyVocaListLayout>
-          {wordStorages.map((wordStorage, index) => {
-            return <MyVocaItem key={index} wordStorage={wordStorage} />;
-          })}
-        </MyVocaListLayout>
+        <>
+          <MyVocaListLayout>
+            {wordStorage
+              .filter(wordStorage => {
+                return wordStorage.public === false;
+              })
+              .map((wordStorage, index) => {
+                return <MyVocaItem key={index} wordStorage={wordStorage} />;
+              })}
+          </MyVocaListLayout>
+        </>
       );
     }
 
     if (targetId === "오답노트") {
-      const wrongWordStorages = wrongAnswerWordStorage.map(
-        (wrongWordStorage, index) => {
-          return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
-        },
+      return (
+        <>
+          <MyVocaListLayout>
+            {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
+              return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
+            })}
+          </MyVocaListLayout>
+        </>
       );
-      return <MyVocaListLayout>{wrongWordStorages}</MyVocaListLayout>;
     }
 
-    const wordStorages = wordStorage.filter(wordStorage => {
-      return wordStorage.category === targetId;
-    });
-
     return (
-      <MyVocaListLayout>
-        {wordStorages.map((wordStorage, index) => {
-          return <MyVocaItem key={index} wordStorage={wordStorage} />;
-        })}
-      </MyVocaListLayout>
+      <>
+        <MyVocaListLayout>
+          {wordStorage
+            .filter(wordStorage => {
+              return wordStorage.category === targetId;
+            })
+            .map((wordStorage, index) => {
+              return (
+                <>
+                  <MyVocaItem key={index} wordStorage={wordStorage} />
+                </>
+              );
+            })}
+        </MyVocaListLayout>
+      </>
     );
   } else {
-    return <div>로딩중</div>;
+    return (
+      <>
+        <div>로딩중</div>
+        <div className="box" ref={boxRef}>
+          .
+        </div>
+      </>
+    );
   }
 };
 const MyVocaListLayout = styled.div`
