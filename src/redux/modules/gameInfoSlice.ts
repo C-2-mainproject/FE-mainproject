@@ -33,11 +33,13 @@ const initialState = {
       mean: "가방",
     },
   ],
-  quiz: 0,
   isReady: false,
   isLoading: false,
   isFinish: false,
-  testState: {},
+  quizProgress: {
+    quizNumber: 0,
+    correctAnswer: [],
+  },
 };
 
 export const gameInfoSlice = createSlice({
@@ -58,8 +60,19 @@ export const gameInfoSlice = createSlice({
 
     getQuizInfo: (state, action) => {
       //
-      console.log("getQuizInfo", state, action.payload.quizNumber, state.quiz);
-      state.quiz = action.payload.quizNumber + 1;
+      if (
+        action.payload.message ===
+        state.gameWordStorage[state.quizProgress.quizNumber].mean
+      ) {
+        console.log("정답!!");
+        state.quizProgress = {
+          ...state.quizProgress,
+          quizNumber: state.quizProgress.quizNumber + 1,
+          correctAnswer: [...state.quizProgress.correctAnswer].concat(
+            action.payload.nickname,
+          ),
+        };
+      }
     },
   },
   extraReducers: {},

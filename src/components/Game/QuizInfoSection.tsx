@@ -1,31 +1,26 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ildan } from "../../images";
+import { game_feedback, ildan } from "../../images";
 import { useAppSelector } from "../../shared/reduxHooks";
 
 type IClick = {
   clickReady: () => void;
 };
 const QuizInfoSection = ({ clickReady }: IClick) => {
-  const { gameInfo, quiz, isReady, gameWordStorage } = useAppSelector(
+  const { userInfo } = useAppSelector(state => state.userInfoSlice);
+  const { gameInfo, isReady, gameWordStorage, quizProgress } = useAppSelector(
     state => state.gameInfoSlice,
   );
+
   const [quizWord, setQuizWord] = useState<string>("");
-  console.log(
-    "QuizInfoSection is ::",
-    gameInfo.participant[0],
-    gameInfo.sessionId[0],
-    quiz,
-    gameWordStorage,
-  );
 
   useEffect(() => {
     nextQuiz();
-  }, [quiz]);
+  }, [quizProgress.quizNumber]);
 
   const nextQuiz = () => {
     setTimeout(() => {
-      setQuizWord(gameWordStorage[quiz].word);
+      setQuizWord(gameWordStorage[quizProgress.quizNumber].word);
     }, 4000);
   };
 
@@ -38,19 +33,33 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
             <div>
               <img src={ildan} alt="ildan" />
               <span>{gameInfo.participant[0]}</span>
-              <span>🐺 🐺 🐺 🐺</span>
+              <span>
+                {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(i);
+                  if (userInfo.nickname === v) {
+                    return <span key={i}> 🐺 </span>;
+                  }
+                })}
+              </span>
             </div>
             <div>
               <img src={ildan} alt="ildan" />
               <span>{gameInfo.participant[1]}</span>
-              <span>🐺 🐺 🐺 🐺</span>
+              <span>
+                {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(i);
+                  if (userInfo.nickname !== v) {
+                    return <span key={i}> 🐺 </span>;
+                  }
+                })}
+              </span>
             </div>
           </UserInfo>
         </div>
       </ScoreBoard>
 
       <QuizListSection>
-        <div>일단이의 영어단어 게임</div>
+        <Title>일단이의 영어단어 게임</Title>
         <QuizList>
           <div>
             <div>Game</div>
@@ -83,7 +92,9 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
         </div>
       </QuizListSection>
 
-      <AdsSection>설문조사 바로가기 광고 이미지</AdsSection>
+      <AdsSection>
+        <img src={game_feedback} alt="game_feedback" />
+      </AdsSection>
     </QuizInfoSectionLayout>
   );
 };
@@ -160,7 +171,7 @@ const QuizList = styled.div`
   display: flex;
   width: 680px;
   height: 377px;
-  background-color: #f0f0f0;
+  background: #caf3ff;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -172,7 +183,7 @@ const QuizList = styled.div`
     font-size: 16px;
     line-height: 23px;
     letter-spacing: 0.1em;
-    background-color: #c7c7c7;
+    background: #00b4db;
     color: #ffffff;
 
     div {
@@ -188,7 +199,8 @@ const QuizList = styled.div`
   button {
     width: 319px;
     height: 100px;
-    background: #5e5e5e;
+    background: #00b4db;
+    box-shadow: 10px 10px 60px #baf0ff;
     margin-top: 140px;
 
     h1 {
@@ -206,7 +218,7 @@ const QuizList = styled.div`
       line-height: 23px;
       letter-spacing: -0.07em;
 
-      color: #a4a4a4;
+      color: #ffffff;
     }
   }
 `;
@@ -237,11 +249,16 @@ const QuizListSection = styled.div`
     color: #6b6b6b;
   }
 `;
-
+const Title = styled.div`
+  width: 184px;
+  position: relative;
+  top: -10px;
+  left: 270px;
+  background: #ffffff;
+`;
 const AdsSection = styled.div`
   width: 720px;
   height: 170px;
   margin-top: 30px;
-  border: 1px solid #000000;
 `;
 export default QuizInfoSection;

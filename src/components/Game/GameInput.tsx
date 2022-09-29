@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 
 type GameInputProps = {
@@ -7,19 +7,23 @@ type GameInputProps = {
 };
 
 const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
+  const [text, setText] = useState<string>("");
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
+    setText(event.target.value);
   };
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       sendMessage();
+      setText("");
     }
   };
 
   return (
     <GameInputLayout>
       <input
+        value={text}
         placeholder="답을 입력하세요"
         onChange={onChangeHandler}
         onKeyPress={onKeyDownHandler}
@@ -35,13 +39,19 @@ const GameInputLayout = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #dedede;
+  background: #00b4db;
 
   input {
     width: 450px;
     border: none;
     outline: none;
-    background-color: #dedede;
+    background: #00b4db;
+  }
+  input::placeholder {
+    color: #ffffff;
+  }
+  button {
+    color: #ffffff;
   }
 `;
 export default GameInput;
