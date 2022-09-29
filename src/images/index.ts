@@ -20,6 +20,7 @@ import circle from "./circle.png";
 import star from "./star.png";
 import top_dlfeksdl from "./top_dlfeksdl.png";
 import game_ildan from "./game_ildan.png";
+import game_feedback from "./game_feedback.png";
 
 export {
   add,
@@ -44,4 +45,5 @@ export {
   star,
   top_dlfeksdl,
   game_ildan,
+  game_feedback,
 };
