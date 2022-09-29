@@ -45,7 +45,7 @@ export const apis = {
   // 로그인
   login: () =>
     api.post("/login", {
-      username: "user@user.com",
+      username: "admin@admin.com",
       password: "1234",
     }),
 
@@ -63,7 +63,7 @@ export const apis = {
     api.post(`/api/wordstorage/like/${id}`),
 
   // 1대1 영단어 게임
-  getRecod: () => api.get("/api/game/my/record"),
+  getRecord: () => api.get("/api/game/my/record"),
 
   getGameWordStorage: (roomId: string) =>
     api.get(`/api/game/word?roomId=${roomId}`),

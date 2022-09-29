@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
@@ -8,15 +8,11 @@ import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 
 const Game = () => {
-  // const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isWaittingModal, setIsWaittingModal] = useState(false);
+  const [myRecord, setMyRecord] = useState<number>(0);
 
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
-
-  // const playGame = () => {
-  //   navigate("/playgame");
-  // };
 
   const gameGuide = () => {
     setIsOpenModal(!isOpenModal);
@@ -27,9 +23,15 @@ const Game = () => {
   };
 
   const test1 = async () => {
-    // await apis.getRecod().then(data => console.log(data));
     await apis.getRank().then(data => console.log(data));
   };
+  const getMyRecord = async () => {
+    await apis.getRecord().then(data => setMyRecord(data.data.winCount));
+  };
+
+  useEffect(() => {
+    getMyRecord();
+  }, []);
 
   return (
     <GameLayout>
@@ -48,7 +50,7 @@ const Game = () => {
                     아이디<span>{userInfo.nickname}</span>
                   </p>
                   <p>
-                    승리수<span>99</span>
+                    승리수<span>{myRecord}</span>
                   </p>
                 </InfoSection>
               </MyInfo>
@@ -57,10 +59,10 @@ const Game = () => {
                   <img src={game_logo} alt="game_logo" />
                   <button onClick={gameWaitting}>
                     <span>게임 시작</span>
-                    {isWaittingModal && (
-                      <GameWaitting openWattingModal={gameWaitting} />
-                    )}
                   </button>
+                  {isWaittingModal && (
+                    <GameWaitting openWattingModal={gameWaitting} />
+                  )}
                 </div>
               </GameImg>
             </div>
