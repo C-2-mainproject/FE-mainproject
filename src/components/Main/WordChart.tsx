@@ -2,31 +2,28 @@ import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 // import styled from "styled-components";
-import { useAxios } from "../../hooks/useAxios";
+// import { useAxios } from "../../hooks/useAxios";
+import { apis } from "../../shared/api";
 
-// const mok = [
-//   { categoryName: "토익", count: 232 },
-//   {
-//     categoryName: "토플",
-//     count: 112,
-//   },
-//   {
-//     categoryName: "영어",
-//     count: 128,
-//   },
-// ];
-
+type IChartData = {
+  count: number;
+  categoryName: string;
+};
 const WordChart = () => {
-  const [chartData, setChartData] = useState<any>();
+  const [chartData, setChartData] = useState<IChartData[]>();
   const [category, setCategory] = useState<string[]>([]);
   const [series, setSeries] = useState<number[]>([]);
-  const { data, error } = useAxios({
-    url: "/api/wordstorage/statistic",
-    method: "get",
-  });
+
+  const getChartData = async () => {
+    await apis.getChartData().then(data => {
+      console.log(data.data);
+      setChartData(data.data);
+    });
+  };
   useEffect(() => {
-    setChartData(data);
-  }, [data]);
+    getChartData();
+  }, []);
+
   useEffect(() => {
     if (chartData) {
       for (const x of chartData) {
@@ -56,11 +53,6 @@ const WordChart = () => {
 
   return (
     <div>
-      {error && (
-        <div>
-          <p>{error}</p>
-        </div>
-      )}
       <div id="chart">
         <ReactApexChart
           options={options}
@@ -74,7 +66,3 @@ const WordChart = () => {
 };
 
 export default WordChart;
-
-// const ChartBox = styled.div`
-//   width: 150px;
-// `;
