@@ -118,3 +118,11 @@ export interface ICollectionWrongWord {
   words: string[];
   meanings: string[][];
 }
+
+export interface IBestVoca {
+  map: any;
+  id?: number;
+  title: string;
+  description: string;
+  haveStorage: boolean;
+}

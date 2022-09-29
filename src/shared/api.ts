@@ -52,8 +52,11 @@ export const apis = {
   checkNickname: (nickname: string) =>
     api.post("/api/check/nickname", { nickname }),
 
-  // chart
+  // Main
   getChartData: () => api.get("/api/wordstorage/statistic"),
+
+  getBestLikeVoca: (page: number) =>
+    api.get(`/api/wordstorage/public/filter/like?page=${page}`),
 
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),

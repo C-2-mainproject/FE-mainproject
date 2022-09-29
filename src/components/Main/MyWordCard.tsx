@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IWordStorage } from "../../types/types";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 const MyWordCard = ({ wordStorage }: Props) => {
   const {
-    // id,
+    id,
     category,
     title,
     lastTestAt,
@@ -17,21 +17,16 @@ const MyWordCard = ({ wordStorage }: Props) => {
     createAt,
     // likeCount,
   } = wordStorage;
-  // console.log(wordStorage);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const moveToDetail = (id: number) => {
-  //   navigate(`/myvoca-detail/${id}`);
-  // };
-
-  // const moveToTestService = (id: number) => {
-  //   navigate(`/wordtest/${id}`);
-  // };
+  const moveToDetail = (id: number) => {
+    navigate(`/myvoca-detail/${id}`);
+  };
 
   return (
     <CardContainer>
       <VocaCategory>
-        <span>공개</span>
+        <span>{wordStorage.public ? "공개" : "비공개"}</span>
         <span>{category}</span>
       </VocaCategory>
 
@@ -43,8 +38,12 @@ const MyWordCard = ({ wordStorage }: Props) => {
       <AboutCard>
         <span> 마지막 시험 &nbsp;&nbsp;{lastTestAt}</span>
         {/* <div>작성 &nbsp;&nbsp;{writer}</div> */}
-        <div>제작 &nbsp;&nbsp;{createAt}</div>
+        <div>제작 &nbsp;&nbsp;{createAt.split("T")[0]}</div>
       </AboutCard>
+      <article className="disable">
+        <button onClick={() => moveToDetail(id)}>자세히 보기</button>
+        <button>시험 보기 </button>
+      </article>
     </CardContainer>
   );
 };
@@ -57,6 +56,30 @@ const CardContainer = styled.article`
   height: 400px;
   margin: 0 auto;
   padding: 20px;
+  button {
+    display: none;
+  }
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+
+    button {
+      color: #fff;
+      display: flex;
+      margin: 0 auto;
+      padding: 16px 20px;
+      width: 160px;
+      font-size: 18px;
+      font-weight: 600;
+      border: 1px solid #fff;
+      justify-content: center;
+      position: relative;
+      bottom: 100px;
+      margin-bottom: 20px;
+      &:hover {
+        background-color: black;
+      }
+    }
+  }
 `;
 const VocaCategory = styled.div`
   width: 100%;
