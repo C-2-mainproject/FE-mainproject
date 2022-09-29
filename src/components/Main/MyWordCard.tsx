@@ -17,7 +17,7 @@ const MyWordCard = ({ wordStorage }: Props) => {
     createAt,
     // likeCount,
   } = wordStorage;
-  console.log(wordStorage);
+  // console.log(wordStorage);
   // const navigate = useNavigate();
 
   // const moveToDetail = (id: number) => {

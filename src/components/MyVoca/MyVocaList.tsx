@@ -12,20 +12,23 @@ type TargetIdProps = {
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
   const dispatch = useAppDispatch();
-
   const { wordStorage, isFinish, pageNum } = useAppSelector(
     state => state.wordStorageSlice,
   );
-  console.log(wordStorage);
-  const boxRef = useRef<HTMLDivElement>(null);
 
+  const boxRef = useRef<HTMLDivElement>(null);
   const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
   const [likeWordStorage, setLikeWordStorage] = useState([]);
   const [page, setPage] = useState<number>(pageNum);
 
+  const getWordStorage = () => {
+    dispatch(__getWordStorageList(page));
+  };
+
   const getWrongAnswerWordStorageList = async () => {
     await apis.getWrongAnswerWordStorages().then(data => {
       setWrongAnswerWordStorage(data.data);
+      console.log(data.data);
     });
   };
 
@@ -48,8 +51,8 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   };
 
   useEffect(() => {
-    dispatch(__getWordStorageList(page));
-  }, [page]);
+    getWordStorage();
+  }, [targetId, page]);
 
   useEffect(() => {
     getWrongAnswerWordStorageList();
@@ -78,9 +81,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
               return <MyVocaItem key={index} wordStorage={wordStorage} />;
             })}
           </MyVocaListLayout>
-          <div className="box" ref={boxRef}>
-            .
-          </div>
+          <div className="box" ref={boxRef}></div>
         </>
       );
     }
@@ -184,9 +185,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     return (
       <>
         <div>로딩중</div>
-        <div className="box" ref={boxRef}>
-          .
-        </div>
+        <div className="box" ref={boxRef}></div>
       </>
     );
   }
