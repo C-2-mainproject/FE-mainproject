@@ -1,12 +1,20 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 type MessageProps = {
   returnMsg: string[];
+  nickname: string[];
+  userNickname: string;
 };
 
-const ChatList = ({ returnMsg }: MessageProps) => {
+const ChatList = ({ returnMsg, nickname, userNickname }: MessageProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    scrollRef.current!.scrollTop = scrollRef.current!.scrollHeight;
+  }, [returnMsg]);
+
   return (
-    <ChatListLayout>
+    <ChatListLayout ref={scrollRef}>
       {returnMsg.map((message, index) => {
         if (message === "게임을 시작합니다") {
           return (
@@ -16,9 +24,16 @@ const ChatList = ({ returnMsg }: MessageProps) => {
           );
         } else {
           return (
-            <ChatBubble key={index}>
-              <span>{message}</span>
-            </ChatBubble>
+            <div key={index}>
+              <ChatNickname>
+                <span>{nickname[index]}</span>
+              </ChatNickname>
+              <ChatBubble
+                className={nickname[index] === userNickname ? "IAM" : "YOU"}
+              >
+                <span>{message}</span>
+              </ChatBubble>
+            </div>
           );
         }
       })}
@@ -28,21 +43,22 @@ const ChatList = ({ returnMsg }: MessageProps) => {
 
 const ChatListLayout = styled.div`
   width: 530px;
-  height: 690px;
+  height: 630px;
   overflow-y: scroll;
   padding-top: 30px;
+`;
+
+const ChatNickname = styled.div`
+  margin-left: 20px;
 `;
 
 const ChatBubble = styled.div`
   width: 200px;
   height: 60px;
   margin-left: 20px;
-  background: linear-gradient(
-      360deg,
-      rgba(0, 180, 219, 0.2) -1.83%,
-      rgba(0, 180, 219, 0) 92.32%
-    ),
-    #ffffff;
+
+  background-color: ${props =>
+    props.className === "IAM" ? "#D6F8FF" : "#FFF4D7"};
   margin-bottom: 10px;
   border-radius: 0px 30px 30px 30px;
 
@@ -60,23 +76,22 @@ const ChatBubble = styled.div`
 `;
 
 const ChatNotice = styled.div`
-  width: 458px;
+  width: 460px;
   height: 60px;
   margin: auto;
+  text-align: center;
   margin-bottom: 10px;
   background: #ffffff;
   border-radius: 30px;
+  padding: 17px;
 
   span {
-    margin-left: 20px;
     font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 18px;
     line-height: 26px;
-
     letter-spacing: -0.07em;
-
-    color: #666666;
+    color: #000000;
   }
 `;
 export default ChatList;

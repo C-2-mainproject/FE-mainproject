@@ -37,10 +37,12 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
           `/sub/chat/join`,
           data => {
             const returnMessage = JSON.parse(data.body);
+            console.log(returnMessage.nickname);
             dispatch(
               getGameInfo({
                 roomId: returnMessage.roomId,
                 sessionId: returnMessage.sessionId,
+                participant: returnMessage.nickname,
               }),
             );
             navigate("/playgame");
@@ -93,10 +95,12 @@ const ModalWrap = styled.div`
 
 const CloseButton = styled.div`
   float: right;
-  width: 40px;
-  height: 40px;
+  width: 30px;
   margin: 20px;
+  padding-right: 150px;
+  padding-top: 30px;
   cursor: pointer;
+  color: white;
 `;
 
 const Contents = styled.div`
