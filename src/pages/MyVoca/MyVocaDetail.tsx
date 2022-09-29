@@ -291,6 +291,10 @@ const DetailInfo = styled.div`
     border-top: 1px solid;
     padding: 30px 0 20px;
   }
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 const Ildan = styled.img`
