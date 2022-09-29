@@ -67,6 +67,7 @@ const Empty = styled.div`
   margin-top: 75px;
   margin-bottom: 200px;
   padding-top: 110px;
+  text-align: center;
 
   h1 {
     font-style: normal;

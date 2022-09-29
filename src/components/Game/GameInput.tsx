@@ -1,9 +1,9 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 
 type GameInputProps = {
   setMessage: React.Dispatch<React.SetStateAction<string>>;
-  sendMessage: React.MouseEventHandler<HTMLButtonElement>;
+  sendMessage: () => void;
 };
 
 const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
@@ -11,10 +11,20 @@ const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
     setMessage(event.target.value);
   };
 
+  const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  };
+
   return (
     <GameInputLayout>
-      <input placeholder="답을 입력하세요" onChange={onChangeHandler} />
-      <button onClick={sendMessage}>전송</button>
+      <input
+        placeholder="답을 입력하세요"
+        onChange={onChangeHandler}
+        onKeyPress={onKeyDownHandler}
+      />
+      <button>전송</button>
     </GameInputLayout>
   );
 };

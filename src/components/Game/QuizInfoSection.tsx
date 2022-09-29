@@ -1,9 +1,34 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ildan } from "../../images";
+import { useAppSelector } from "../../shared/reduxHooks";
 
-// const quiz_list = ["Apple", "Banana", "Tree", "Star", "Fruit", "Bag"];
+type IClick = {
+  clickReady: () => void;
+};
+const QuizInfoSection = ({ clickReady }: IClick) => {
+  const { gameInfo, quiz, isReady, gameWordStorage } = useAppSelector(
+    state => state.gameInfoSlice,
+  );
+  const [quizWord, setQuizWord] = useState<string>("");
+  console.log(
+    "QuizInfoSection is ::",
+    gameInfo.participant[0],
+    gameInfo.sessionId[0],
+    quiz,
+    gameWordStorage,
+  );
 
-const QuizInfoSection = () => {
+  useEffect(() => {
+    nextQuiz();
+  }, [quiz]);
+
+  const nextQuiz = () => {
+    setTimeout(() => {
+      setQuizWord(gameWordStorage[quiz].word);
+    }, 4000);
+  };
+
   return (
     <QuizInfoSectionLayout>
       <ScoreBoard>
@@ -12,13 +37,13 @@ const QuizInfoSection = () => {
           <UserInfo>
             <div>
               <img src={ildan} alt="ildan" />
-              <span>갓재범</span>
-              <span>🐺🐺🐺🐺</span>
+              <span>{gameInfo.participant[0]}</span>
+              <span>🐺 🐺 🐺 🐺</span>
             </div>
             <div>
               <img src={ildan} alt="ildan" />
-              <span>hanghae99</span>
-              <span>🐺🐺🐺🐺</span>
+              <span>{gameInfo.participant[1]}</span>
+              <span>🐺 🐺 🐺 🐺</span>
             </div>
           </UserInfo>
         </div>
@@ -30,7 +55,26 @@ const QuizInfoSection = () => {
           <div>
             <div>Game</div>
           </div>
-          <div></div>
+          {isReady ? (
+            <QuizWords>
+              {quizWord}
+              <p>알맞은 정답을 채팅창에 입력해주세요</p>
+              <p>정답을 맞추시면 3초후에 다음 단어로 넘어갑니다</p>
+            </QuizWords>
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  setTimeout(() => {
+                    clickReady();
+                  }, 3000);
+                }}
+              >
+                <h1>READY</h1>
+                <p>모두 준비가 되면 게임이 시작됩니다!</p>
+              </button>
+            </div>
+          )}
         </QuizList>
         <div>
           <p>
@@ -94,7 +138,24 @@ const UserInfo = styled.div`
     }
   }
 `;
+const QuizWords = styled.div`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 46px;
+  margin-top: 150px;
+  color: #000000;
 
+  p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.07em;
+
+    color: #999999;
+  }
+`;
 const QuizList = styled.div`
   display: flex;
   width: 680px;
@@ -122,6 +183,31 @@ const QuizList = styled.div`
 
   div:nth-child(2n) {
     width: 640px;
+  }
+
+  button {
+    width: 319px;
+    height: 100px;
+    background: #5e5e5e;
+    margin-top: 140px;
+
+    h1 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 46px;
+
+      color: #ffffff;
+    }
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: -0.07em;
+
+      color: #a4a4a4;
+    }
   }
 `;
 
