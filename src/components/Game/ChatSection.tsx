@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import { getSessionId } from "../../shared/Cookie";
 import { GameInput, ChatList } from "../index";
 // import axios from "axios";
-import { ildan } from "../../images";
+import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 // import { apis } from "../../shared/api";
@@ -24,17 +24,14 @@ type IReady = {
 
 const ChatSection = ({ readyStatus }: IReady) => {
   const dispatch = useAppDispatch();
-  const { gameInfo, quiz, gameWordStorage } = useAppSelector(
-    state => state.gameInfoSlice,
-  );
+  const { gameInfo } = useAppSelector(state => state.gameInfoSlice);
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
-  console.log(gameWordStorage);
 
   const [message, setMessage] = useState<string>("");
   const [returnMsg, setReturnMsg] = useState<string[]>([]);
   const [nickname, setNickname] = useState<string[]>([]);
+  const [profile, setProfile] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
-  const [answer, setAnswer] = useState<number>(0);
 
   const socket = new SockJS("http://newlno.com/ws");
   const stompClient = Stomp.over(socket);
@@ -100,9 +97,6 @@ const ChatSection = ({ readyStatus }: IReady) => {
       stompClient.unsubscribe("sub-0");
     });
   };
-  const countAnswer = () => {
-    console.log("inin");
-  };
 
   const reSubscribe = () => {
     try {
@@ -115,6 +109,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
           console.log("return msg::", returnMessage);
           setReturnMsg(returnMsg => [...returnMsg, returnMessage.message]);
           setNickname(nickname => [...nickname, returnMessage.nickname]);
+          setProfile(profile => [...profile, returnMessage.profileImg]);
 
           if (returnMessage.messageType === "READY") {
             setIsReady(true);
@@ -122,24 +117,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
           }
 
           if (returnMessage.messageType === "GAME") {
-            console.log(gameWordStorage[quiz].mean);
-            if (gameWordStorage[quiz].mean === returnMessage.message) {
-              dispatch(getQuizInfo(returnMessage));
-
-              if (userInfo.nickname === returnMessage.nickname) {
-                console.log(
-                  "12312312313123",
-                  "나 : ",
-                  userInfo.nickname,
-                  "/ 보낸사람 :",
-                  returnMessage.nickname,
-                  "/ 내 점수",
-                  answer,
-                );
-                countAnswer();
-                setAnswer(prev => prev + 1);
-              }
-            }
+            dispatch(getQuizInfo(returnMessage));
           }
         },
         headers,
@@ -151,17 +129,16 @@ const ChatSection = ({ readyStatus }: IReady) => {
   };
 
   const sendMessage = () => {
-    console.log(gameInfo.sessionId);
     stompClient.send(
       `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
-        answerUser1: answer,
+        answerUser1: 0,
         answerUser2: 0,
         message: message,
         messageType: isReady ? "GAME" : "CHAT",
         nickname: userInfo.nickname,
-        quizNumber: quiz,
+        quizNumber: 0,
         profileImg: userInfo.profileImage,
         roomId: gameInfo.roomId,
         sessionId: gameInfo.sessionId,
@@ -190,7 +167,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
     <ChatBoxLayout>
       <ChatBoxHeader>
         <div>
-          <img src={ildan} onClick={ready} />
+          <img src={top_dlfeksdl} onClick={ready} />
         </div>
         <p>일단이의 랜덤 매칭 영단어 게임</p>
       </ChatBoxHeader>
@@ -198,6 +175,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
         <ChatList
           returnMsg={returnMsg}
           nickname={nickname}
+          profile={profile}
           userNickname={userInfo.nickname}
         />
       </ChatListWrapper>
@@ -219,7 +197,7 @@ const ChatBoxHeader = styled.div`
   height: 110px;
   display: flex;
   align-items: center;
-  background-color: #e4e4e4;
+  background: #caf3ff;
 
   img {
     overflow: hidden;
@@ -245,7 +223,7 @@ const ChatBoxHeader = styled.div`
 const ChatListWrapper = styled.div`
   width: 530px;
   height: 630px;
-  background-color: #f0f0f0;
+  background: #e4f5fa;
 `;
 
 const GameInputWrapper = styled.div`
@@ -253,3 +231,5 @@ const GameInputWrapper = styled.div`
   height: 60px;
 `;
 export default ChatSection;
+
+// 게임시작 -> http로 검증된 사람인지 파악 -> 소켓연결 -> 매칭 -> 새로운화면 넘어가자마자 검증 -> http 공인단어장 받고

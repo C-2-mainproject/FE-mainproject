@@ -25,6 +25,7 @@ const PlayGameLayout = styled.div`
   flex-grow: 0;
   padding-top: 3rem;
   margin: auto;
+  margin-bottom: 100px;
 `;
 
 const PlayGameWrapper = styled.div`
