@@ -1,12 +1,13 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import styled from "styled-components";
 // import { getSessionId } from "../../shared/Cookie";
 import { GameInput, ChatList } from "../index";
 // import axios from "axios";
-import { ildan } from "../../images";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { top_dlfeksdl } from "../../images";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 // import { apis } from "../../shared/api";
 
 // JOIN
@@ -16,23 +17,21 @@ import { useAppSelector } from "../../shared/reduxHooks";
 // GAME
 // NEXT
 // FINISH
-const quiz_list = ["aaa", "bbb", "ccc", "ddd"];
-const ChatSection = () => {
-  const [message, setMessage] = useState<string>("");
-  // const [stringInfo, setStringInfo] = useState({
-  //   roomId: "",
-  //   message: "",
-  //   sessionId: "",
-  // });
 
-  const [returnMsg, setReturnMsg] = useState<string[]>([]);
-  const [isReady, setIsReady] = useState<boolean>(false);
-  const [number, setNumber] = useState<number>(0);
-  const [answer, setAnswer] = useState<number>(0);
+type IReady = {
+  readyStatus: boolean;
+};
 
+const ChatSection = ({ readyStatus }: IReady) => {
+  const dispatch = useAppDispatch();
   const { gameInfo } = useAppSelector(state => state.gameInfoSlice);
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
-  console.log("userInfo is :: ", userInfo);
+
+  const [message, setMessage] = useState<string>("");
+  const [returnMsg, setReturnMsg] = useState<string[]>([]);
+  const [nickname, setNickname] = useState<string[]>([]);
+  const [profile, setProfile] = useState<string[]>([]);
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   const socket = new SockJS("http://newlno.com/ws");
   const stompClient = Stomp.over(socket);
@@ -51,6 +50,12 @@ const ChatSection = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (readyStatus) {
+      ready();
+    }
+  }, [readyStatus]);
+
   // const getGameWordStorage = async () => {
   //   try {
   //     const data = await axios.get("http://newlno.com/api/game/wordstorage", {
@@ -67,7 +72,6 @@ const ChatSection = () => {
   // }, []);
 
   const onConnected = () => {
-    console.log("onConnected!!");
     try {
       stompClient.connect(headers, () => {
         reSubscribe();
@@ -104,34 +108,16 @@ const ChatSection = () => {
           const returnMessage = JSON.parse(data.body);
           console.log("return msg::", returnMessage);
           setReturnMsg(returnMsg => [...returnMsg, returnMessage.message]);
+          setNickname(nickname => [...nickname, returnMessage.nickname]);
+          setProfile(profile => [...profile, returnMessage.profileImg]);
 
           if (returnMessage.messageType === "READY") {
             setIsReady(true);
+            dispatch(getReadyInfo(true));
           }
 
           if (returnMessage.messageType === "GAME") {
-            if (quiz_list[returnMessage.quizNumber] === returnMessage.message) {
-              console.log(
-                "정답입니다.",
-                quiz_list[returnMessage.quizNumber],
-                answer,
-              );
-
-              setNumber(returnMessage.quizNumber + 1);
-
-              if (userInfo.nickname === returnMessage.nickname) {
-                console.log(
-                  "12312312313123",
-                  "나 : ",
-                  userInfo.nickname,
-                  "/ 보낸사람 :",
-                  returnMessage.nickname,
-                  "/ 내 점수",
-                  answer,
-                );
-                setAnswer(prev => prev + 1);
-              }
-            }
+            dispatch(getQuizInfo(returnMessage));
           }
         },
         headers,
@@ -147,12 +133,13 @@ const ChatSection = () => {
       `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
-        answerUser1: answer,
+        answerUser1: 0,
         answerUser2: 0,
         message: message,
         messageType: isReady ? "GAME" : "CHAT",
         nickname: userInfo.nickname,
-        quizNumber: number,
+        quizNumber: 0,
+        profileImg: userInfo.profileImage,
         roomId: gameInfo.roomId,
         sessionId: gameInfo.sessionId,
       }),
@@ -160,31 +147,37 @@ const ChatSection = () => {
   };
 
   const ready = () => {
-    console.log("ready!!!");
-    if (!isReady) {
-      stompClient.send(
-        `/pub/chat/enter/${gameInfo.roomId}`,
-        headers,
-        JSON.stringify({
-          sessionId: gameInfo.sessionId,
-          message: "게임을 시작합니다",
-          roomId: gameInfo.roomId,
-          messageType: "READY",
-        }),
-      );
-    }
+    setTimeout(() => {
+      if (!isReady) {
+        stompClient.send(
+          `/pub/chat/enter/${gameInfo.roomId}`,
+          headers,
+          JSON.stringify({
+            sessionId: gameInfo.sessionId,
+            message: "게임을 시작합니다",
+            roomId: gameInfo.roomId,
+            messageType: "READY",
+          }),
+        );
+      }
+    }, 500);
   };
 
   return (
     <ChatBoxLayout>
       <ChatBoxHeader>
         <div>
-          <img src={ildan} onClick={ready} />
+          <img src={top_dlfeksdl} onClick={ready} />
         </div>
         <p>일단이의 랜덤 매칭 영단어 게임</p>
       </ChatBoxHeader>
       <ChatListWrapper>
-        <ChatList returnMsg={returnMsg} />
+        <ChatList
+          returnMsg={returnMsg}
+          nickname={nickname}
+          profile={profile}
+          userNickname={userInfo.nickname}
+        />
       </ChatListWrapper>
       <GameInputWrapper>
         <GameInput setMessage={setMessage} sendMessage={sendMessage} />
@@ -203,11 +196,13 @@ const ChatBoxHeader = styled.div`
   width: 530px;
   height: 110px;
   display: flex;
-  background-color: #e4e4e4;
+  align-items: center;
+  background: #caf3ff;
 
   img {
     overflow: hidden;
     width: 150px;
+    margin-top: 40px;
     position: relative;
     vertical-align: middle;
   }
@@ -228,7 +223,7 @@ const ChatBoxHeader = styled.div`
 const ChatListWrapper = styled.div`
   width: 530px;
   height: 630px;
-  background-color: #f0f0f0;
+  background: #e4f5fa;
 `;
 
 const GameInputWrapper = styled.div`
@@ -236,3 +231,5 @@ const GameInputWrapper = styled.div`
   height: 60px;
 `;
 export default ChatSection;
+
+// 게임시작 -> http로 검증된 사람인지 파악 -> 소켓연결 -> 매칭 -> 새로운화면 넘어가자마자 검증 -> http 공인단어장 받고

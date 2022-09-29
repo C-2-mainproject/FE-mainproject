@@ -1,9 +1,29 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ildan } from "../../images";
+import { game_feedback, ildan } from "../../images";
+import { useAppSelector } from "../../shared/reduxHooks";
 
-// const quiz_list = ["Apple", "Banana", "Tree", "Star", "Fruit", "Bag"];
+type IClick = {
+  clickReady: () => void;
+};
+const QuizInfoSection = ({ clickReady }: IClick) => {
+  const { userInfo } = useAppSelector(state => state.userInfoSlice);
+  const { gameInfo, isReady, gameWordStorage, quizProgress } = useAppSelector(
+    state => state.gameInfoSlice,
+  );
 
-const QuizInfoSection = () => {
+  const [quizWord, setQuizWord] = useState<string>("");
+
+  useEffect(() => {
+    nextQuiz();
+  }, [quizProgress.quizNumber]);
+
+  const nextQuiz = () => {
+    setTimeout(() => {
+      setQuizWord(gameWordStorage[quizProgress.quizNumber].word);
+    }, 4000);
+  };
+
   return (
     <QuizInfoSectionLayout>
       <ScoreBoard>
@@ -12,25 +32,58 @@ const QuizInfoSection = () => {
           <UserInfo>
             <div>
               <img src={ildan} alt="ildan" />
-              <span>갓재범</span>
-              <span>🐺🐺🐺🐺</span>
+              <span>{gameInfo.participant[0]}</span>
+              <span>
+                {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(i);
+                  if (userInfo.nickname === v) {
+                    return <span key={i}> 🐺 </span>;
+                  }
+                })}
+              </span>
             </div>
             <div>
               <img src={ildan} alt="ildan" />
-              <span>hanghae99</span>
-              <span>🐺🐺🐺🐺</span>
+              <span>{gameInfo.participant[1]}</span>
+              <span>
+                {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(i);
+                  if (userInfo.nickname !== v) {
+                    return <span key={i}> 🐺 </span>;
+                  }
+                })}
+              </span>
             </div>
           </UserInfo>
         </div>
       </ScoreBoard>
 
       <QuizListSection>
-        <div>일단이의 영어단어 게임</div>
+        <Title>일단이의 영어단어 게임</Title>
         <QuizList>
           <div>
             <div>Game</div>
           </div>
-          <div></div>
+          {isReady ? (
+            <QuizWords>
+              {quizWord}
+              <p>알맞은 정답을 채팅창에 입력해주세요</p>
+              <p>정답을 맞추시면 3초후에 다음 단어로 넘어갑니다</p>
+            </QuizWords>
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  setTimeout(() => {
+                    clickReady();
+                  }, 3000);
+                }}
+              >
+                <h1>READY</h1>
+                <p>모두 준비가 되면 게임이 시작됩니다!</p>
+              </button>
+            </div>
+          )}
         </QuizList>
         <div>
           <p>
@@ -39,7 +92,9 @@ const QuizInfoSection = () => {
         </div>
       </QuizListSection>
 
-      <AdsSection>설문조사 바로가기 광고 이미지</AdsSection>
+      <AdsSection>
+        <img src={game_feedback} alt="game_feedback" />
+      </AdsSection>
     </QuizInfoSectionLayout>
   );
 };
@@ -94,12 +149,29 @@ const UserInfo = styled.div`
     }
   }
 `;
+const QuizWords = styled.div`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 46px;
+  margin-top: 150px;
+  color: #000000;
 
+  p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.07em;
+
+    color: #999999;
+  }
+`;
 const QuizList = styled.div`
   display: flex;
   width: 680px;
   height: 377px;
-  background-color: #f0f0f0;
+  background: #caf3ff;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -111,7 +183,7 @@ const QuizList = styled.div`
     font-size: 16px;
     line-height: 23px;
     letter-spacing: 0.1em;
-    background-color: #c7c7c7;
+    background: #00b4db;
     color: #ffffff;
 
     div {
@@ -122,6 +194,32 @@ const QuizList = styled.div`
 
   div:nth-child(2n) {
     width: 640px;
+  }
+
+  button {
+    width: 319px;
+    height: 100px;
+    background: #00b4db;
+    box-shadow: 10px 10px 60px #baf0ff;
+    margin-top: 140px;
+
+    h1 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 46px;
+
+      color: #ffffff;
+    }
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: -0.07em;
+
+      color: #ffffff;
+    }
   }
 `;
 
@@ -151,11 +249,16 @@ const QuizListSection = styled.div`
     color: #6b6b6b;
   }
 `;
-
+const Title = styled.div`
+  width: 184px;
+  position: relative;
+  top: -10px;
+  left: 270px;
+  background: #ffffff;
+`;
 const AdsSection = styled.div`
   width: 720px;
   height: 170px;
   margin-top: 30px;
-  border: 1px solid #000000;
 `;
 export default QuizInfoSection;

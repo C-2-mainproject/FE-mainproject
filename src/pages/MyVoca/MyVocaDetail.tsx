@@ -214,7 +214,6 @@ const DetailInfo = styled.div`
   height: 400px;
 
   h1 {
-    width: 167px;
     height: 35px;
     font-size: 24px;
     font-weight: 500;
@@ -290,6 +289,10 @@ const DetailInfo = styled.div`
     height: 115px;
     border-top: 1px solid;
     padding: 30px 0 20px;
+  }
+
+  img {
+    cursor: pointer;
   }
 `;
 

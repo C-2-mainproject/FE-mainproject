@@ -28,7 +28,6 @@ const shared_list = [
 
 const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
   const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
-  console.log(detailWordStorage);
 
   const [addWordStorageInput, setAddWordStorageInput] = useState(
     id === "add"
@@ -84,7 +83,6 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
       console.log(error);
       throw error;
     }
-
     openAddStorageModal();
   };
 
@@ -142,7 +140,9 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
                   />
                 </VocaInput>
                 <Button>
-                  <span onClick={addNewWordStorage}>새 단어장 추가</span>
+                  <span onClick={addNewWordStorage}>
+                    {id === "add" ? "새 단어장 추가" : "단어장 수정하기"}
+                  </span>
                 </Button>
               </div>
             </Form>
