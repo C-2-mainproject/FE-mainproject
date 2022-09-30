@@ -7,11 +7,16 @@ import { game_logo, logo } from "../../images";
 import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 
+type IRank = {
+  nickname: string;
+  profileImage: string;
+  winCount: number;
+};
 const Game = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isWaittingModal, setIsWaittingModal] = useState(false);
   const [myRecord, setMyRecord] = useState<number>(0);
-
+  const [ranking, setRanking] = useState<IRank[]>([]);
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const gameGuide = () => {
@@ -22,8 +27,8 @@ const Game = () => {
     setIsWaittingModal(!isWaittingModal);
   };
 
-  const test1 = async () => {
-    await apis.getRank().then(data => console.log(data));
+  const getRank = async () => {
+    await apis.getRank().then(data => setRanking(data.data));
   };
   const getMyRecord = async () => {
     await apis.getRecord().then(data => setMyRecord(data.data.winCount));
@@ -31,6 +36,7 @@ const Game = () => {
 
   useEffect(() => {
     getMyRecord();
+    getRank();
   }, []);
 
   return (
@@ -39,7 +45,6 @@ const Game = () => {
         <GameBox>
           <TopSection>
             <div>
-              <button onClick={test1}>test!!!!</button>
               <MyInfo>
                 <ImgSection>
                   <img src={userInfo.profileImage} alt="profileImage" />
@@ -69,20 +74,29 @@ const Game = () => {
             <RightSection>
               <div>
                 <h1>일단이의 게임</h1>
-                <p>영단어 대결 랭킹</p>
+                <p>영단어 랜덤매칭 1:1 대결 랭킹</p>
                 <HeaderDiv>
                   <span>순위</span>
                   <span>아이디</span>
                   <span>승리수</span>
                 </HeaderDiv>
-
-                <ContentDiv>
-                  <span>1</span>
-                  <span>
-                    <img src={logo} alt="항해" /> 일단이
-                  </span>
-                  <span>1</span>
-                </ContentDiv>
+                {ranking
+                  .slice()
+                  .sort((a: IRank, b: IRank): number => {
+                    return b.winCount - a.winCount;
+                  })
+                  .map((rank, index) => {
+                    return (
+                      <ContentDiv key={index}>
+                        <span>{index + 1}</span>
+                        <span>
+                          <img src={rank.profileImage} alt="rank" />
+                          {rank.nickname}
+                        </span>
+                        <span>{rank.winCount}</span>
+                      </ContentDiv>
+                    );
+                  })}
               </div>
             </RightSection>
           </TopSection>
@@ -209,7 +223,6 @@ const HeaderDiv = styled.div`
 
     flex: 1;
 
-    font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -222,8 +235,11 @@ const HeaderDiv = styled.div`
 
 const ContentDiv = styled.div`
   display: flex;
-  text-align: center;
   border-bottom: 1px solid;
+
+  span:nth-child(2n + 1) {
+    text-align: center;
+  }
 
   span {
     flex: 1;
@@ -234,12 +250,13 @@ const ContentDiv = styled.div`
     font-size: 16px;
     line-height: 23px;
     letter-spacing: -0.07em;
-
     color: #000000;
   }
 
   img {
+    border-radius: 50px;
     vertical-align: middle;
+    margin-right: 20px;
     width: 44px;
     height: 44px;
   }

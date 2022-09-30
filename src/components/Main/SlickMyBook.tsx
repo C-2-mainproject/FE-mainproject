@@ -13,8 +13,9 @@ import { useEffect } from "react";
 const SlickMyBook = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(__getWordStorageList(pageNum));
+    dispatch(__getWordStorageList());
   }, []);
 
   const { wordStorage, isFinish, pageNum } = useAppSelector(
