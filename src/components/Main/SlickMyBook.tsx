@@ -28,8 +28,9 @@ import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 const SlickMyBook = () => {
   // const [myVocaList, setmyVocaList] = useState<IWordStorage[]>([]);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
-    dispatch(__getWordStorageList(0));
+    dispatch(__getWordStorageList());
   }, []);
 
   const { wordStorage, isFinish } = useAppSelector(

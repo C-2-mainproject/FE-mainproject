@@ -22,7 +22,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   const [page, setPage] = useState<number>(pageNum);
 
   const getWordStorage = () => {
-    dispatch(__getWordStorageList(page));
+    dispatch(__getWordStorageList());
   };
 
   const getWrongAnswerWordStorageList = async () => {
