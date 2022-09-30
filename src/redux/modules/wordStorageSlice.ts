@@ -54,7 +54,7 @@ export const wordStorageSlice = createSlice({
       state.isLoading = true;
     },
     [__getWordStorageList.fulfilled.type]: (state, action) => {
-      state.wordStorage = [...state.wordStorage].concat(action.payload);
+      state.wordStorage = action.payload;
       state.pageNum = action.payload.number;
       state.lastPage = action.payload.last;
       state.isLoading = false;
