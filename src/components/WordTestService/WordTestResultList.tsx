@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-// import { apis } from "../../shared/api";
+import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 import { IAnswer } from "../../types/types";
 import WordTestResultItem from "./WordTestResultItem";
@@ -47,24 +47,25 @@ const WordTestResultList = () => {
     });
     return result[0];
   };
-
+  //  https://tinyurl.com/2p9d3prs
   const endTest = async () => {
     //collectionWrongWord :: 틀린것에 대한 정답을 넘기기
     console.log(testWordStorage, answerStorage);
+    console.log(answerStorage[0].index);
     console.log("wordStorageId::", testWordStorage[0].wordStorageId);
     console.log("totalWords::", testWordStorage[0].words.length);
     console.log("wrongWords::", testWordStorage[0].words.length - countnumber);
-    // await apis.endWordTest({
-    //   wordStorageId: answerStorage[0].index,
-    //   testType: "스펠링",
-    //   totalWords: answerStorage[0].words.length,
-    //   wrongWords: 1,
-    //   time: 10,
-    //   collectionWrongWord: {
-    //     word: [],
-    //     meaning: [],
-    //   },
-    // });
+    await apis.endWordTest({
+      wordStorageId: testWordStorage[0].wordStorageId,
+      testType: "스펠링",
+      totalWords: answerStorage[0].words.length,
+      wrongWords: 1,
+      time: 30,
+      collectionWrongWord: {
+        word: ["a", "b"],
+        meaning: [["a"], ["b"]],
+      },
+    });
   };
 
   useEffect(() => {
