@@ -27,11 +27,9 @@ const MyVocaDetail = () => {
   const todoEdit = () => {
     setIsEdit(!isEdit);
     setIsEditOpenModal(!isEditOpenModal);
-    console.log(isEdit, detail);
   };
 
   const addWord = () => {
-    console.log("addword!!!");
     setIsAddOpenModal(!isAddOpenModal);
   };
 
@@ -111,7 +109,7 @@ const MyVocaDetail = () => {
                   </div>
                   <div>
                     <p>
-                      작성<span>일단이</span>
+                      작성<span>{detail?.nickname}</span>
                     </p>
                     <p>
                       제작<span>{detail?.createAt.split("T")[0]}</span>
@@ -207,6 +205,12 @@ const Button = styled.button`
   width: 290px;
   height: 300px;
   background-color: #f3f3f3;
+
+  span {
+    &:hover {
+      font-weight: 700;
+    }
+  }
 `;
 
 const DetailInfo = styled.div`

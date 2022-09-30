@@ -6,17 +6,10 @@ type ValueProps = {
 };
 
 const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
-  // const deleteWord = () => {
-  //   console.log("delete word");
-  // };
-
   return (
     <WordItemLayout>
       <p>{wordValue}</p>
       <p>{meaningValue.join(", ")}</p>
-      {/* <WordItemLayoutHover>
-        <button onClick={deleteWord}>삭제하기</button>
-      </WordItemLayoutHover> */}
     </WordItemLayout>
   );
 };
@@ -25,9 +18,9 @@ const WordItemLayout = styled.div`
   position: relative;
   width: 290px;
   height: 300px;
-  background-color: #e4f5fa;
+  background-color: #eeeeee;
   margin-right: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 200px;
 
   &:nth-child(4n) {
     margin-right: 0px;
@@ -59,32 +52,4 @@ const WordItemLayout = styled.div`
     color: #666;
   }
 `;
-
-// const WordItemLayoutHover = styled.div`
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   z-index: 9;
-//   width: 290px;
-//   height: 300px;
-//   display: flex;
-//   flex-direction: column-reverse;
-//   font-size: 1.5rem;
-//   font-weight: bold;
-//   background-color: black;
-//   opacity: 0;
-
-//   :hover {
-//     opacity: 0.5;
-//   }
-
-//   button {
-//     width: 160px;
-//     height: 52px;
-//     margin: 0 65px 20px 65px;
-//     color: white;
-//     background-color: transparent;
-//     border: 1px solid;
-//   }
-// `;
 export default WordItem;
