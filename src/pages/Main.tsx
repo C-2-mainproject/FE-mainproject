@@ -5,8 +5,21 @@ import SlickBestBook from "../components/Main/SlickBestVoca";
 import Header from "../Layout/Header";
 import Dlfeksdl from "../images/top_dlfeksdl.png";
 import RunDlfeksdl from "../images/run_dlfeksdl.png";
+import { useEffect } from "react";
+import { apis } from "../shared/api";
+import { setCookie } from "../shared/Cookie";
 
 const Main = () => {
+  const userTest = async () => {
+    await apis.getUserTest().then(data => {
+      setCookie(data.headers.cookie);
+    });
+  };
+
+  useEffect(() => {
+    userTest();
+  }, []);
+
   return (
     <>
       <MainMenu>

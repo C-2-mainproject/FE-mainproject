@@ -62,6 +62,8 @@ export const apis = {
 
   deleteUserInfo: () => api.delete("/api/user"),
 
+  getUserTest: () => api.get("/oauth2"),
+
   // 공인 단어장
   suggestionWordStorage: (id: number) =>
     api.post(`/api/wordstorage/like/${id}`),
