@@ -23,7 +23,8 @@ import game_ildan from "./game_ildan.png";
 import game_feedback from "./game_feedback.png";
 import mypage_w from "./mypage_w.png";
 import mypage_b from "./mypage_b.png";
-
+import main_guide from "./main_guide.png";
+import support from "./support.png";
 export {
   add,
   logo_w,
@@ -50,4 +51,6 @@ export {
   game_feedback,
   mypage_w,
   mypage_b,
+  main_guide,
+  support,
 };

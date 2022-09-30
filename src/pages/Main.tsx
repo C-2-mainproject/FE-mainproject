@@ -129,7 +129,7 @@ const MyWordBookList = styled.section`
   }
 `;
 const MyBookTitle = styled.span`
-  width: 16rem;
+  width: 13rem;
   font-size: 36px;
   p {
     font-size: 36px;

@@ -1,5 +1,4 @@
 import Slider from "react-slick";
-import { MyWordCard, PopularWordBook } from "../index";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { main_guide } from "../../images";
 
 const SlickMyBook = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +18,7 @@ const SlickMyBook = () => {
     dispatch(__getWordStorageList());
   }, []);
 
-  const { wordStorage, isFinish, pageNum } = useAppSelector(
-    state => state.wordStorageSlice,
-  );
+  const { wordStorage } = useAppSelector(state => state.wordStorageSlice);
   const MyVocaSettings = {
     dots: false,
     infinite: true,
@@ -34,38 +32,43 @@ const SlickMyBook = () => {
     navigate(`/myvoca-detail/${id}`);
   };
 
-  return (
-    <>
-      <WordBookSlider {...MyVocaSettings}>
-        {wordStorage?.map((myVoca, list) => {
-          return (
-            <CardContainer key={list}>
-              <VocaCategory>
-                <span>{myVoca.public ? "공개" : "비공개"}</span>
-                <span>{myVoca.category}</span>
-              </VocaCategory>
+  if (wordStorage.length === 0) {
+    return <img src={main_guide} alt="main_guide" />;
+  } else {
+    return (
+      <>
+        <WordBookSlider {...MyVocaSettings}>
+          {wordStorage?.map((myVoca, list) => {
+            return (
+              <CardContainer key={list}>
+                <VocaCategory>
+                  <span>{myVoca.public ? "공개" : "비공개"}</span>
+                  <span>{myVoca.category}</span>
+                </VocaCategory>
 
-              <CardTitle>
-                <div>{myVoca.title}</div>
-                <div>{myVoca.description}</div>
-              </CardTitle>
+                <CardTitle>
+                  <div>{myVoca.title}</div>
+                  <div>{myVoca.description}</div>
+                </CardTitle>
 
-              <AboutCard>
-                <span> 마지막 시험 &nbsp;&nbsp;{myVoca.lastTestAt}</span>
-                <div>제작 &nbsp;&nbsp;{myVoca.createAt.split("T")[0]}</div>
-              </AboutCard>
-              <article className="disable">
-                <button onClick={() => moveToDetail(myVoca.id)}>
-                  자세히 보기
-                </button>
-                <button>시험 보기 </button>
-              </article>
-            </CardContainer>
-          );
-        })}
-      </WordBookSlider>
-    </>
-  );
+                <AboutCard>
+                  <span> 마지막 시험 &nbsp;&nbsp;{myVoca.lastTestAt}</span>
+                  <div>작성 &nbsp;&nbsp;{myVoca.nickname}</div>
+                  <div>제작 &nbsp;&nbsp;{myVoca.createAt.split("T")[0]}</div>
+                </AboutCard>
+                <article className="disable">
+                  <button>시험 보기 </button>
+                  <button onClick={() => moveToDetail(myVoca.id)}>
+                    자세히 보기
+                  </button>
+                </article>
+              </CardContainer>
+            );
+          })}
+        </WordBookSlider>
+      </>
+    );
+  }
 };
 
 export default SlickMyBook;
@@ -88,18 +91,6 @@ const WordBookSlider = styled(Slider)`
   }
 `;
 
-// interface sliderProps {
-//   /** 슬라이더 아이템 요소 */
-//   children: React.ReactNode;
-//   /** 커스텀 클래스 */
-//   className?: string;
-//   /** 자동재생 (속도 설정시 number 타입으로) */
-//   autoplay?: boolean | number;
-//   /** 슬라이더 속도 */
-//   speed?: number;
-//   /** 반복 여부 */
-//   loop?: boolean;
-// }
 const CardContainer = styled.article`
   background-color: #e4f5fa;
   width: 220px;
@@ -196,7 +187,7 @@ const AboutCard = styled.div`
   line-height: 23px;
   letter-spacing: -0.07em;
   div {
-    margin-top: 22px;
+    margin-top: 15px;
     &:last-child {
       margin-top: 10px;
     }
