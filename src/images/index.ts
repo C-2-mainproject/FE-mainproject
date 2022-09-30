@@ -21,6 +21,8 @@ import star from "./star.png";
 import top_dlfeksdl from "./top_dlfeksdl.png";
 import game_ildan from "./game_ildan.png";
 import game_feedback from "./game_feedback.png";
+import mypage_w from "./mypage_w.png";
+import mypage_b from "./mypage_b.png";
 
 export {
   add,
@@ -46,4 +48,6 @@ export {
   top_dlfeksdl,
   game_ildan,
   game_feedback,
+  mypage_w,
+  mypage_b,
 };
