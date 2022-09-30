@@ -1,15 +1,35 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { apis } from "../../shared/api";
 
 const MyPageHeader = () => {
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
+  const { wordStorage } = useAppSelector(state => state.wordStorageSlice);
+  const [record, setRecord] = useState<number>(0);
+
+  const dispatch = useAppDispatch();
+
+  const getMyWordStorageLength = () => {
+    dispatch(__getWordStorageList());
+  };
+
+  const getMyGameScore = async () => {
+    await apis.getRecord().then(data => setRecord(data.data.winCount));
+  };
+
+  useEffect(() => {
+    getMyWordStorageLength();
+    getMyGameScore();
+  }, []);
 
   return (
     <MyPageHeaderLayout>
       <Header>
         <p>마이페이지</p>
         <button>
-          <span>이벤트</span>
+          <span> 🎉 이벤트 🎉</span>
         </button>
       </Header>
       <Info>
@@ -22,10 +42,10 @@ const MyPageHeader = () => {
 
         <div>
           <p>
-            나의 단어장 <span>12개</span>
+            나의 단어장 <span>{wordStorage.length}</span>
           </p>
           <p>
-            개인 승리 <span>99회</span>
+            개인 승리 <span>{record} 회</span>
           </p>
         </div>
       </Info>
@@ -51,8 +71,7 @@ const Header = styled.div`
   button {
     width: 182px;
     height: 40px;
-
-    background: #1f1f1f;
+    background: #00b4db;
   }
 
   span {
@@ -61,8 +80,10 @@ const Header = styled.div`
     font-size: 16px;
     line-height: 23px;
     letter-spacing: -0.07em;
-
     color: #ffffff;
+    &:hover {
+      font-weight: 700;
+    }
   }
 `;
 const Info = styled.div`
