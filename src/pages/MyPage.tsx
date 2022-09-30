@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { MyInfo, MyPageHeader } from "../components";
 import { __getUserInfo } from "../redux/modules/userInfoSlice";
-import { getSessionId } from "../shared/Cookie";
 import { useAppDispatch } from "../shared/reduxHooks";
 
 const MyPage = () => {
@@ -50,7 +49,7 @@ const MyPage = () => {
   };
 
   const test4 = () => {
-    console.log(getSessionId());
+    // console.log(getSessionId());
   };
 
   return (

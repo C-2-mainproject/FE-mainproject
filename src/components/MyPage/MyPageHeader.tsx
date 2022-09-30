@@ -29,14 +29,14 @@ const MyPageHeader = () => {
       <Header>
         <p>마이페이지</p>
         <button>
-          <span> 🎉 이벤트 🎉</span>
+          <span>🎉 이벤트 🎉</span>
         </button>
       </Header>
       <Info>
         <div>
           <img src={userInfo.profileImage} />
           <h1>
-            <span>{userInfo.nickname} 님</span>오늘도 달려볼까요?🔥
+            <span>{userInfo.nickname} 님</span>오늘도 달려볼까요? 🔥
           </h1>
         </div>
 

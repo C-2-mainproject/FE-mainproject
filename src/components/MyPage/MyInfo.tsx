@@ -21,11 +21,6 @@ const MyInfo = () => {
           <p>아이디</p>
           <span>{userInfo.nickname}</span>
         </ID>
-        <Nickname>
-          <p>이름</p>
-
-          <span>{userInfo.nickname}</span>
-        </Nickname>
         <Email>
           <p>이메일</p>
           <span>{userInfo.nickname}</span>
@@ -101,35 +96,13 @@ const Info = styled.div`
 const ID = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 23px;
+  margin-top: 45px;
 
   span {
     width: 500px;
-    height: 50px;
+    height: 70px;
     background: #eeeeee;
-    padding-top: 15px;
-    padding-left: 10px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 23px;
-    letter-spacing: -0.07em;
-
-    color: #999999;
-  }
-`;
-
-const Nickname = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 40px;
-
-  span {
-    width: 500px;
-    height: 50px;
-    background: #eeeeee;
-    padding-top: 15px;
+    padding-top: 25px;
     padding-left: 10px;
 
     font-style: normal;
@@ -145,13 +118,13 @@ const Nickname = styled.div`
 const Email = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 60px;
 
   span {
     width: 500px;
-    height: 50px;
+    height: 70px;
     background: #eeeeee;
-    padding-top: 15px;
+    padding-top: 25px;
     padding-left: 10px;
 
     font-style: normal;
