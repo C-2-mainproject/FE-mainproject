@@ -53,7 +53,9 @@ const WordTestList = () => {
   );
 };
 
-const WordTestListLayout = styled.div``;
+const WordTestListLayout = styled.div`
+  margin-bottom: 200px;
+`;
 
 const WordTestListHeader = styled.div`
   height: 80px;

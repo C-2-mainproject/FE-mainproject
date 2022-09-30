@@ -65,6 +65,7 @@ export interface IWordStorage {
   lastTestAt: string;
   likeCount: number;
   modifiedAt: string;
+  nickname: string;
   public: boolean;
   title: string;
 }
