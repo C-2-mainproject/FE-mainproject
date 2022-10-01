@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
@@ -15,14 +16,14 @@ type IRank = {
 };
 const Game = () => {
   const dispatch = useAppDispatch();
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const navigate = useNavigate();
   const [isWaittingModal, setIsWaittingModal] = useState(false);
   const [myRecord, setMyRecord] = useState<number>(0);
   const [ranking, setRanking] = useState<IRank[]>([]);
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const gameGuide = () => {
-    setIsOpenModal(!isOpenModal);
+    navigate("/gameguide");
   };
 
   const gameWaitting = () => {
@@ -114,7 +115,6 @@ const Game = () => {
             <button onClick={gameGuide}>
               <span>바로 가기</span>
             </button>
-            {isOpenModal && <GameGuideModal openGameGuideModal={gameGuide} />}
           </BottomSection>
         </GameBox>
       </GameWrapper>

@@ -12,6 +12,7 @@ import PlayGame from "./Game/PlayGame";
 import MyPage from "./MyPage";
 import SharedVocaDetail from "./SharedVoca/SharedVocaDetail";
 import WordTestResult from "./WordTestService/WordTestResult";
+import GameGuide from "./Game/GameGuide";
 
 export {
   Main,
@@ -28,4 +29,5 @@ export {
   MyPage,
   SharedVocaDetail,
   WordTestResult,
+  GameGuide,
 };

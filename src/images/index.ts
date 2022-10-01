@@ -27,6 +27,7 @@ import main_guide from "./main_guide.png";
 import support from "./support.png";
 import game_win from "./game_win.png";
 import game_lose from "./game_lose.png";
+import game_guide from "./game_guide.png";
 
 export {
   add,
@@ -58,4 +59,5 @@ export {
   support,
   game_win,
   game_lose,
+  game_guide,
 };
