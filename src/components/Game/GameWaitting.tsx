@@ -3,10 +3,15 @@ import { game_ildan } from "../../images";
 import ModalPortal from "../ModalPortal";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { getGameInfo } from "../../redux/modules/gameInfoSlice";
+import {
+  getGameInfo,
+  __getGameWordStorage,
+} from "../../redux/modules/gameInfoSlice";
+import { apis } from "../../shared/api";
+import axios from "axios";
 
 type ModalProps = {
   openWattingModal: () => void;
@@ -16,25 +21,51 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
+  const [ticket, setTicket] = useState<string>("");
 
-  const socket = new SockJS("http://newlno.com/ws");
+  const socket = new SockJS("https://newlno.com/wss");
   const stompClient = Stomp.over(socket);
 
   const headers = {
     nickname: userInfo.nickname,
-    profileImg: userInfo.profileImage,
+    ticket: "",
   };
 
   useLayoutEffect(() => {
-    onConnected();
+    // onConnected();
   }, []);
+
+  useEffect(() => {
+    getTicketStr();
+  }, []);
+
+  const getTicketStr = async () => {
+    await apis.getTicket().then(data => {
+      checkTicketStr(data.data.ticket);
+      setTicket(data.data.ticket);
+    });
+  };
+
+  const checkTicketStr = async (ticketStr: string) => {
+    console.log(ticketStr);
+    await axios
+      .post(
+        "https://newlno.com/wss/api/game/ticket/check",
+        { ticketStr },
+        { withCredentials: true },
+      )
+      .then(data => {
+        console.log(data);
+        onConnected();
+      });
+  };
 
   const onConnected = () => {
     console.log("onConnected!!");
     try {
       stompClient.connect(headers, () => {
         stompClient.subscribe(
-          `/sub/chat/join`,
+          `/sub/chat/join/${ticket}`,
           data => {
             const returnMessage = JSON.parse(data.body);
             dispatch(
@@ -44,6 +75,9 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
                 participant: returnMessage.matchingNickname,
               }),
             );
+
+            dispatch(__getGameWordStorage(returnMessage.roomId));
+
             navigate("/playgame");
           },
           headers,
