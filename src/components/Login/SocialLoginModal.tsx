@@ -1,22 +1,23 @@
 import axios from "axios";
 import styled from "styled-components";
+import { google_login } from "../../images";
 import ModalPortal from "../ModalPortal";
 type ModalProps = {
   openLoginModal: () => void;
 };
 
 const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
-  const test = async () => {
-    try {
-      const data = await axios.get(
-        "https://jdh3340.shop/oauth2/authorization/google",
-        { withCredentials: true },
-      );
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const test = async () => {
+  //   try {
+  //     const data = await axios.get(
+  //       "https://jdh3340.shop/oauth2/authorization/google",
+  //       { withCredentials: true },
+  //     );
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <ModalPortal>
@@ -33,25 +34,21 @@ const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
                 <SelectLogin>
                   <p>로그인</p>
                   <Button>
-                    <span onClick={test}>네이버 계정으로 로그인</span>
-                  </Button>
-                  <Button>
-                    {/* <span>Google 계정으로 로그인</span> */}
-                    <a href="https://jdh3340.shop/oauth2/authorization/google">
-                      네이버 계정으로 로그인
-                    </a>
+                    <A href="https://jdh3340.shop/oauth2/authorization/google">
+                      <img src={google_login} alt="google_login" />
+                    </A>
                   </Button>
                   <GuideDiv>
                     <h2>
-                      로그인에 도움이 필요한가요?<span>고객지원 서비스</span>
+                      로그인에 도움이 필요한가요?
+                      <span>
+                        <A href="https://talk.naver.com/W4Y0TR" target="_blank">
+                          고객지원 서비스
+                        </A>
+                      </span>
                     </h2>
                   </GuideDiv>
                 </SelectLogin>
-
-                <HR data-content="또는" />
-                <Button>
-                  <span>10초만에 간편 회원 가입</span>
-                </Button>
               </div>
             </Form>
           </Contents>
@@ -73,7 +70,7 @@ const Overlay = styled.div`
 
 const ModalWrap = styled.div`
   width: 640px;
-  height: fit-content;
+  height: 450px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -90,7 +87,7 @@ const CloseButton = styled.div`
 `;
 
 const Contents = styled.div`
-  margin: 50px 30px;
+  margin: 30px 30px;
   padding: 50px;
 `;
 
@@ -165,11 +162,8 @@ const SelectLogin = styled.div`
     color: #dbdbdb;
   }
 
-  button {
-    width: 480px;
-    height: 60px;
-    border: none;
-    background-color: #000;
+  p {
+    text-align: center;
   }
 `;
 
@@ -185,7 +179,7 @@ const GuideDiv = styled.div`
     font-style: normal;
     line-height: normal;
     letter-spacing: -1.12px;
-    text-align: left;
+    text-align: center;
     color: #6b6b6b;
   }
 
@@ -198,7 +192,7 @@ const GuideDiv = styled.div`
     font-style: normal;
     line-height: normal;
     letter-spacing: -1.12px;
-    text-align: left;
+    text-align: center;
     color: #6b6b6b;
     border-bottom: 1px solid;
   }
@@ -208,7 +202,7 @@ const Button = styled.button`
   width: 480px;
   height: 60px;
   margin-top: 20px;
-  background-color: #0199c3;
+  // background-color: #0199c3;
   border: none;
 
   span {
@@ -226,35 +220,5 @@ const Button = styled.button`
   }
 `;
 
-const HR = styled.hr`
-  line-height: 1em;
-  position: relative;
-  outline: 0;
-  border: 0;
-  color: black;
-  text-align: center;
-  height: 1.5em;
-  opacity: 0.5;
-
-  &:before {
-    content: "";
-    background: linear-gradient(to right, transparent, black, transparent);
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-  }
-  &:after {
-    content: attr(data-content);
-    position: relative;
-    display: inline-block;
-    color: black;
-
-    padding: 0 0.5em;
-    line-height: 1.5em;
-    color: black;
-    background-color: #fcfcfa;
-  }
-`;
+const A = styled.a``;
 export default SocialLoginModal;

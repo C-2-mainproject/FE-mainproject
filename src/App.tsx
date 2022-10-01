@@ -11,7 +11,11 @@ function App() {
       <GlobalStyle />
       <FloatingBtn>
         <img src={support} alt="support" />
-        <p>고객 지원</p>
+        <p>
+          <a href="https://talk.naver.com/W4Y0TR" target="_blank">
+            고객 지원
+          </a>
+        </p>
       </FloatingBtn>
       <Router />
     </>
@@ -40,6 +44,14 @@ const FloatingBtn = styled.div`
     line-height: 20px;
     letter-spacing: -0.07em;
     color: #00b4db;
+  }
+  a {
+    text-decoration: none;
+    color: #00b4db;
+  }
+
+  &:hover {
+    border: 2px solid #00b4db;
   }
 `;
 export default App;
