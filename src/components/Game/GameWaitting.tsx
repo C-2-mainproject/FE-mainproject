@@ -31,9 +31,9 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
     ticket: "",
   };
 
-  // useLayoutEffect(() => {
-  //   onConnected();
-  // }, []);
+  useLayoutEffect(() => {
+    // onConnected();
+  }, []);
 
   useEffect(() => {
     getTicketStr();
