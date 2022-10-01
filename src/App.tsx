@@ -22,8 +22,8 @@ const FloatingBtn = styled.div`
   position: fixed;
   width: 80px;
   height: 80px;
-  left: 1800px;
-  top: 838px;
+  left: 90%;
+  top: 80%;
 
   background: #ffffff;
   border: 1px solid #00b4db;

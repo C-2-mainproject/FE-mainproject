@@ -39,7 +39,6 @@ const WordTestList = () => {
     <WordTestListLayout>
       <WordTestListHeader>
         <p>{testWordStorage[0]?.wordStorageId}번 단어장 시험</p>
-        <img src={cancel} alt="cancel" />
       </WordTestListHeader>
       <WordTestListItem>{testListResult}</WordTestListItem>
       <WordTestSubmit>

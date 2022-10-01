@@ -13,7 +13,10 @@ const SlickBestVoca = () => {
   const [bestVoca, setBestVoca] = useState<IBestVoca>();
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const getBestVoca = async () => {
-    await apis.getBestLikeVoca(1).then(res => setBestVoca(res.data));
+    await apis.getBestLikeVoca(1).then(res => {
+      console.log(res);
+      setBestVoca(res.data);
+    });
   };
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const SlickBestVoca = () => {
       .addMyVoca(Number(newTarget.value))
       .then(data => console.log(data));
   };
-
+  console.log(bestVoca);
   return (
     <>
       <BestPopSlider {...BestSettings}>
@@ -53,10 +56,10 @@ const SlickBestVoca = () => {
               >
                 <div>
                   <Header>
-                    <span>200개</span>
+                    <span>{bestVoca.likeCount} 개</span>
                     <img src={like} width="20px" />
                   </Header>
-                  <p>토익</p>
+                  <p>{bestVoca.category}</p>
                   <h3>{bestVoca.title}</h3>
                   <h4>{bestVoca.description}</h4>
                 </div>
