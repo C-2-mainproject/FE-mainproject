@@ -36,7 +36,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   const [profile, setProfile] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const socket = new SockJS("http://newlno.com/ws");
+  const socket = new SockJS("https://newlno.com/wss");
   const stompClient = Stomp.over(socket);
 
   const headers = {

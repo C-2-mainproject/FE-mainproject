@@ -79,4 +79,6 @@ export const apis = {
   getRank: () => api.get("/api/game/rank"),
 
   postGameResult: (result: boolean) => api.post("/api/game/result", { result }),
+
+  getTicket: () => api.get("/api/game/ticket"),
 };
