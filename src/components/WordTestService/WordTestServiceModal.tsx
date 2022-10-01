@@ -23,7 +23,15 @@ const WordTestSereviceModal = ({
         <ModalWrap>
           <CloseButton onClick={openWordTestServiceModal}>X</CloseButton>
           <Contents>
-            <p>시험지 만들기</p>
+            <h1>영어단어 시험 보기</h1>
+            <h2>영어 단어 시험 보기 서비스는 단어의 의미(뜻)을 </h2>
+            <h2>
+              <span>정확하게 입력해야 정답</span> 처리가 됩니다!{" "}
+            </h2>
+            <p>
+              <span>TIP!</span> 의미(뜻)가(이) 여러개라면 콤마(,)를 사용하여
+              구분해주세요!
+            </p>
             <Button>
               <span onClick={moveToTestService}>시험 보러 가기</span>
             </Button>
@@ -47,7 +55,6 @@ const Overlay = styled.div`
 const ModalWrap = styled.div`
   width: 640px;
   height: fit-content;
-  border-radius: 15px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -68,9 +75,41 @@ const Contents = styled.div`
   padding: 50px;
 
   h1 {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: -0.07em;
+
+    color: #000000;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.07em;
+
+    color: #000000;
+    span {
+      color: #00b4db;
+    }
+  }
+  p {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.07em;
+
+    color: #000000;
+    span {
+      color: black;
+      font-weight: bold;
+    }
   }
 `;
 
@@ -78,7 +117,7 @@ const Button = styled.button`
   width: 480px;
   height: 60px;
   padding: 17px 192px;
-  margin-top: 60px;
+  margin-top: 55px;
   background-color: #d4d4d4;
 
   span {
@@ -93,6 +132,10 @@ const Button = styled.button`
     letter-spacing: -1px;
     text-align: left;
     color: #fff;
+  }
+
+  &:hover {
+    background: linear-gradient(to bottom right, #00b4db, #0083b0);
   }
 `;
 
