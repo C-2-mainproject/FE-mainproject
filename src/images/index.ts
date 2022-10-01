@@ -25,6 +25,9 @@ import mypage_w from "./mypage_w.png";
 import mypage_b from "./mypage_b.png";
 import main_guide from "./main_guide.png";
 import support from "./support.png";
+import game_win from "./game_win.png";
+import game_lose from "./game_lose.png";
+
 export {
   add,
   logo_w,
@@ -53,4 +56,6 @@ export {
   mypage_b,
   main_guide,
   support,
+  game_win,
+  game_lose,
 };
