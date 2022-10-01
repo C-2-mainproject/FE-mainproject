@@ -2,17 +2,21 @@ import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
 
-export const setSessionId = (sessionId: string) => {
+export const setCookie = (cookie: string) => {
   const today = new Date();
   const expireDate = today.setDate(today.getDate() + 7);
 
-  return cookies.set("sessionId", sessionId, {
+  return cookies.set("user_cookie", cookie, {
     sameSite: "strict",
     path: "/",
     expires: new Date(expireDate),
   });
 };
 
-export const getSessionId = () => {
-  return cookies.get("sessionId");
+export const getCookie = () => {
+  return cookies.get("user_cookie");
+};
+
+export const removeCookie = () => {
+  return cookies.remove("user_cookie", { sameSite: "strict", path: "/" });
 };

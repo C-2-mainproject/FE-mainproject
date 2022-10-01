@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "../Layout/Footer";
+import Header from "../Layout/Header";
 import {
   Main,
   MyVoca,
@@ -20,6 +22,7 @@ const Router = () => {
   return (
     <>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/myvoca" element={<MyVoca />} />
@@ -37,6 +40,7 @@ const Router = () => {
           <Route path="/wordtest-result" element={<WordTestResult />} />
           <Route path="*" element={<div>404 Error</div>} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

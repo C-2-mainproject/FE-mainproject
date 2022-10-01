@@ -2,15 +2,28 @@ import styled from "styled-components";
 import { MainSubMenu, WordChart } from "../components/index";
 import SlickMyBook from "../components/Main/SlickMyBook";
 import SlickBestBook from "../components/Main/SlickBestVoca";
-import Header from "../Layout/Header";
 import Dlfeksdl from "../images/top_dlfeksdl.png";
 import RunDlfeksdl from "../images/run_dlfeksdl.png";
-
+import { useEffect } from "react";
+import { apis } from "../shared/api";
+import { setCookie } from "../shared/Cookie";
 const Main = () => {
+  const userTest = async () => {
+    await apis.getUserTest().then(data => {
+      setCookie(data.headers.cookie);
+    });
+  };
+
+  // const getLikeShared = async () => {
+  //   await apis.getLikeSharedWordStorage().then(data => console.log(data));
+  // };
+  useEffect(() => {
+    userTest();
+  }, []);
+
   return (
     <>
       <MainMenu>
-        <Header />
         <section style={{ paddingRight: "0px" }}>
           <WelcomeText>
             <div>
@@ -84,6 +97,9 @@ const MainMenu = styled.div`
 const WelcomeText = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 230px;
+  margin-top: -235px;
+
   p {
     font-size: 48px;
     color: #fff;
@@ -115,7 +131,7 @@ const MyWordBookList = styled.section`
   }
 `;
 const MyBookTitle = styled.span`
-  width: 16rem;
+  width: 13rem;
   font-size: 36px;
   p {
     font-size: 36px;
