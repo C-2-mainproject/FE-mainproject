@@ -5,53 +5,68 @@ import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
 import { useState, useEffect, Key } from "react";
 import { IBestVoca } from "../../types/types";
+import { IWordStorage } from "../../types/types";
+import { like } from "../../images";
+import { MouseEvent } from "react";
 
-const SlickBestBook = ({ mainBestVoca }: { mainBestVoca?: boolean }) => {
+const SlickBestVoca = () => {
   const [bestVoca, setBestVoca] = useState<IBestVoca>();
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => setBestVoca(res.data));
   };
-  console.log(sliderIndex);
+
   useEffect(() => {
     getBestVoca();
   }, []);
 
   const BestSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
     slidesToShow: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 4000,
     loop: true,
     centerMode: false,
+    variableWidth: true,
     beforeChange: (current: number, next: number) => setSliderIndex(next),
   };
+
+  const addToMyVoca = async (event: MouseEvent<HTMLButtonElement>) => {
+    const newTarget = event.target as HTMLButtonElement;
+
+    await apis
+      .addMyVoca(Number(newTarget.value))
+      .then(data => console.log(data));
+  };
+
   return (
     <>
       <BestPopSlider {...BestSettings}>
-        {bestVoca?.map((bestVoca: IBestVoca, index: Key) => {
-          console.log("aaaaaa", index);
+        {bestVoca?.map((bestVoca: IWordStorage, index: Key) => {
           return (
-            <>
+            <div key={bestVoca.id}>
               <WordBookBox
-                props={index === sliderIndex ? "active" : "prev"}
-                key={index}
+                className={index === sliderIndex ? "active" : "prev"}
               >
                 <div>
+                  <Header>
+                    <span>200개</span>
+                    <img src={like} width="20px" />
+                  </Header>
                   <p>토익</p>
-                  <h3> {bestVoca.title}</h3>
+                  <h3>{bestVoca.title}</h3>
                   <h4>{bestVoca.description}</h4>
                 </div>
                 <span>
-                  <button>
+                  <button value={bestVoca.id} onClick={addToMyVoca}>
                     내 단어장에 담기<p>&gt;</p>
                   </button>
                 </span>
               </WordBookBox>
-            </>
+            </div>
           );
         })}
       </BestPopSlider>
@@ -59,42 +74,40 @@ const SlickBestBook = ({ mainBestVoca }: { mainBestVoca?: boolean }) => {
   );
 };
 
-export default SlickBestBook;
-
 const BestPopSlider = styled(Slider)`
   position: absolute;
-  max-width: 900px;
+  max-width: 1000px;
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate(-35%, -20%);
+
   .slick-prev:before {
-    opacity: 1; // 기존에 숨어있던 화살표 버튼이 보이게
-    color: black; // 버튼 색은 검은색으로
+    opacity: 1;
+    color: black;
     left: 0px;
     z-index: 1;
     position: relative;
   }
+
   .slick-next:before {
-    right: 110px;
+    right: 210px;
     position: relative;
     opacity: 1;
-
     color: black;
   }
 `;
-const WordBookBox = styled.div<{ props: string }>`
+
+const WordBookBox = styled.div`
   width: 785px;
   height: 400px;
-  /* margin-left: 16rem; */
 
   background-color: #eff9fc;
   padding: 0 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* opacity: ${props => (props.props === "active" ? 1.0 : 0.4)}; */
-
-  /* transform: scale(${props => (props.props === "active" ? 1.0 : 0.8)}); */
+  opacity: ${props => (props.className === "active" ? 1.0 : 0.5)};
+  transform: scale(${props => (props.className === "active" ? 1.0 : 0.8)});
 
   button {
     margin-top: 61px;
@@ -125,7 +138,6 @@ const WordBookBox = styled.div<{ props: string }>`
       font-weight: 400;
       font-size: 24px;
       line-height: 35px;
-      /* identical to box height */
     }
     p {
       width: 30px;
@@ -145,8 +157,18 @@ const WordBookBox = styled.div<{ props: string }>`
     }
   }
 `;
-const SecondBox = styled.div`
-  background-color: gray;
-  width: 90px;
-  height: 300px;
+
+const Header = styled.div`
+  img {
+    margin-left: 600px;
+    margin-top: -25px;
+  }
+
+  span {
+    width: 50px;
+    margin-top: -40px;
+    margin-left: 625px;
+  }
 `;
+
+export default SlickBestVoca;

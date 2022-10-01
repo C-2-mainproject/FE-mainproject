@@ -57,6 +57,8 @@ export const apis = {
   getBestLikeVoca: (page: number) =>
     api.get(`/api/wordstorage/public/filter/like?page=${page}`),
 
+  addMyVoca: (id: number) => api.post(`/api/wordstorage/save/id/${id}`),
+
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),
 

@@ -7,7 +7,6 @@ import RunDlfeksdl from "../images/run_dlfeksdl.png";
 import { useEffect } from "react";
 import { apis } from "../shared/api";
 import { setCookie } from "../shared/Cookie";
-
 const Main = () => {
   const userTest = async () => {
     await apis.getUserTest().then(data => {
@@ -15,6 +14,9 @@ const Main = () => {
     });
   };
 
+  // const getLikeShared = async () => {
+  //   await apis.getLikeSharedWordStorage().then(data => console.log(data));
+  // };
   useEffect(() => {
     userTest();
   }, []);
