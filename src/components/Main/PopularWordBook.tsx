@@ -5,7 +5,7 @@ type Props = {
   BestVoca: IBestVoca;
 };
 const PopularWordBook = ({ BestVoca }: Props) => {
-  const { id, title, description, haveStorage } = BestVoca;
+  const { title, description } = BestVoca;
   return (
     <>
       <WordBookBox>

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import GameGuideModal from "../../components/Game/GameGuideModal";
 import GameWaitting from "../../components/Game/GameWaitting";
 import { game_logo } from "../../images";
 import { finishGame } from "../../redux/modules/gameInfoSlice";
