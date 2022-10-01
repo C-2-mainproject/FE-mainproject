@@ -77,4 +77,6 @@ export const apis = {
     api.get(`/api/game/word?roomId=${roomId}`),
 
   getRank: () => api.get("/api/game/rank"),
+
+  postGameResult: (result: boolean) => api.post("/api/game/result", { result }),
 };

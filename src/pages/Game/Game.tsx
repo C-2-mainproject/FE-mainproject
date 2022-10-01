@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import GameGuideModal from "../../components/Game/GameGuideModal";
 import GameWaitting from "../../components/Game/GameWaitting";
-import { game_logo, logo } from "../../images";
+import { game_logo } from "../../images";
+import { finishGame } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 
 type IRank = {
   nickname: string;
@@ -13,14 +13,15 @@ type IRank = {
   winCount: number;
 };
 const Game = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isWaittingModal, setIsWaittingModal] = useState(false);
   const [myRecord, setMyRecord] = useState<number>(0);
   const [ranking, setRanking] = useState<IRank[]>([]);
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const gameGuide = () => {
-    setIsOpenModal(!isOpenModal);
+    navigate("/gameguide");
   };
 
   const gameWaitting = () => {
@@ -37,6 +38,10 @@ const Game = () => {
   useEffect(() => {
     getMyRecord();
     getRank();
+  }, []);
+
+  useEffect(() => {
+    dispatch(finishGame());
   }, []);
 
   return (
@@ -108,7 +113,6 @@ const Game = () => {
             <button onClick={gameGuide}>
               <span>바로 가기</span>
             </button>
-            {isOpenModal && <GameGuideModal openGameGuideModal={gameGuide} />}
           </BottomSection>
         </GameBox>
       </GameWrapper>

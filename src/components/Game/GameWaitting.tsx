@@ -37,12 +37,11 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
           `/sub/chat/join`,
           data => {
             const returnMessage = JSON.parse(data.body);
-            console.log(returnMessage.nickname);
             dispatch(
               getGameInfo({
                 roomId: returnMessage.roomId,
                 sessionId: returnMessage.sessionId,
-                participant: returnMessage.nickname,
+                participant: returnMessage.matchingNickname,
               }),
             );
             navigate("/playgame");
