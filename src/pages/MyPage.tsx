@@ -1,17 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
+
 import styled from "styled-components";
 import { MyInfo, MyPageHeader } from "../components";
-import { __getUserInfo } from "../redux/modules/userInfoSlice";
-import { useAppDispatch } from "../shared/reduxHooks";
 
 const MyPage = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(__getUserInfo());
-  }, []);
-
   const test1 = async () => {
     console.log("test1");
     try {

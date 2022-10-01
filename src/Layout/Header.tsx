@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SocialLoginModal from "../components/Login/SocialLoginModal";
 import { logo, logo_w, mypage_b, mypage_w } from "../images";
+import { __getUserInfo } from "../redux/modules/userInfoSlice";
 import { getCookie, removeCookie } from "../shared/Cookie";
+import { useAppDispatch } from "../shared/reduxHooks";
 // import { apis } from "../shared/api";
 // import SocialLoginModal from "../components/Login/SocialLoginModal";
 // import { apis } from "../shared/api";
@@ -15,6 +17,12 @@ const Header = () => {
   const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const cookie = getCookie();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(__getUserInfo());
+  }, []);
 
   useEffect(() => {
     getCookie();
