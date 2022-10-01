@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   gameInfo: {
@@ -44,6 +44,12 @@ const initialState = {
     correctAnswer: [],
   },
 };
+export const __getGameWordStorage = createAsyncThunk(
+  "gameInfoSlice/__getGameWordStorage",
+  async (payload: string, thunkAPI) => {
+    console.log(payload);
+  },
+);
 
 export const gameInfoSlice = createSlice({
   name: "gameInfoSlice",
@@ -120,7 +126,17 @@ export const gameInfoSlice = createSlice({
       state.isReady = false;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [__getGameWordStorage.pending.type]: state => {
+      console.log(state);
+    },
+    [__getGameWordStorage.fulfilled.type]: (state, action) => {
+      console.log(state, action);
+    },
+    [__getGameWordStorage.rejected.type]: state => {
+      console.log(state);
+    },
+  },
 });
 
 export const { getGameInfo, getReadyInfo, getQuizInfo, finishGame } =

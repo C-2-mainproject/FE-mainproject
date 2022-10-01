@@ -6,7 +6,10 @@ import SockJS from "sockjs-client";
 import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { getGameInfo } from "../../redux/modules/gameInfoSlice";
+import {
+  getGameInfo,
+  __getGameWordStorage,
+} from "../../redux/modules/gameInfoSlice";
 
 type ModalProps = {
   openWattingModal: () => void;
@@ -17,7 +20,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
-  const socket = new SockJS("http://newlno.com/ws");
+  const socket = new SockJS("https://newlno.com/ws");
   const stompClient = Stomp.over(socket);
 
   const headers = {
@@ -44,6 +47,9 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
                 participant: returnMessage.matchingNickname,
               }),
             );
+
+            dispatch(__getGameWordStorage(returnMessage.roomId));
+
             navigate("/playgame");
           },
           headers,
