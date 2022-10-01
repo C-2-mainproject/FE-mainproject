@@ -47,7 +47,7 @@ const initialState = {
 export const __getGameWordStorage = createAsyncThunk(
   "gameInfoSlice/__getGameWordStorage",
   async (payload: string, thunkAPI) => {
-    console.log(payload);
+    console.log(payload, thunkAPI);
   },
 );
 
