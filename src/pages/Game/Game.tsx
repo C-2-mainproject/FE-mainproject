@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import GameGuideModal from "../../components/Game/GameGuideModal";
 import GameWaitting from "../../components/Game/GameWaitting";
-import { game_logo, logo } from "../../images";
+import { game_logo } from "../../images";
+import { finishGame } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 
 type IRank = {
   nickname: string;
@@ -13,6 +14,7 @@ type IRank = {
   winCount: number;
 };
 const Game = () => {
+  const dispatch = useAppDispatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isWaittingModal, setIsWaittingModal] = useState(false);
   const [myRecord, setMyRecord] = useState<number>(0);
@@ -37,6 +39,10 @@ const Game = () => {
   useEffect(() => {
     getMyRecord();
     getRank();
+  }, []);
+
+  useEffect(() => {
+    dispatch(finishGame());
   }, []);
 
   return (

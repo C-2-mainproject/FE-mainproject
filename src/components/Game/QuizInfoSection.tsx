@@ -2,26 +2,37 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { game_feedback, ildan } from "../../images";
 import { useAppSelector } from "../../shared/reduxHooks";
+import GameFinishModal from "./GameFinishModal";
 
 type IClick = {
   clickReady: () => void;
 };
 const QuizInfoSection = ({ clickReady }: IClick) => {
-  const { userInfo } = useAppSelector(state => state.userInfoSlice);
   const { gameInfo, isReady, gameWordStorage, quizProgress } = useAppSelector(
     state => state.gameInfoSlice,
   );
 
   const [quizWord, setQuizWord] = useState<string>("");
+  const [isFinishPop, setIsFinishPop] = useState<boolean>(false);
 
   useEffect(() => {
     nextQuiz();
   }, [quizProgress.quizNumber]);
 
+  useEffect(() => {
+    if (quizProgress.finalWinner !== "") {
+      finishPopup();
+    }
+  }, [quizProgress.finalWinner]);
+
   const nextQuiz = () => {
     setTimeout(() => {
       setQuizWord(gameWordStorage[quizProgress.quizNumber].word);
     }, 4000);
+  };
+
+  const finishPopup = () => {
+    setIsFinishPop(!isFinishPop);
   };
 
   return (
@@ -35,9 +46,8 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
               <span>{gameInfo.participant[0]}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
-                  console.log(i);
-                  if (userInfo.nickname === v) {
-                    return <span key={i}> 🐺 </span>;
+                  if (gameInfo.participant[0] === v) {
+                    return <span key={i}> 👍🏻 </span>;
                   }
                 })}
               </span>
@@ -47,9 +57,8 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
               <span>{gameInfo.participant[1]}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
-                  console.log(i);
-                  if (userInfo.nickname !== v) {
-                    return <span key={i}> 🐺 </span>;
+                  if (gameInfo.participant[1] === v) {
+                    return <span key={i}> 👍🏻 </span>;
                   }
                 })}
               </span>
@@ -90,6 +99,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
             게임서비스 이용에 도움이 필요한가요?<span>고객지원 서비스</span>
           </p>
         </div>
+        {isFinishPop && <GameFinishModal winner={quizProgress.finalWinner} />}
       </QuizListSection>
 
       <AdsSection>
