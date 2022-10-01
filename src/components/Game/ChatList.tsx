@@ -31,6 +31,12 @@ const ChatList = ({
               <span>{message}</span>
             </ChatNotice>
           );
+        } else if (message.includes("승리")) {
+          return (
+            <ChatNotice key={index}>
+              <span>{message}</span>
+            </ChatNotice>
+          );
         } else {
           return (
             <ChatInfoWrapper key={index}>

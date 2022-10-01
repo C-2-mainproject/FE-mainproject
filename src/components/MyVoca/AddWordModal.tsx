@@ -44,7 +44,6 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
 
   const addWordList = () => {
     if (inputWord.words && inputWord.meanings) {
-      console.log("inini", inputWord);
       setWord([...word, inputWord.words]);
       setMean([...mean, inputWord.meanings.split(",")]);
 
@@ -241,12 +240,16 @@ const AddArea = styled.div`
   }
 
   button {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     margin: auto;
     margin-left: 10px;
     background-color: black;
     color: white;
+
+    &:hover {
+      font-weight: 700;
+    }
   }
 `;
 const Button = styled.button`
@@ -268,6 +271,10 @@ const Button = styled.button`
     letter-spacing: -1px;
     text-align: left;
     color: #fff;
+  }
+
+  &:hover {
+    background: linear-gradient(to bottom right, #00b4db, #0083b0);
   }
 `;
 export default AddWordModal;

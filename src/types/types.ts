@@ -65,6 +65,7 @@ export interface IWordStorage {
   lastTestAt: string;
   likeCount: number;
   modifiedAt: string;
+  nickname: string;
   public: boolean;
   title: string;
 }
@@ -117,4 +118,12 @@ export interface IEndWordTestItem {
 export interface ICollectionWrongWord {
   words: string[];
   meanings: string[][];
+}
+
+export interface IBestVoca {
+  map: any;
+  id?: number;
+  title: string;
+  description: string;
+  haveStorage: boolean;
 }

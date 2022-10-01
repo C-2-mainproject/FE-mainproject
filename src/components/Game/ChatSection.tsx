@@ -8,6 +8,7 @@ import { GameInput, ChatList } from "../index";
 import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
+import { apis } from "../../shared/api";
 // import { apis } from "../../shared/api";
 
 // JOIN
@@ -24,7 +25,9 @@ type IReady = {
 
 const ChatSection = ({ readyStatus }: IReady) => {
   const dispatch = useAppDispatch();
-  const { gameInfo } = useAppSelector(state => state.gameInfoSlice);
+  const { gameInfo, quizProgress } = useAppSelector(
+    state => state.gameInfoSlice,
+  );
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const [message, setMessage] = useState<string>("");
@@ -56,6 +59,12 @@ const ChatSection = ({ readyStatus }: IReady) => {
     }
   }, [readyStatus]);
 
+  useEffect(() => {
+    if (quizProgress.finalWinner !== "") {
+      finish(quizProgress.finalWinner);
+    }
+  }, [quizProgress.finalWinner]);
+
   // const getGameWordStorage = async () => {
   //   try {
   //     const data = await axios.get("http://newlno.com/api/game/wordstorage", {
@@ -70,6 +79,9 @@ const ChatSection = ({ readyStatus }: IReady) => {
   // useEffect(() => {
   //   getGameWordStorage();
   // }, []);
+  const finishGame = async (result: boolean) => {
+    await apis.postGameResult(result).then(data => console.log(data));
+  };
 
   const onConnected = () => {
     try {
@@ -119,6 +131,14 @@ const ChatSection = ({ readyStatus }: IReady) => {
           if (returnMessage.messageType === "GAME") {
             dispatch(getQuizInfo(returnMessage));
           }
+
+          if (returnMessage.messageType === "FINISH") {
+            if (quizProgress.finalWinner === userInfo.nickname) {
+              finishGame(true);
+            } else {
+              finishGame(false);
+            }
+          }
         },
         headers,
       );
@@ -129,10 +149,12 @@ const ChatSection = ({ readyStatus }: IReady) => {
   };
 
   const sendMessage = () => {
+    console.log("test!!!!!!", userInfo.nickname);
     stompClient.send(
       `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
+        matchingNickname: gameInfo.participant,
         answerUser1: 0,
         answerUser2: 0,
         message: message,
@@ -157,6 +179,23 @@ const ChatSection = ({ readyStatus }: IReady) => {
             message: "게임을 시작합니다",
             roomId: gameInfo.roomId,
             messageType: "READY",
+          }),
+        );
+      }
+    }, 500);
+  };
+
+  const finish = (winner: string) => {
+    setTimeout(() => {
+      if (winner === userInfo.nickname) {
+        stompClient.send(
+          `/pub/chat/enter/${gameInfo.roomId}`,
+          headers,
+          JSON.stringify({
+            sessionId: gameInfo.sessionId,
+            message: `${winner} 님이 승리하였습니다`,
+            roomId: gameInfo.roomId,
+            messageType: "FINISH",
           }),
         );
       }

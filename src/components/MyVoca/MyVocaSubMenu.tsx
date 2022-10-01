@@ -14,12 +14,6 @@ const MyVocaSubMenu = () => {
   const [text, setText] = useState<string>("");
 
   const tabClickHandler = (index: number) => {
-    // if (index === 0) {
-    //   navigate("/myvoca");
-    // } else {
-    //   navigate("/wronganswer");
-    // }
-
     setActiveIndex(index);
   };
 
@@ -37,7 +31,6 @@ const MyVocaSubMenu = () => {
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      console.log("text is :: ", text);
       dispatch(__searchWordStorage(text));
       setText("");
     }
@@ -173,6 +166,10 @@ const AddButton = styled.button`
     letter-spacing: -1px;
     text-align: left;
     color: #fff;
+
+    &:hover {
+      font-weight: 700;
+    }
   }
 `;
 

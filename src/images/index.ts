@@ -21,6 +21,13 @@ import star from "./star.png";
 import top_dlfeksdl from "./top_dlfeksdl.png";
 import game_ildan from "./game_ildan.png";
 import game_feedback from "./game_feedback.png";
+import mypage_w from "./mypage_w.png";
+import mypage_b from "./mypage_b.png";
+import main_guide from "./main_guide.png";
+import support from "./support.png";
+import game_win from "./game_win.png";
+import game_lose from "./game_lose.png";
+import game_guide from "./game_guide.png";
 
 export {
   add,
@@ -46,4 +53,11 @@ export {
   top_dlfeksdl,
   game_ildan,
   game_feedback,
+  mypage_w,
+  mypage_b,
+  main_guide,
+  support,
+  game_win,
+  game_lose,
+  game_guide,
 };

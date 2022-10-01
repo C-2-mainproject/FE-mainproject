@@ -20,6 +20,8 @@ import WordTestList from "./WordTestService/WordTestList";
 import WordTestItem from "./WordTestService/WordTestItem";
 import WordTestResultList from "./WordTestService/WordTestResultList";
 import WordTestResultItem from "./WordTestService/WordTestResultItem";
+import MyPageHeader from "./MyPage/MyPageHeader";
+import MyInfo from "./MyPage/MyInfo";
 
 export {
   MyWordCard,
@@ -44,4 +46,6 @@ export {
   WordTestItem,
   WordTestResultList,
   WordTestResultItem,
+  MyPageHeader,
+  MyInfo,
 };

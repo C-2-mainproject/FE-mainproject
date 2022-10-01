@@ -42,7 +42,7 @@ const MyVocaItem = ({ wordStorage }: Props) => {
         </div>
         <div>
           <p>
-            작성 <span>일단이</span>
+            작성 <span>{wordStorage.nickname}</span>
           </p>
           <p>
             제작
@@ -236,6 +236,10 @@ const MyVocaItemLayoutHover = styled.div`
     color: white;
     background-color: transparent;
     border: 1px solid;
+
+    &:hover {
+      color: #00b4db;
+    }
   }
 `;
 

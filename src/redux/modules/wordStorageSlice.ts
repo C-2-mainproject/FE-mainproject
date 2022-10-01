@@ -13,9 +13,9 @@ const initialState: IWordStorageInitialState = {
 
 export const __getWordStorageList = createAsyncThunk(
   "wordStorageSlice/__getWordStorageList",
-  async (payload: number, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const data = await apis.getWordStorages(payload);
+      const data = await apis.getWordStorages();
       console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -54,7 +54,7 @@ export const wordStorageSlice = createSlice({
       state.isLoading = true;
     },
     [__getWordStorageList.fulfilled.type]: (state, action) => {
-      state.wordStorage = [...state.wordStorage].concat(action.payload.content);
+      state.wordStorage = action.payload;
       state.pageNum = action.payload.number;
       state.lastPage = action.payload.last;
       state.isLoading = false;

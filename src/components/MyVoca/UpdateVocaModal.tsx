@@ -3,7 +3,8 @@ import ModalPortal from "../ModalPortal";
 import { useState, ChangeEvent } from "react";
 import CustomSelect from "../CustomSelect";
 import { apis } from "../../shared/api";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 
 type ModalProps = {
   openAddStorageModal: () => void;
@@ -27,6 +28,7 @@ const shared_list = [
 ];
 
 const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
+  const dispatch = useAppDispatch();
   const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
 
   const [addWordStorageInput, setAddWordStorageInput] = useState(
@@ -83,6 +85,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
       console.log(error);
       throw error;
     }
+    dispatch(__getWordStorageList());
     openAddStorageModal();
   };
 
@@ -352,6 +355,10 @@ const Button = styled.button`
     letter-spacing: -1px;
     text-align: left;
     color: #fff;
+  }
+
+  &:hover {
+    background: linear-gradient(to bottom right, #00b4db, #0083b0);
   }
 `;
 

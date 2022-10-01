@@ -9,8 +9,7 @@ const api = axios.create({
 
 export const apis = {
   // 나의 단어장 관리
-  getWordStorages: (num: number) =>
-    api.get(`/api/user/wordstorage/my?page=${num}`),
+  getWordStorages: () => api.get(`/api/user/wordstorage/my`),
 
   getLikeWordStorage: () => api.get("/api/user/wordstorage/like"),
 
@@ -52,11 +51,20 @@ export const apis = {
   checkNickname: (nickname: string) =>
     api.post("/api/check/nickname", { nickname }),
 
-  // chart
+  // Main
   getChartData: () => api.get("/api/wordstorage/statistic"),
+
+  getBestLikeVoca: (page: number) =>
+    api.get(`/api/wordstorage/public/filter/like?page=${page}`),
+
+  addMyVoca: (id: number) => api.post(`/api/wordstorage/save/id/${id}`),
 
   // 마이페이지
   getUserInfo: () => api.get("/api/user"),
+
+  deleteUserInfo: () => api.delete("/api/user"),
+
+  getUserTest: () => api.get("/oauth2"),
 
   // 공인 단어장
   suggestionWordStorage: (id: number) =>
@@ -69,4 +77,6 @@ export const apis = {
     api.get(`/api/game/word?roomId=${roomId}`),
 
   getRank: () => api.get("/api/game/rank"),
+
+  postGameResult: (result: boolean) => api.post("/api/game/result", { result }),
 };

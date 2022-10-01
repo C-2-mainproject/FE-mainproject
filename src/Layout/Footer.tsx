@@ -24,7 +24,8 @@ const Footer = () => {
           <FooterLogo>
             <MadeBy>
               <span>FE</span> 소재범 <span>BE</span>이태민 장동하 유은정 이윤종
-              <span>FE-SUPPOTER</span>이태훈
+              <span>SUP</span>이태훈
+              <span>DESIGNER</span> 김소정
             </MadeBy>
             <div>
               <h5>© 2022 일단이의 단어장. ALL RIGHTS RESERVED</h5>

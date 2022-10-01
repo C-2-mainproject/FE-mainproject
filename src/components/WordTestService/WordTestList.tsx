@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { cancel, mainsub_myVoca } from "../../images";
+import { mainsub_myVoca } from "../../images";
 import { __makeWordTest } from "../../redux/modules/answerSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { WordTestItem } from "../index";
@@ -39,7 +39,6 @@ const WordTestList = () => {
     <WordTestListLayout>
       <WordTestListHeader>
         <p>{testWordStorage[0]?.wordStorageId}번 단어장 시험</p>
-        <img src={cancel} alt="cancel" />
       </WordTestListHeader>
       <WordTestListItem>{testListResult}</WordTestListItem>
       <WordTestSubmit>
@@ -53,7 +52,9 @@ const WordTestList = () => {
   );
 };
 
-const WordTestListLayout = styled.div``;
+const WordTestListLayout = styled.div`
+  margin-bottom: 200px;
+`;
 
 const WordTestListHeader = styled.div`
   height: 80px;

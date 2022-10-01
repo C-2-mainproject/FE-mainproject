@@ -38,6 +38,9 @@ const initialState = {
   isFinish: false,
   quizProgress: {
     quizNumber: 0,
+    userA: 0,
+    userB: 0,
+    finalWinner: "",
     correctAnswer: [],
   },
 };
@@ -64,19 +67,62 @@ export const gameInfoSlice = createSlice({
         action.payload.message ===
         state.gameWordStorage[state.quizProgress.quizNumber].mean
       ) {
-        console.log("정답!!");
-        state.quizProgress = {
-          ...state.quizProgress,
-          quizNumber: state.quizProgress.quizNumber + 1,
-          correctAnswer: [...state.quizProgress.correctAnswer].concat(
-            action.payload.nickname,
-          ),
-        };
+        if (state.quizProgress.userA === 4) {
+          console.log("USERA 이겼다!!");
+          state.quizProgress = {
+            ...state.quizProgress,
+            finalWinner: action.payload.matchingNickname[0],
+          };
+        }
+
+        if (state.quizProgress.userB === 4) {
+          console.log("USERB 이겼다!!");
+          state.quizProgress = {
+            ...state.quizProgress,
+            finalWinner: action.payload.matchingNickname[1],
+          };
+        }
+
+        if (action.payload.matchingNickname[0] === action.payload.nickname) {
+          state.quizProgress = {
+            ...state.quizProgress,
+            quizNumber: state.quizProgress.quizNumber + 1,
+            userA: state.quizProgress.userA + 1,
+
+            correctAnswer: [...state.quizProgress.correctAnswer].concat(
+              action.payload.nickname,
+            ),
+          };
+        }
+
+        if (action.payload.matchingNickname[1] === action.payload.nickname) {
+          state.quizProgress = {
+            ...state.quizProgress,
+            quizNumber: state.quizProgress.quizNumber + 1,
+            userB: state.quizProgress.userB + 1,
+
+            correctAnswer: [...state.quizProgress.correctAnswer].concat(
+              action.payload.nickname,
+            ),
+          };
+        }
       }
+    },
+
+    finishGame: state => {
+      state.quizProgress = {
+        quizNumber: 0,
+        userA: 0,
+        userB: 0,
+        finalWinner: "",
+        correctAnswer: [],
+      };
+      state.isReady = false;
     },
   },
   extraReducers: {},
 });
 
-export const { getGameInfo, getReadyInfo, getQuizInfo } = gameInfoSlice.actions;
+export const { getGameInfo, getReadyInfo, getQuizInfo, finishGame } =
+  gameInfoSlice.actions;
 export default gameInfoSlice.reducer;
