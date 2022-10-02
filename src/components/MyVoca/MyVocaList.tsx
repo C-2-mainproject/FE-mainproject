@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MyVocaItem } from "../../components";
+import { MyVocaItem, WrongItem } from "../../components";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
@@ -53,15 +53,12 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
       return (
         <Empty>
           <div>
-            <h1>가이드를 꼭 확인하고 단어장을 만들어주세요! 👉 👉</h1>
+            <h1>영어 단어장을 추가해주세요! 👀</h1>
             <h2>
-              우측상단 ‘단어장 추가하기’를 클릭하여 간편하게 영어 단어장을
+              우측상단 ‘새 단어장 추가’를 클릭하여 간편하게 영어 단어장을
               추가해보세요!
             </h2>
           </div>
-          <button>
-            <span>가이드 바로가기</span>
-          </button>
         </Empty>
       );
     }
@@ -136,10 +133,11 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "오답노트") {
+      console.log("오답노트");
       return (
         <MyVocaListLayout>
           {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
-            return <MyVocaItem key={index} wordStorage={wrongWordStorage} />;
+            return <WrongItem key={index} wordStorage={wrongWordStorage} />;
           })}
         </MyVocaListLayout>
       );
@@ -177,17 +175,19 @@ const Empty = styled.div`
   margin-top: 75px;
   margin-bottom: 200px;
 
-  padding-top: 110px;
   text-align: center;
 
+  div {
+    margin: auto;
+  }
+
   h1 {
-    margin-left: 104px;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
     line-height: 43px;
-
-    color: #000000;
+    letter-spacing: -0.07em;
+    color: #00b4db;
   }
 
   h2 {
@@ -198,24 +198,6 @@ const Empty = styled.div`
     line-height: 26px;
 
     color: #666666;
-  }
-
-  button {
-    width: 300px;
-    height: 83px;
-    margin-left: 182px;
-    background: #272727;
-
-    span {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 35px;
-
-      letter-spacing: -0.07em;
-
-      color: #fff;
-    }
   }
 `;
 export default MyVocaList;

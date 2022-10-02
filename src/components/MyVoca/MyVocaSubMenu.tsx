@@ -21,9 +21,9 @@ const MyVocaSubMenu = () => {
     setIsOpenModal(!isOpenModal);
   };
 
-  const guide = () => {
-    console.log("guide!!");
-  };
+  // const guide = () => {
+  //   console.log("guide!!");
+  // };
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -52,12 +52,17 @@ const MyVocaSubMenu = () => {
         >
           오답 노트
         </Span>
-        <SearchInput
-          placeholder="검색어를 입력해주세요"
-          value={text}
-          onChange={onChangeHandler}
-          onKeyPress={onKeyDownHandler}
-        />
+        {activeIndex === 0 ? (
+          <SearchInput
+            placeholder="검색어를 입력해주세요"
+            value={text}
+            onChange={onChangeHandler}
+            onKeyPress={onKeyDownHandler}
+          />
+        ) : (
+          <></>
+        )}
+
         {activeIndex === 0 ? (
           <>
             <AddButton onClick={addWordStorage}>
@@ -69,7 +74,7 @@ const MyVocaSubMenu = () => {
           </>
         ) : (
           <>
-            <GuideButton onClick={guide}>
+            {/* <GuideButton onClick={guide}>
               <span>오답 노트 가이드</span>
             </GuideButton>
             {isOpenModal && (
@@ -77,7 +82,7 @@ const MyVocaSubMenu = () => {
                 id="wrongAnswer"
                 openAddStorageModal={addWordStorage}
               />
-            )}
+            )} */}
           </>
         )}
       </MyVocaSubMenuLayout>
@@ -173,22 +178,22 @@ const AddButton = styled.button`
   }
 `;
 
-const GuideButton = styled.button`
-  width: 182px;
-  height: 40px;
-  background-color: #1f1f1f;
+// const GuideButton = styled.button`
+//   width: 182px;
+//   height: 40px;
+//   background-color: #1f1f1f;
 
-  span {
-    flex-grow: 0;
-    font-family: NotoSansKR;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1px;
-    text-align: left;
-    color: #fff;
-  }
-`;
+//   span {
+//     flex-grow: 0;
+//     font-family: NotoSansKR;
+//     font-size: 16px;
+//     font-weight: 500;
+//     font-stretch: normal;
+//     font-style: normal;
+//     line-height: normal;
+//     letter-spacing: -1px;
+//     text-align: left;
+//     color: #fff;
+//   }
+// `;
 export default MyVocaSubMenu;
