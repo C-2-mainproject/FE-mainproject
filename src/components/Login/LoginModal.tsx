@@ -42,7 +42,6 @@ const LoginModal = ({ openLoginModal }: ModalProps) => {
         }
 
         await apis.checkNickname(nickname).then(data => {
-          console.log(data);
           if (!data.data) {
             setValidNickname(false);
           } else {
@@ -175,6 +174,7 @@ const Title = styled.div`
     letter-spacing: -2px;
     text-align: left;
     color: #000;
+    letter-spacing: -0.07em;
   }
 
   span {
@@ -187,6 +187,7 @@ const Title = styled.div`
     letter-spacing: -2px;
     text-align: left;
     color: #000;
+    letter-spacing: -0.07em;
   }
 `;
 

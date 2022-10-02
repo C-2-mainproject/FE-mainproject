@@ -15,7 +15,6 @@ const WordList = () => {
     const newId = Number(id);
     try {
       await apis.getDetailWordStorage(newId).then(data => {
-        console.log(data.data);
         setUpdateWordList({
           words: data.data.words,
           meanings: data.data.meanings,
