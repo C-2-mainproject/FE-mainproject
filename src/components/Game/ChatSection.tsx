@@ -24,7 +24,7 @@ type IReady = {
   readyStatus: boolean;
 };
 
-const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
+// const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
 
 const ChatSection = ({ readyStatus }: IReady) => {
   const dispatch = useAppDispatch();
