@@ -12,7 +12,7 @@ import { useAppDispatch } from "../shared/reduxHooks";
 // import { apis } from "../shared/api";
 // import { setSessionId } from "../shared/Cookie";
 
-const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
+// const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
 
 const Header = () => {
   const location = window.location.pathname;

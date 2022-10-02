@@ -3,15 +3,13 @@ import { game_ildan } from "../../images";
 import ModalPortal from "../ModalPortal";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import {
-  getGameInfo,
-  __getGameWordStorage,
-} from "../../redux/modules/gameInfoSlice";
+import { getGameInfo } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
 import axios from "axios";
+import { getCookie } from "../../shared/Cookie";
 
 type ModalProps = {
   openWattingModal: () => void;
@@ -23,19 +21,21 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
-  const [ticket, setTicket] = useState<string>("");
-
-  const socket = new SockJS(SOCKET_SERVER);
-  const stompClient = Stomp.over(socket);
+  // const [ticket, setTicket] = useState<string>("");
 
   const headers = {
     nickname: userInfo.nickname,
-    ticket: "",
+    cookie: getCookie(),
+    profileImage: userInfo.profileImage,
   };
 
-  useLayoutEffect(() => {
-    // onConnected();
-  }, []);
+  // const config = {
+  //   headers: { cookie: getCookie() },
+  // };
+
+  // useLayoutEffect(() => {
+  //   // onConnected();
+  // }, []);
 
   useEffect(() => {
     getTicketStr();
@@ -44,41 +44,47 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const getTicketStr = async () => {
     await apis.getTicket().then(data => {
       checkTicketStr(data.data.ticket);
-      setTicket(data.data.ticket);
+      // setTicket(data.data.ticket);
     });
   };
 
   const checkTicketStr = async (ticketStr: string) => {
     console.log(ticketStr);
     await axios
-      .post(
-        `${SOCKET_SERVER}/api/game/ticket/check`,
-        { ticketStr },
-        { withCredentials: true },
-      )
+      .post(`${SOCKET_SERVER}/api/game/ticket/check`, {
+        ticket: ticketStr,
+        cookie: getCookie(),
+      })
       .then(data => {
         console.log(data);
-        onConnected();
+        if (data.data) {
+          onConnected();
+        }
       });
   };
 
   const onConnected = () => {
-    console.log("onConnected!!");
+    const cook = getCookie();
+    const socket = new SockJS(`${SOCKET_SERVER}/wss`);
+    const stompClient = Stomp.over(socket);
+
     try {
       stompClient.connect(headers, () => {
         stompClient.subscribe(
-          `/sub/chat/join/${ticket}`,
+          `/sub/chat/join/${cook}`,
           data => {
             const returnMessage = JSON.parse(data.body);
+            console.log("TEST!!!!!!!!!!!!!!", returnMessage);
             dispatch(
               getGameInfo({
                 roomId: returnMessage.roomId,
-                sessionId: returnMessage.sessionId,
+                cookie: returnMessage.cookie,
                 participant: returnMessage.matchingNickname,
+                profileImg: returnMessage.matchingProfileImage,
               }),
             );
 
-            dispatch(__getGameWordStorage(returnMessage.roomId));
+            // dispatch(__getGameWordStorage(returnMessage.roomId));
 
             navigate("/playgame");
           },
@@ -148,7 +154,7 @@ const Contents = styled.div`
     font-weight: 500;
     font-size: 32px;
     line-height: 46px;
-
+    letter-spacing: -0.07em;
     color: #ffffff;
   }
 
@@ -157,7 +163,7 @@ const Contents = styled.div`
     font-weight: 400;
     font-size: 16px;
     line-height: 23px;
-
+    letter-spacing: -0.07em;
     color: #ffffff;
   }
 
