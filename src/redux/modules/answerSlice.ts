@@ -4,6 +4,12 @@ import { IAnswerInitialState } from "../../types/types";
 
 const initialState: IAnswerInitialState = {
   answerStorage: [],
+  wrongStorage: {
+    index: 0,
+    words: [],
+    meanings: [],
+  },
+
   testWordStorage: [],
   isLoading: false,
   isFinish: false,
@@ -30,6 +36,14 @@ export const answerSlice = createSlice({
     answerStorage: (state, action) => {
       state.answerStorage = [...state.answerStorage, action.payload];
     },
+    wrongStorage: (state, action) => {
+      console.log("dksfjslkjfl", action.payload);
+      state.wrongStorage = {
+        ...state.wrongStorage,
+        words: [...state.wrongStorage.words, action.payload.word],
+        meanings: [...state.wrongStorage.meanings, action.payload.mean],
+      };
+    },
   },
   extraReducers: {
     [__makeWordTest.pending.type]: state => {
@@ -46,6 +60,6 @@ export const answerSlice = createSlice({
   },
 });
 
-export const { answerStorage } = answerSlice.actions;
+export const { answerStorage, wrongStorage } = answerSlice.actions;
 
 export default answerSlice.reducer;

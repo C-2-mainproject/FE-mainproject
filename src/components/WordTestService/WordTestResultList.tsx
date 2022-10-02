@@ -11,7 +11,7 @@ const WordTestResultList = () => {
 
   const [sort, setSort] = useState<IAnswer[]>();
 
-  const { testWordStorage, answerStorage } = useAppSelector(
+  const { testWordStorage, answerStorage, wrongStorage } = useAppSelector(
     state => state.answerSlice,
   );
 
@@ -29,43 +29,31 @@ const WordTestResultList = () => {
     const result = Value.meanings.map(value => {
       if (testWordStorage[0].meanings[Value.index].includes(value)) {
         // 정답
-        // console.log("correct", value);
-        // console.log(testWordStorage[0].meanings[Value.index]);
-        // console.log(testWordStorage[0].words[Value.index]);
         return true;
       } else {
         // 오답
-        console.log("wrong", value);
-        console.log(testWordStorage[0].meanings[Value.index]);
-        console.log(testWordStorage[0].words[Value.index]);
-        // setCollectionWrongWord({
-        //   words: [testWordStorage[0].words[Value.index]],
-        //   meanings: [testWordStorage[0].meanings[Value.index]],
-        // });
         return false;
       }
     });
     return result[0];
   };
-  //  https://tinyurl.com/2p9d3prs
+
   const endTest = async () => {
-    //collectionWrongWord :: 틀린것에 대한 정답을 넘기기
-    console.log(testWordStorage, answerStorage);
-    console.log(answerStorage[0].index);
-    console.log("wordStorageId::", testWordStorage[0].wordStorageId);
-    console.log("totalWords::", testWordStorage[0].words.length);
-    console.log("wrongWords::", testWordStorage[0].words.length - countnumber);
-    await apis.endWordTest({
-      wordStorageId: testWordStorage[0].wordStorageId,
-      testType: "스펠링",
-      totalWords: answerStorage[0].words.length,
-      wrongWords: 1,
-      time: 30,
-      collectionWrongWord: {
-        word: ["a", "b"],
-        meaning: [["a"], ["b"]],
-      },
-    });
+    if (wrongStorage.words.length !== 0) {
+      await apis.endWordTest({
+        wordStorageId: testWordStorage[0].wordStorageId,
+        testType: "스펠링",
+        totalWords: answerStorage[0].words.length,
+        wrongWords: wrongStorage.words.length,
+        time: 30,
+        collectionWrongWord: {
+          word: wrongStorage.words,
+          meaning: wrongStorage.meanings,
+        },
+      });
+    } else {
+      console.log("모두 정답!!");
+    }
   };
 
   useEffect(() => {
