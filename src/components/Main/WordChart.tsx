@@ -11,7 +11,6 @@ const WordChart = () => {
   const getWordChart = async () => {
     try {
       await apis.getChartData().then(res => {
-        console.log(res.data);
         for (const x of res.data) {
           setCategory(category => category.concat(x.categoryName));
           setSeries(series => series.concat(Number(x.count)));

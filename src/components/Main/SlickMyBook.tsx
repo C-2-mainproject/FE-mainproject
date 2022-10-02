@@ -121,6 +121,7 @@ const CardContainer = styled.article`
       position: relative;
       bottom: 100px;
       margin-bottom: 20px;
+      letter-spacing: -0.07em;
       &:hover {
         background-color: black;
       }
@@ -156,6 +157,7 @@ const VocaCategory = styled.div`
       padding: 3px 18px;
       color: #fff;
       font-weight: 500;
+      letter-spacing: -0.07em;
     }
   }
 `;
@@ -180,6 +182,7 @@ const CardTitle = styled.div`
       font-size: 20px;
       font-weight: 500;
       font-size: 24px;
+      letter-spacing: -0.07em;
     }
   }
 `;

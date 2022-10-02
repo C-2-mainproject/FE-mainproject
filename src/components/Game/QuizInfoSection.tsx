@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { game_feedback, ildan } from "../../images";
+import { game_feedback } from "../../images";
 import { useAppSelector } from "../../shared/reduxHooks";
 import GameFinishModal from "./GameFinishModal";
 
@@ -42,7 +42,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
           <p>SCORE BOARD</p>
           <UserInfo>
             <div>
-              <img src={ildan} alt="ildan" />
+              <img src={gameInfo.profileImg[0]} alt="profile0" />
               <span>{gameInfo.participant[0]}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
@@ -53,7 +53,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
               </span>
             </div>
             <div>
-              <img src={ildan} alt="ildan" />
+              <img src={gameInfo.profileImg[1]} alt="profile1" />
               <span>{gameInfo.participant[1]}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
@@ -121,7 +121,7 @@ const QuizInfoSectionLayout = styled.div`
     font-size: 16px;
     line-height: 23px;
     text-transform: uppercase;
-
+    letter-spacing: -0.07em;
     color: #d3d3d3;
   }
 
@@ -146,6 +146,8 @@ const UserInfo = styled.div`
 
     img {
       width: 60px;
+      margin-right: 20px;
+      border-radius: 40px;
       vertical-align: middle;
     }
   }
@@ -155,6 +157,8 @@ const UserInfo = styled.div`
 
     img {
       width: 60px;
+      margin-right: 20px;
+      border-radius: 40px;
       vertical-align: middle;
     }
   }
@@ -166,6 +170,7 @@ const QuizWords = styled.div`
   line-height: 46px;
   margin-top: 150px;
   color: #000000;
+  letter-spacing: -0.07em;
 
   p {
     font-style: normal;
@@ -192,7 +197,7 @@ const QuizList = styled.div`
     font-weight: 700;
     font-size: 16px;
     line-height: 23px;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.07em;
     background: #00b4db;
     color: #ffffff;
 
@@ -218,7 +223,7 @@ const QuizList = styled.div`
       font-weight: 500;
       font-size: 32px;
       line-height: 46px;
-
+      letter-spacing: -0.07em;
       color: #ffffff;
     }
     p {

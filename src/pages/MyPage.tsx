@@ -1,60 +1,13 @@
-import axios from "axios";
-
 import styled from "styled-components";
 import { MyInfo, MyPageHeader } from "../components";
 
 const MyPage = () => {
-  const test1 = async () => {
-    console.log("test1");
-    try {
-      const data = await axios.post("http://newlno.com/api/user/a", {
-        withCredentials: true,
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const test2 = async () => {
-    console.log("test2");
-    try {
-      const data = await axios.get("http://newlno.com/api/user/b", {
-        withCredentials: true,
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const test3 = async () => {
-    console.log("test3");
-    try {
-      const data = await axios.post("http://newlno.com/api/user", {
-        withCredentials: true,
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const test4 = () => {
-    // console.log(getSessionId());
-  };
-
   return (
     <MyPageLayout>
       <MyPageWrapper>
         <MyPageBox>
           <MyPageHeader />
           <MyInfo />
-
-          <button onClick={test1}>테스트1</button>
-          <button onClick={test2}>테스트2</button>
-          <button onClick={test3}>테스트3</button>
-          <button onClick={test4}>테스트4</button>
         </MyPageBox>
       </MyPageWrapper>
     </MyPageLayout>

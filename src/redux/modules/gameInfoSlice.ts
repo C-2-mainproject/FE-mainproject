@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { apis } from "../../shared/api";
 
 const initialState = {
   gameInfo: {
     roomId: "",
-    sessionId: [],
+    cookie: [],
     participant: [],
+    profileImg: [],
   },
 
   gameWordStorage: [
@@ -48,6 +50,13 @@ export const __getGameWordStorage = createAsyncThunk(
   "gameInfoSlice/__getGameWordStorage",
   async (payload: string, thunkAPI) => {
     console.log(payload, thunkAPI);
+    try {
+      const data = await apis.getGameWordStorage(payload);
+      console.log(data);
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+    }
   },
 );
 
@@ -57,13 +66,11 @@ export const gameInfoSlice = createSlice({
   reducers: {
     getGameInfo: (state, action) => {
       // roomId, sessionId 정보
-      console.log("getGameInfo", state, action);
       state.gameInfo = action.payload;
     },
 
     getReadyInfo: (state, action) => {
       // Ready버튼 상태
-      console.log("getReadyInfo", state, action);
       state.isReady = action.payload;
     },
 
@@ -74,7 +81,6 @@ export const gameInfoSlice = createSlice({
         state.gameWordStorage[state.quizProgress.quizNumber].mean
       ) {
         if (state.quizProgress.userA === 4) {
-          console.log("USERA 이겼다!!");
           state.quizProgress = {
             ...state.quizProgress,
             finalWinner: action.payload.matchingNickname[0],
@@ -82,7 +88,6 @@ export const gameInfoSlice = createSlice({
         }
 
         if (state.quizProgress.userB === 4) {
-          console.log("USERB 이겼다!!");
           state.quizProgress = {
             ...state.quizProgress,
             finalWinner: action.payload.matchingNickname[1],

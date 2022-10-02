@@ -9,6 +9,7 @@ import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
+import { getCookie } from "../../shared/Cookie";
 // import { apis } from "../../shared/api";
 
 // JOIN
@@ -23,6 +24,8 @@ type IReady = {
   readyStatus: boolean;
 };
 
+const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
+
 const ChatSection = ({ readyStatus }: IReady) => {
   const dispatch = useAppDispatch();
   const { gameInfo, quizProgress } = useAppSelector(
@@ -36,13 +39,13 @@ const ChatSection = ({ readyStatus }: IReady) => {
   const [profile, setProfile] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const socket = new SockJS("https://newlno.com/wss");
+  const socket = new SockJS(`${SOCKET_SERVER}/wss`);
   const stompClient = Stomp.over(socket);
 
   const headers = {
     nickname: userInfo.nickname,
-    profileImg: userInfo.profileImage,
-    answerNumber: 0,
+    profileImage: userInfo.profileImage,
+    cookie: getCookie(),
   };
 
   useLayoutEffect(() => {
@@ -111,6 +114,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   };
 
   const reSubscribe = () => {
+    console.log("!!!!!!!!!!!!!", gameInfo.roomId);
     try {
       stompClient.unsubscribe("sub-0");
 
@@ -118,10 +122,9 @@ const ChatSection = ({ readyStatus }: IReady) => {
         `/sub/chat/enter/${gameInfo.roomId}`,
         data => {
           const returnMessage = JSON.parse(data.body);
-          console.log("return msg::", returnMessage);
           setReturnMsg(returnMsg => [...returnMsg, returnMessage.message]);
           setNickname(nickname => [...nickname, returnMessage.nickname]);
-          setProfile(profile => [...profile, returnMessage.profileImg]);
+          setProfile(profile => [...profile, returnMessage.profileImage]);
 
           if (returnMessage.messageType === "READY") {
             setIsReady(true);
@@ -149,21 +152,19 @@ const ChatSection = ({ readyStatus }: IReady) => {
   };
 
   const sendMessage = () => {
-    console.log("test!!!!!!", userInfo.nickname);
     stompClient.send(
       `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
         matchingNickname: gameInfo.participant,
-        answerUser1: 0,
-        answerUser2: 0,
         message: message,
+        matchingProfileImage: gameInfo.profileImg,
         messageType: isReady ? "GAME" : "CHAT",
         nickname: userInfo.nickname,
         quizNumber: 0,
-        profileImg: userInfo.profileImage,
+        profileImage: userInfo.profileImage,
         roomId: gameInfo.roomId,
-        sessionId: gameInfo.sessionId,
+        cookie: gameInfo.cookie,
       }),
     );
   };
@@ -175,7 +176,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
           `/pub/chat/enter/${gameInfo.roomId}`,
           headers,
           JSON.stringify({
-            sessionId: gameInfo.sessionId,
+            cookie: gameInfo.cookie,
             message: "게임을 시작합니다",
             roomId: gameInfo.roomId,
             messageType: "READY",
@@ -192,7 +193,18 @@ const ChatSection = ({ readyStatus }: IReady) => {
           `/pub/chat/enter/${gameInfo.roomId}`,
           headers,
           JSON.stringify({
-            sessionId: gameInfo.sessionId,
+            cookie: gameInfo.cookie,
+            message: `${winner} 님이 승리하였습니다`,
+            roomId: gameInfo.roomId,
+            messageType: "FINISH",
+          }),
+        );
+      } else {
+        stompClient.send(
+          `/pub/chat/enter/${gameInfo.roomId}`,
+          headers,
+          JSON.stringify({
+            cookie: gameInfo.cookie,
             message: `${winner} 님이 승리하였습니다`,
             roomId: gameInfo.roomId,
             messageType: "FINISH",

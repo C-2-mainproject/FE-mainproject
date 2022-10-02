@@ -16,7 +16,6 @@ export const __getUserInfo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await apis.getUserInfo();
-      // console.log("data is ::", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -31,7 +30,6 @@ export const userInfoSlice = createSlice({
   reducers: {},
   extraReducers: {
     [__getUserInfo.pending.type]: state => {
-      // console.log(state, action);
       state.isLoading = true;
     },
     [__getUserInfo.fulfilled.type]: (state, action) => {
@@ -40,7 +38,6 @@ export const userInfoSlice = createSlice({
       state.isFinish = true;
     },
     [__getUserInfo.rejected.type]: state => {
-      // console.log(state, action);
       state.isFinish = true;
     },
   },
