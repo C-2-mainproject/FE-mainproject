@@ -52,7 +52,12 @@ const SlickMyBook = () => {
                 </CardTitle>
 
                 <AboutCard>
-                  <span> 마지막 시험 &nbsp;&nbsp;{myVoca.lastTestAt}</span>
+                  <span>
+                    마지막 시험 &nbsp;&nbsp;
+                    {myVoca.lastTestAt === null
+                      ? "미응시"
+                      : myVoca.lastTestAt.split("T")[0]}
+                  </span>
                   <div>작성 &nbsp;&nbsp;{myVoca.nickname}</div>
                   <div>제작 &nbsp;&nbsp;{myVoca.createAt.split("T")[0]}</div>
                 </AboutCard>

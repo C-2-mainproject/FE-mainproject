@@ -36,7 +36,8 @@ const MyVocaItem = ({ wordStorage }: Props) => {
             <p></p>
           ) : (
             <p>
-              마지막 시험 <span>{wordStorage.lastTestAt.split("T")[0]}</span>
+              마지막 시험
+              <span>{wordStorage.lastTestAt.split("T")[0]}</span>
             </p>
           )}
         </div>

@@ -80,10 +80,7 @@ const MyVocaFilter = ({ index }: IndexProps) => {
               </FilterSpan>
 
               <DropDownButton>
-                <CategorySpan
-                  className={activeIndex === 3 ? "active" : ""}
-                  id="카테고리"
-                >
+                <CategorySpan id="카테고리">
                   카테고리
                   <img src={expand} alt="expand" />
                 </CategorySpan>
@@ -98,10 +95,7 @@ const MyVocaFilter = ({ index }: IndexProps) => {
                 </ListContainer>
               </DropDownButton>
               <DropDownButton>
-                <CategorySpan
-                  className={activeIndex === 4 ? "active" : ""}
-                  id="공개"
-                >
+                <CategorySpan id="공개">
                   공개
                   <img src={expand} alt="expand" />
                 </CategorySpan>

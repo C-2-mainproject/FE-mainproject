@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { answerStorage } from "../../redux/modules/answerSlice";
-import { useAppDispatch } from "../../shared/reduxHooks";
+import { answerStorage, wrongStorage } from "../../redux/modules/answerSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { IAnswer } from "../../types/types";
 
 type Props = {
@@ -13,16 +13,17 @@ type Props = {
 
 const WordTestItem = ({ id, word, length, meaing }: Props) => {
   const dispatch = useAppDispatch();
+  const { testWordStorage } = useAppSelector(state => state.answerSlice);
 
   const [isInputStatus, setIsInputStatus] = useState<boolean>(false);
   const [answer, setAnswer] = useState<IAnswer>();
 
-  const checkInputStatus = () => {
-    if (answer) {
-      setIsInputStatus(true);
-      dispatch(answerStorage(answer));
-    }
-  };
+  // const checkInputStatus = () => {
+  //   if (answer) {
+  //     setIsInputStatus(true);
+  //     dispatch(answerStorage(answer));
+  //   }
+  // };
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setAnswer({
@@ -34,8 +35,25 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (answer && event.key === "Enter") {
-      setIsInputStatus(true);
+      console.log(testWordStorage[0].meanings[id], answer, id);
+      const res = testWordStorage[0].meanings[id].map(val => {
+        if (!answer.meanings.includes(val)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      if (res.includes(true)) {
+        dispatch(
+          wrongStorage({
+            word: testWordStorage[0].words[id],
+            mean: testWordStorage[0].meanings[id],
+          }),
+        );
+      }
       dispatch(answerStorage(answer));
+      setIsInputStatus(true);
     }
   };
 
@@ -61,7 +79,7 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
             onChange={onChangeHandler}
             onKeyDown={onKeyDownHandler}
           />
-          <button onClick={checkInputStatus}>확인</button>
+          <button>확인</button>
         </WordTestItemInput>
       </WordTestItemLayout>
     );

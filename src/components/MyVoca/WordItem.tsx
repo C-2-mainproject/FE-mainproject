@@ -20,7 +20,7 @@ const WordItemLayout = styled.div`
   height: 300px;
   background-color: #eeeeee;
   margin-right: 40px;
-  margin-bottom: 200px;
+  margin-bottom: 40px;
 
   &:nth-child(4n) {
     margin-right: 0px;
