@@ -133,4 +133,5 @@ export interface IBestVoca {
   description: string;
   category: string;
   likeCount: number;
+  haveWordStorage: boolean;
 }

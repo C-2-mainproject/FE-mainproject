@@ -12,8 +12,10 @@ import { MouseEvent } from "react";
 const SlickBestVoca = () => {
   const [bestVoca, setBestVoca] = useState<IBestVoca[]>();
   const [sliderIndex, setSliderIndex] = useState<number>(0);
+
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => {
+      console.log("res data is ::", res.data);
       setBestVoca(res.data);
     });
   };
