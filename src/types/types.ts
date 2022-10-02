@@ -96,8 +96,15 @@ export interface IAnswer {
   meanings: string[];
 }
 
+export interface IWrong {
+  index: number;
+  words: string[];
+  meanings: string[][];
+}
+
 export interface IAnswerInitialState {
   answerStorage: IAnswer[];
+  wrongStorage: IWrong;
   testWordStorage: ITestWordStorage[];
   isLoading: boolean;
   isFinish: boolean;
