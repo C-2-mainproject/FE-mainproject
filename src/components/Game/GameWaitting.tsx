@@ -15,7 +15,7 @@ type ModalProps = {
   openWattingModal: () => void;
 };
 
-const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
+// const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
 
 const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const checkTicketStr = async (ticketStr: string) => {
     console.log(ticketStr);
     await axios
-      .post(`${SOCKET_SERVER}/api/game/ticket/check`, {
+      .post("https://newlno.com/api/game/ticket/check", {
         ticket: ticketStr,
         cookie: getCookie(),
       })
@@ -65,7 +65,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
 
   const onConnected = () => {
     const cook = getCookie();
-    const socket = new SockJS(`${SOCKET_SERVER}/wss`);
+    const socket = new SockJS("https://newlno.com/wss");
     const stompClient = Stomp.over(socket);
 
     try {

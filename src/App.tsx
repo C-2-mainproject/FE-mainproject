@@ -5,7 +5,7 @@ import { support } from "./images";
 import Router from "./router/router";
 import { GlobalStyle } from "./styles/GlobalStyle";
 
-const NAVER_SUPPORT = process.env.REACT_APP_NAVER_SUPPORT;
+// const NAVER_SUPPORT = process.env.REACT_APP_NAVER_SUPPORT;
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <FloatingBtn>
         <img src={support} alt="support" />
         <p>
-          <a href={NAVER_SUPPORT} target="_blank">
+          <a href="https://talk.naver.com/W4Y0TR" target="_blank">
             고객 지원
           </a>
         </p>

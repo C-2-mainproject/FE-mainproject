@@ -39,7 +39,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   const [profile, setProfile] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const socket = new SockJS(`${SOCKET_SERVER}/wss`);
+  const socket = new SockJS("https://newlno.com/wss");
   const stompClient = Stomp.over(socket);
 
   const headers = {
@@ -109,7 +109,8 @@ const ChatSection = ({ readyStatus }: IReady) => {
 
   const onDisconnect = () => {
     stompClient.disconnect(() => {
-      stompClient.unsubscribe("sub-0");
+      console.log("ININ");
+      // stompClient.unsubscribe("sub-0");
     });
   };
 
