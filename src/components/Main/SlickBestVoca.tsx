@@ -1,12 +1,10 @@
 import Slider from "react-slick";
-import { PopularWordBook } from "../index";
 import styled, { css } from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
 import { useState, useEffect, Key } from "react";
 import { IBestVoca } from "../../types/types";
-import { relative } from "node:path/win32";
 
 const SlickBestBook = ({ mainBestVoca }: { mainBestVoca?: boolean }) => {
   const [bestVoca, setBestVoca] = useState<IBestVoca>();
@@ -14,7 +12,6 @@ const SlickBestBook = ({ mainBestVoca }: { mainBestVoca?: boolean }) => {
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => setBestVoca(res.data));
   };
-  console.log(sliderIndex);
   useEffect(() => {
     getBestVoca();
   }, []);
@@ -33,12 +30,12 @@ const SlickBestBook = ({ mainBestVoca }: { mainBestVoca?: boolean }) => {
   return (
     <>
       <BestPopSlider {...BestSettings}>
-        {bestVoca?.map((bestVoca: IBestVoca, index: Key) => {
+        {bestVoca?.map((bestVoca: IBestVoca, index: number) => {
           return (
             <>
               <WordBookBox
                 props={index === sliderIndex ? "active" : "prev"}
-                key={index}
+                key={bestVoca.id}
               >
                 <div>
                   <p>토익</p>
@@ -63,7 +60,7 @@ export default SlickBestBook;
 
 const BestPopSlider = styled(Slider)`
   position: absolute;
-  max-width: 900px;
+  width: 785px;
   top: 50%;
   left: 50%;
   transform: translate(-35%, -20%);
@@ -75,7 +72,7 @@ const BestPopSlider = styled(Slider)`
     position: relative;
   }
   .slick-next:before {
-    right: 110px;
+    right: 0px;
     position: relative;
     opacity: 1;
 
@@ -92,9 +89,9 @@ const WordBookBox = styled.div<{ props: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* opacity: ${props => (props.props === "active" ? 1.0 : 0.4)}; */
+  opacity: ${props => (props.props === "active" ? 1.0 : 0.8)};
 
-  /* transform: scale(${props => (props.props === "active" ? 1.0 : 0.8)}); */
+  /* transform: scale(${props => (props.props === "active" ? 1.0 : 1.0)}); */
 
   button {
     margin-top: 61px;
@@ -144,9 +141,4 @@ const WordBookBox = styled.div<{ props: string }>`
       }
     }
   }
-`;
-const SecondBox = styled.div`
-  background-color: gray;
-  width: 90px;
-  height: 300px;
 `;
