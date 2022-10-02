@@ -133,7 +133,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "오답노트") {
-      console.log("오답노트");
+      console.log("오답노트", wrongAnswerWordStorage);
       // return (
       //   <MyVocaListLayout>
       //     {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
