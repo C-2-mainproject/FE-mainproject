@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MyVocaItem, WrongItem } from "../../components";
+import { MyVocaItem } from "../../components";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
@@ -134,13 +134,13 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
 
     if (targetId === "오답노트") {
       console.log("오답노트");
-      return (
-        <MyVocaListLayout>
-          {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
-            return <WrongItem key={index} wordStorage={wrongWordStorage} />;
-          })}
-        </MyVocaListLayout>
-      );
+      // return (
+      //   <MyVocaListLayout>
+      //     {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
+      //       return <WrongItem key={index} wordStorage={wrongWordStorage} />;
+      //     })}
+      //   </MyVocaListLayout>
+      // );
     }
 
     return (
