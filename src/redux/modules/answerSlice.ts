@@ -20,7 +20,6 @@ export const __makeWordTest = createAsyncThunk(
   async (payload: number, thunkAPI) => {
     try {
       const data = await apis.makeWordTest(payload);
-      // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -37,7 +36,6 @@ export const answerSlice = createSlice({
       state.answerStorage = [...state.answerStorage, action.payload];
     },
     wrongStorage: (state, action) => {
-      console.log("dksfjslkjfl", action.payload);
       state.wrongStorage = {
         ...state.wrongStorage,
         words: [...state.wrongStorage.words, action.payload.word],

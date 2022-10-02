@@ -35,7 +35,6 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
 
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (answer && event.key === "Enter") {
-      console.log(testWordStorage[0].meanings[id], answer, id);
       const res = testWordStorage[0].meanings[id].map(val => {
         if (!answer.meanings.includes(val)) {
           return true;

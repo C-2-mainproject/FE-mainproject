@@ -14,7 +14,6 @@ const SlickBestVoca = () => {
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => {
-      console.log(res);
       setBestVoca(res.data);
     });
   };
@@ -44,7 +43,7 @@ const SlickBestVoca = () => {
       .addMyVoca(Number(newTarget.value))
       .then(data => console.log(data));
   };
-  console.log(bestVoca);
+
   return (
     <>
       <BestPopSlider {...BestSettings}>
@@ -141,6 +140,7 @@ const WordBookBox = styled.div`
       font-weight: 400;
       font-size: 24px;
       line-height: 35px;
+      letter-spacing: -0.07em;
     }
     p {
       width: 30px;

@@ -63,7 +63,7 @@ const WordBookBox = styled.div`
       font-weight: 400;
       font-size: 24px;
       line-height: 35px;
-      /* identical to box height */
+      letter-spacing: -0.07em;
     }
     p {
       width: 30px;

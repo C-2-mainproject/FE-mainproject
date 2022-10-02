@@ -88,7 +88,7 @@ const Info = styled.div`
     font-weight: 400;
     font-size: 16px;
     line-height: 23px;
-
+    letter-spacing: -0.07em;
     color: #000000;
   }
 `;

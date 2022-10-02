@@ -73,7 +73,7 @@ const Contents = styled.div`
     font-weight: 500;
     font-size: 32px;
     line-height: 46px;
-
+    letter-spacing: -0.07em;
     color: #ffffff;
   }
 
@@ -82,7 +82,7 @@ const Contents = styled.div`
     font-weight: 400;
     font-size: 16px;
     line-height: 23px;
-
+    letter-spacing: -0.07em;
     color: #ffffff;
   }
 

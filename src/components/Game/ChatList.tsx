@@ -21,7 +21,6 @@ const ChatList = ({
     }
   }, [returnMsg]);
 
-  console.log(profile);
   return (
     <ChatListLayout ref={scrollRef}>
       {returnMsg.map((message, index) => {

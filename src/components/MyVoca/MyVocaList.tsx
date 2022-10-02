@@ -15,7 +15,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
-  console.log(wordStorage);
+
   const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
   const [likeWordStorage, setLikeWordStorage] = useState([]);
 
@@ -26,7 +26,6 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   const getWrongAnswerWordStorageList = async () => {
     await apis.getWrongAnswerWordStorages().then(data => {
       setWrongAnswerWordStorage(data.data);
-      console.log(data.data);
     });
   };
 
