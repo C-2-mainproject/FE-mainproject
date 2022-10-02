@@ -5,6 +5,7 @@ const initialState = {
   userInfo: {
     nickname: "",
     profileImage: "",
+    username: "",
   },
   isLoading: false,
   isFinish: false,

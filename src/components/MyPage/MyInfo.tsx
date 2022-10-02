@@ -23,7 +23,7 @@ const MyInfo = () => {
         </ID>
         <Email>
           <p>이메일</p>
-          <span>{userInfo.nickname}</span>
+          <span>{userInfo.username}</span>
         </Email>
       </Info>
       <DeleteUser onClick={deleteUser}>회원 탈퇴</DeleteUser>
