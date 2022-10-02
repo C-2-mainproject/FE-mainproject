@@ -1,8 +1,10 @@
 import axios from "axios";
 import { IAddWordStorage, IEndWordTestItem, IUpdateWord } from "../types/types";
 
+const MAIN_SERVER = process.env.REACT_APP_MAIN_SERVER;
+
 const api = axios.create({
-  baseURL: "https://jdh3340.shop",
+  baseURL: MAIN_SERVER,
 
   withCredentials: true,
 });

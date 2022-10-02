@@ -17,13 +17,15 @@ type ModalProps = {
   openWattingModal: () => void;
 };
 
+const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
+
 const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
   const [ticket, setTicket] = useState<string>("");
 
-  const socket = new SockJS("https://newlno.com/wss");
+  const socket = new SockJS(SOCKET_SERVER);
   const stompClient = Stomp.over(socket);
 
   const headers = {
@@ -50,7 +52,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
     console.log(ticketStr);
     await axios
       .post(
-        "https://newlno.com/wss/api/game/ticket/check",
+        `${SOCKET_SERVER}/api/game/ticket/check`,
         { ticketStr },
         { withCredentials: true },
       )

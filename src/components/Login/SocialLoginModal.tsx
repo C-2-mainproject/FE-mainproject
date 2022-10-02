@@ -6,19 +6,10 @@ type ModalProps = {
   openLoginModal: () => void;
 };
 
-const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
-  // const test = async () => {
-  //   try {
-  //     const data = await axios.get(
-  //       "https://jdh3340.shop/oauth2/authorization/google",
-  //       { withCredentials: true },
-  //     );
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+const NAVER_SUPPORT = process.env.REACT_APP_NAVER_SUPPORT;
+const OAUTH2_LOGIN = process.env.REACT_APP_OAUTH2_LOGIN;
 
+const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
   return (
     <ModalPortal>
       <Overlay>
@@ -34,7 +25,7 @@ const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
                 <SelectLogin>
                   <p>로그인</p>
                   <Button>
-                    <A href="https://jdh3340.shop/oauth2/authorization/google">
+                    <A href={OAUTH2_LOGIN}>
                       <img src={google_login} alt="google_login" />
                     </A>
                   </Button>
@@ -42,7 +33,7 @@ const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
                     <h2>
                       로그인에 도움이 필요한가요?
                       <span>
-                        <A href="https://talk.naver.com/W4Y0TR" target="_blank">
+                        <A href={NAVER_SUPPORT} target="_blank">
                           고객지원 서비스
                         </A>
                       </span>

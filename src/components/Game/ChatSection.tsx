@@ -23,6 +23,8 @@ type IReady = {
   readyStatus: boolean;
 };
 
+const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER as string;
+
 const ChatSection = ({ readyStatus }: IReady) => {
   const dispatch = useAppDispatch();
   const { gameInfo, quizProgress } = useAppSelector(
@@ -36,7 +38,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   const [profile, setProfile] = useState<string[]>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const socket = new SockJS("https://newlno.com/wss");
+  const socket = new SockJS(SOCKET_SERVER);
   const stompClient = Stomp.over(socket);
 
   const headers = {

@@ -12,6 +12,8 @@ import { useAppDispatch } from "../shared/reduxHooks";
 // import { apis } from "../shared/api";
 // import { setSessionId } from "../shared/Cookie";
 
+const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
+
 const Header = () => {
   const location = window.location.pathname;
   const navigate = useNavigate();
@@ -101,7 +103,7 @@ const Header = () => {
           </p>
         </div>
         <div>
-          {/* <a href="https://jdh3340.shop/logout">로그아웃</a> */}
+          {/* <a href={OAUTH2_LOGOUT}>로그아웃</a> */}
           <p>
             <span id="mypage" onClick={moveToPage}>
               <img src={location === "/" ? mypage_w : mypage_b} alt="mypage" />
