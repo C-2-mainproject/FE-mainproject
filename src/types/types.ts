@@ -128,9 +128,9 @@ export interface ICollectionWrongWord {
 }
 
 export interface IBestVoca {
-  map: any;
-  id?: number;
+  id: number;
   title: string;
   description: string;
-  haveStorage: boolean;
+  category: string;
+  likeCount: number;
 }
