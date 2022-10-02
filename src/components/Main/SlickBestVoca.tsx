@@ -43,7 +43,7 @@ const SlickBestVoca = () => {
       .addMyVoca(Number(newTarget.value))
       .then(data => console.log(data));
   };
-
+  console.log("best voca is ::", bestVoca);
   return (
     <>
       <BestPopSlider {...BestSettings}>
