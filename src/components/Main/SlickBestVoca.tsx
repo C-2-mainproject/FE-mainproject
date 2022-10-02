@@ -3,14 +3,14 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
-import { useState, useEffect, Key } from "react";
+import { useState, useEffect } from "react";
 import { IBestVoca } from "../../types/types";
-import { IWordStorage } from "../../types/types";
+// import { IWordStorage } from "../../types/types";
 import { like } from "../../images";
 import { MouseEvent } from "react";
 
 const SlickBestVoca = () => {
-  const [bestVoca, setBestVoca] = useState<IBestVoca>();
+  const [bestVoca, setBestVoca] = useState<IBestVoca[]>();
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => {
@@ -47,7 +47,7 @@ const SlickBestVoca = () => {
   return (
     <>
       <BestPopSlider {...BestSettings}>
-        {bestVoca?.map((bestVoca: IWordStorage, index: Key) => {
+        {bestVoca?.map((bestVoca, index) => {
           return (
             <div key={bestVoca.id}>
               <WordBookBox
