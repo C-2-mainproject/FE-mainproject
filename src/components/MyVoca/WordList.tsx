@@ -58,6 +58,7 @@ const WordListLayout = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 200px;
 `;
 
 const Empty = styled.div`

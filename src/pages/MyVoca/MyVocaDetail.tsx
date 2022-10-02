@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
@@ -52,7 +52,10 @@ const MyVocaDetail = () => {
 
   const onLikeHandler = async () => {
     const newId = Number(id);
-    await apis.suggestionWordStorage(newId).then(data => console.log(data));
+    await apis.suggestionWordStorage(newId).then(data => {
+      console.log(data);
+      getDetail();
+    });
   };
 
   useEffect(() => {
@@ -103,7 +106,12 @@ const MyVocaDetail = () => {
                     <h2>{detail?.description}</h2>
                     <h3>{detail?.public ? "공개" : "비공개"}</h3>
                     <p>
-                      마지막 시험<span>{detail?.lastTestAt}</span>
+                      마지막 시험
+                      <span>
+                        {detail?.lastTestAt === null
+                          ? "미응시"
+                          : detail?.lastTestAt.split("T")[0]}
+                      </span>
                       모르는 단어<span> 개</span>
                     </p>
                   </div>
@@ -112,7 +120,12 @@ const MyVocaDetail = () => {
                       작성<span>{detail?.nickname}</span>
                     </p>
                     <p>
-                      제작<span>{detail?.createAt.split("T")[0]}</span>
+                      제작
+                      <span>
+                        {detail.createAt === null
+                          ? ""
+                          : detail?.createAt.split("T")[0]}
+                      </span>
                     </p>
                   </div>
 

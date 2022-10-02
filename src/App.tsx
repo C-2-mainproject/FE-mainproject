@@ -32,6 +32,7 @@ const FloatingBtn = styled.div`
   background: #ffffff;
   border: 1px solid #00b4db;
   text-align: center;
+  z-index: 999;
 
   img {
     width: 55px;
