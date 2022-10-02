@@ -82,12 +82,15 @@ const WordTestResultList = () => {
   return (
     <WordTestResultListLayout>
       <WordTestResultInfo>
-        <p>
-          정답 : <span>{countnumber}</span>
-        </p>
-        <p>
-          오답 : <span>{answerStorage.length - countnumber}</span>
-        </p>
+        <h1>단어 시험 결과 📝</h1>
+        <div>
+          <p>
+            😀 정답 <span>{countnumber}</span>
+          </p>
+          <p>
+            😅 오답 <span>{answerStorage.length - countnumber}</span>
+          </p>
+        </div>
       </WordTestResultInfo>
       <WordTestResultListItem>{result}</WordTestResultListItem>
     </WordTestResultListLayout>
@@ -98,8 +101,51 @@ const WordTestResultListLayout = styled.div``;
 
 const WordTestResultInfo = styled.div`
   height: 200px;
-  border: 2px solid green;
+
+  div {
+    display: flex;
+    margin-top: 68px;
+    margin-bottom: 80px;
+  }
+
+  h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 70px;
+
+    letter-spacing: -0.07em;
+
+    color: #000000;
+  }
+
+  p {
+    margin-right: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 35px;
+    /* identical to box height */
+
+    letter-spacing: -0.07em;
+
+    color: #000000;
+  }
+
+  span {
+    margin-left: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 35px;
+    /* identical to box height */
+
+    letter-spacing: -0.07em;
+
+    color: #000000;
+  }
 `;
+
 const WordTestResultListItem = styled.div`
   margin-top: 30px;
   display: flex;
