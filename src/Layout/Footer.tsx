@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { logo_w } from "../images";
 import WorkVideo from "../images/video/works.mp4";
 const Footer = () => {
   return (
@@ -13,7 +14,9 @@ const Footer = () => {
             <p>일단이와 함께하는 완전 단어 학습</p>
           </FooterText>
           <FooterLogo>
-            <div>로고</div>
+            <div>
+              <img src={logo_w} />
+            </div>
             <div>
               <p>소개</p>
               <p>개인정보처리방침</p>
@@ -104,6 +107,10 @@ const FooterLogo = styled.div`
         font-weight: 500;
       }
     }
+  }
+
+  img {
+    margin-bottom: 20px;
   }
 `;
 
