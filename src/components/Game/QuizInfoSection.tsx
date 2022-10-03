@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { game_feedback } from "../../images";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { getGameInfo } from "../../redux/modules/gameInfoSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import GameFinishModal from "./GameFinishModal";
 
 type IClick = {
@@ -11,6 +12,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
   const { gameInfo, isReady, gameWordStorage, quizProgress } = useAppSelector(
     state => state.gameInfoSlice,
   );
+  const dispatch = useAppDispatch();
 
   const [quizWord, setQuizWord] = useState<string>("");
   const [isFinishPop, setIsFinishPop] = useState<boolean>(false);
@@ -33,6 +35,14 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
 
   const finishPopup = () => {
     setIsFinishPop(!isFinishPop);
+    dispatch(
+      getGameInfo({
+        roomId: "",
+        cookie: "",
+        participant: "",
+        profileImg: "",
+      }),
+    );
   };
 
   return (

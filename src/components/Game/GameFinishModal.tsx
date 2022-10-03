@@ -12,14 +12,15 @@ const GameFinishModal = ({ winner }: ModalProps) => {
   const navigate = useNavigate();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
-  const canelBtn = () => {
+  const moveToGameHome = () => {
     navigate("/game");
   };
+
   return (
     <ModalPortal>
       <Overlay>
         <ModalWrap>
-          <CloseButton onClick={canelBtn}>X</CloseButton>
+          <CloseButton onClick={moveToGameHome}>X</CloseButton>
           <Contents>
             {userInfo.nickname === winner ? (
               <img src={game_win} alt="game_win" />

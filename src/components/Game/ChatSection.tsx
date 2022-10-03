@@ -110,7 +110,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   const onDisconnect = () => {
     stompClient.disconnect(() => {
       console.log("ININ");
-      // stompClient.unsubscribe("sub-0");
+      stompClient.unsubscribe("sub-0");
     });
   };
 
