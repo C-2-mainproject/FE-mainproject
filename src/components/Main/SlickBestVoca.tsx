@@ -15,7 +15,6 @@ const SlickBestVoca = () => {
 
   const getBestVoca = async () => {
     await apis.getBestLikeVoca(1).then(res => {
-      console.log("res data is ::", res.data);
       setBestVoca(res.data);
     });
   };
@@ -45,7 +44,7 @@ const SlickBestVoca = () => {
       .addMyVoca(Number(newTarget.value))
       .then(data => console.log(data));
   };
-  console.log("best voca is ::", bestVoca);
+
   return (
     <>
       <BestPopSlider {...BestSettings}>

@@ -1,10 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
-import { IWordStorageInitialState } from "../../types/types";
+import { IWordStorageInitialState, IWordStorage } from "../../types/types";
 
 const initialState: IWordStorageInitialState = {
   wordStorage: [],
-  detailWordStorage: [],
+  detailWordStorage: {
+    category: "",
+    createAt: "",
+    description: "",
+    id: 0,
+    lastTestAt: "",
+    likeCount: 0,
+    modifiedAt: "",
+    nickname: "",
+    public: false,
+    title: "",
+  },
   isLoading: false,
   isFinish: false,
   pageNum: 0,
@@ -37,12 +48,29 @@ export const __searchWordStorage = createAsyncThunk(
   },
 );
 
+export const __getDetailWordStorage = createAsyncThunk(
+  "wordStorageSlice/__getDetailWordStorage",
+  async (payload: string, thunkAPI) => {
+    try {
+      const data = await apis.getWordStorages();
+      console.log(data.data);
+      const res = data.data.find((value: IWordStorage) => {
+        return value.id === Number(payload);
+      });
+      return thunkAPI.fulfillWithValue(res);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
 export const wordStorageSlice = createSlice({
   name: "wordStorageSlice",
   initialState,
   reducers: {
     getDetailWordStorage: (state, action) => {
-      state.detailWordStorage = [action.payload];
+      console.log(state, action);
     },
   },
   extraReducers: {
@@ -70,6 +98,12 @@ export const wordStorageSlice = createSlice({
     },
     [__searchWordStorage.rejected.type]: state => {
       state.isFinish = true;
+    },
+
+    [__getDetailWordStorage.fulfilled.type]: (state, action) => {
+      console.log(state, action);
+      state.isFinish = true;
+      state.detailWordStorage = action.payload;
     },
   },
 });

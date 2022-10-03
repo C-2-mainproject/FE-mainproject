@@ -5,7 +5,7 @@ import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
 import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
 import { top_dlfeksdl, like, like_fill } from "../../images";
-import { getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
+import { __getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
 import { apis } from "../../shared/api";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { IWordStorage } from "../../types/types";
@@ -15,30 +15,21 @@ const MyVocaDetail = () => {
   const newId = Number(id);
   const dispatch = useAppDispatch();
 
-  const { wordStorage, isFinish } = useAppSelector(
+  const { isFinish, detailWordStorage } = useAppSelector(
     state => state.wordStorageSlice,
   );
-
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isAddOpenModal, setIsAddOpenModal] = useState(false);
   const [isEditOpenModal, setIsEditOpenModal] = useState(false);
-  const [detail, setDetail] = useState<IWordStorage>();
 
   const todoEdit = () => {
     setIsEdit(!isEdit);
     setIsEditOpenModal(!isEditOpenModal);
+    getDetail();
   };
 
   const addWord = () => {
     setIsAddOpenModal(!isAddOpenModal);
-  };
-
-  const getDetail = () => {
-    const newWordStorage = wordStorage.find(value => {
-      return value.id === newId;
-    });
-    dispatch(getDetailWordStorage(newWordStorage));
-    setDetail(newWordStorage);
   };
 
   const deleteWordStorage = async () => {
@@ -58,11 +49,15 @@ const MyVocaDetail = () => {
     });
   };
 
+  const getDetail = () => {
+    dispatch(__getDetailWordStorage(id as string));
+  };
+
   useEffect(() => {
     getDetail();
-  }, [id]);
+  }, []);
 
-  if (isFinish && detail) {
+  if (isFinish && detailWordStorage) {
     return (
       <MyVocaDetailLayout>
         <MyVocaDetailWrapper>
@@ -86,12 +81,12 @@ const MyVocaDetail = () => {
                 </div>
               </DivA>
               <DivB>
-                <MyVocaItem wordStorage={detail as IWordStorage} />
+                <MyVocaItem wordStorage={detailWordStorage as IWordStorage} />
                 <DetailInfo>
                   <div>
                     <p>
-                      카테고리<span>{detail?.category}</span>
-                      {detail?.likeCount === 0 ? (
+                      카테고리<span>{detailWordStorage.category}</span>
+                      {detailWordStorage.likeCount === 0 ? (
                         <img onClick={onLikeHandler} src={like} alt="like" />
                       ) : (
                         <img
@@ -100,31 +95,31 @@ const MyVocaDetail = () => {
                           alt="like"
                         />
                       )}
-                      <span>{detail?.likeCount}</span>
+                      <span>{detailWordStorage.likeCount}</span>
                     </p>
-                    <h1>{detail?.title}</h1>
-                    <h2>{detail?.description}</h2>
-                    <h3>{detail?.public ? "공개" : "비공개"}</h3>
+                    <h1>{detailWordStorage.title}</h1>
+                    <h2>{detailWordStorage.description}</h2>
+                    <h3>{detailWordStorage.public ? "공개" : "비공개"}</h3>
                     <p>
                       마지막 시험
                       <span>
-                        {detail?.lastTestAt === null
+                        {detailWordStorage.lastTestAt === null
                           ? "미응시"
-                          : detail?.lastTestAt.split("T")[0]}
+                          : detailWordStorage.lastTestAt.split("T")[0]}
                       </span>
                       모르는 단어<span> 개</span>
                     </p>
                   </div>
                   <div>
                     <p>
-                      작성<span>{detail?.nickname}</span>
+                      작성<span>{detailWordStorage.nickname}</span>
                     </p>
                     <p>
                       제작
                       <span>
-                        {detail.createAt === null
+                        {detailWordStorage.createAt === null
                           ? ""
-                          : detail?.createAt.split("T")[0]}
+                          : detailWordStorage.createAt.split("T")[0]}
                       </span>
                     </p>
                   </div>

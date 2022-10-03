@@ -38,8 +38,8 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
           description: "",
         }
       : {
-          title: detailWordStorage[0].title,
-          description: detailWordStorage[0].description,
+          title: detailWordStorage.title,
+          description: detailWordStorage.description,
         },
   );
 
@@ -74,7 +74,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
           status: statusBool,
         });
       } else {
-        await apis.editWordStorage(detailWordStorage[0].id, {
+        await apis.editWordStorage(detailWordStorage.id, {
           title: addWordStorageInput.title,
           category: addWordStorageSelect.category,
           description: addWordStorageInput.description,

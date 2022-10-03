@@ -101,7 +101,7 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
             </AddArea>
 
             <Button>
-              <span onClick={makeWord}>단어 추가</span>
+              <span onClick={makeWord}>단어 추가 완료</span>
             </Button>
           </Contents>
         </ModalWrap>
