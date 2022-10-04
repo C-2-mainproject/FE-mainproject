@@ -109,7 +109,12 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
             게임서비스 이용에 도움이 필요한가요?<span>고객지원 서비스</span>
           </p>
         </div>
-        {isFinishPop && <GameFinishModal winner={quizProgress.finalWinner} />}
+        {isFinishPop && (
+          <GameFinishModal
+            winner={quizProgress.finalWinner}
+            disconnectUser={quizProgress.disconnectUser}
+          />
+        )}
       </QuizListSection>
 
       <AdsSection>

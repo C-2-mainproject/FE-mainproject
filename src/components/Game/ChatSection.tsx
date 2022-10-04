@@ -7,7 +7,11 @@ import { GameInput, ChatList } from "../index";
 // import axios from "axios";
 import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
+import {
+  getQuizInfo,
+  getReadyInfo,
+  __getSharedWordStorage,
+} from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
 import { getCookie } from "../../shared/Cookie";
 // import { apis } from "../../shared/api";
@@ -68,20 +72,10 @@ const ChatSection = ({ readyStatus }: IReady) => {
     }
   }, [quizProgress.finalWinner]);
 
-  // const getGameWordStorage = async () => {
-  //   try {
-  //     const data = await axios.get("http://newlno.com/api/game/wordstorage", {
-  //       withCredentials: true,
-  //     });
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  useEffect(() => {
+    dispatch(__getSharedWordStorage(gameInfo.roomId));
+  }, []);
 
-  // useEffect(() => {
-  //   getGameWordStorage();
-  // }, []);
   const finishGame = async (result: boolean) => {
     await apis.postGameResult(result).then(data => console.log(data));
   };
@@ -142,6 +136,13 @@ const ChatSection = ({ readyStatus }: IReady) => {
             } else {
               finishGame(false);
             }
+          }
+          if (returnMessage.messageType === "VICTORY") {
+            console.log("disconnect!!!!");
+            if (returnMessage.nickname !== userInfo.nickname) {
+              finishGame(true);
+            }
+            dispatch(getQuizInfo(returnMessage));
           }
         },
         headers,

@@ -101,7 +101,6 @@ export const wordStorageSlice = createSlice({
     },
 
     [__getDetailWordStorage.fulfilled.type]: (state, action) => {
-      console.log(state, action);
       state.isFinish = true;
       state.detailWordStorage = action.payload;
     },

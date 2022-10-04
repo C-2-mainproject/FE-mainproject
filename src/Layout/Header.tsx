@@ -107,7 +107,7 @@ const Header = () => {
           <p>
             <span id="mypage" onClick={moveToPage}>
               <img src={location === "/" ? mypage_w : mypage_b} alt="mypage" />
-              My PAGE
+              MY PAGE
             </span>
           </p>
           {cookie ? (

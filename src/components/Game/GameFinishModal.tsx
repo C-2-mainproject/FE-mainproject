@@ -6,9 +6,11 @@ import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
   winner: string;
+  disconnectUser: string;
 };
 
-const GameFinishModal = ({ winner }: ModalProps) => {
+const GameFinishModal = ({ winner, disconnectUser }: ModalProps) => {
+  console.log(disconnectUser);
   const navigate = useNavigate();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 

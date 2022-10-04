@@ -21,7 +21,9 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
-  // const [ticket, setTicket] = useState<string>("");
+
+  const socket = new SockJS("https://newlno.com/wss");
+  const stompClient = Stomp.over(socket);
 
   const headers = {
     nickname: userInfo.nickname,
@@ -29,17 +31,25 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
     profileImage: userInfo.profileImage,
   };
 
-  // const config = {
-  //   headers: { cookie: getCookie() },
-  // };
-
-  // useLayoutEffect(() => {
-  //   // onConnected();
-  // }, []);
-
   useEffect(() => {
     getTicketStr();
+
+    return () => {
+      stompClient.disconnect(() => {
+        console.log("ININ");
+        stompClient.unsubscribe("sub-0");
+      });
+    };
   }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(stompClient.connected);
+  //     if (!stompClient.connected) {
+  //       alert("서버 상태가 좋지 않습니다. 다시 시도해 주세요!");
+  //     }
+  //   }, 2000);
+  // }, []);
 
   const getTicketStr = async () => {
     await apis.getTicket().then(data => {
@@ -65,8 +75,6 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
 
   const onConnected = () => {
     const cook = getCookie();
-    const socket = new SockJS("https://newlno.com/wss");
-    const stompClient = Stomp.over(socket);
 
     try {
       stompClient.connect(headers, () => {
@@ -84,6 +92,15 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
               }),
             );
 
+            if (returnMessage.messageType === "ERROR") {
+              console.log("error!!!!!");
+              stompClient.disconnect(() => {
+                console.log("ININ");
+                stompClient.unsubscribe("sub-0");
+              });
+              navigate("/game");
+            }
+
             // dispatch(__getGameWordStorage(returnMessage.roomId));
 
             navigate("/playgame");
@@ -96,6 +113,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
       throw error;
     }
   };
+
   return (
     <ModalPortal>
       <Overlay>

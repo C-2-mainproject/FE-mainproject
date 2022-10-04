@@ -43,9 +43,24 @@ const initialState = {
     userA: 0,
     userB: 0,
     finalWinner: "",
+    disconnectUser: "",
     correctAnswer: [],
   },
 };
+
+export const __getSharedWordStorage = createAsyncThunk(
+  "gameInfoSlice/__getSharedWordStorage",
+  async (payload: string, thunkAPI) => {
+    console.log(payload, thunkAPI);
+    try {
+      const data = await apis.getGameWordStorage(payload);
+      console.log(data);
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+);
 export const __getGameWordStorage = createAsyncThunk(
   "gameInfoSlice/__getGameWordStorage",
   async (payload: string, thunkAPI) => {
@@ -76,6 +91,12 @@ export const gameInfoSlice = createSlice({
 
     getQuizInfo: (state, action) => {
       //
+      if (action.payload.messageType === "VICTORY") {
+        state.quizProgress = {
+          ...state.quizProgress,
+          disconnectUser: action.payload.nickname,
+        };
+      }
       if (
         action.payload.message ===
         state.gameWordStorage[state.quizProgress.quizNumber].mean
@@ -125,6 +146,7 @@ export const gameInfoSlice = createSlice({
         quizNumber: 0,
         userA: 0,
         userB: 0,
+        disconnectUser: "",
         finalWinner: "",
         correctAnswer: [],
       };
