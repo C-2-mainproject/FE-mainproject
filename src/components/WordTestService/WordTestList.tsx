@@ -9,14 +9,13 @@ import { WordTestItem } from "../index";
 
 const WordTestList = () => {
   const { id } = useParams();
-
   const navigate = useNavigate();
   const newId = Number(id);
-  console.log(newId);
+
   const dispatch = useAppDispatch();
   const { testWordStorage } = useAppSelector(state => state.answerSlice);
   const { addWords } = useAppSelector(state => state.wordStorageSlice);
-  console.log(addWords);
+
   useEffect(() => {
     dispatch(__getDetailWord(newId));
     dispatch(__makeWordTest(newId));
@@ -46,8 +45,8 @@ const WordTestList = () => {
         <WordTestSubmit>
           <img src={mainsub_myVoca} alt="mainsub_myVoca" />
           <p>단어 추가 후, 시험을 진행해주세요!</p>
-          <button>
-            <span onClick={add}>추가하러 가기</span>
+          <button onClick={add}>
+            <span>추가하러 가기</span>
           </button>
         </WordTestSubmit>
       </WordTestListLayout>
@@ -62,8 +61,8 @@ const WordTestList = () => {
         <WordTestSubmit>
           <img src={mainsub_myVoca} alt="mainsub_myVoca" />
           <p>모두 완료되었습니다! 단어 시험을 제출할 준비가 되셨나요?</p>
-          <button>
-            <span onClick={submit}>제출하기</span>
+          <button onClick={submit}>
+            <span>제출하기</span>
           </button>
         </WordTestSubmit>
       </WordTestListLayout>

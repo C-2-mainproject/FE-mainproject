@@ -29,6 +29,7 @@ import game_win from "./game_win.png";
 import game_lose from "./game_lose.png";
 import game_guide from "./game_guide.png";
 import google_login from "./google_login.png";
+import main_word_guide from "./main_word_guide.png";
 
 export {
   add,
@@ -62,4 +63,5 @@ export {
   game_lose,
   game_guide,
   google_login,
+  main_word_guide,
 };

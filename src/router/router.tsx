@@ -18,6 +18,7 @@ import {
   WordTestResult,
   GameGuide,
 } from "../pages";
+import MainGuide from "../pages/MainGuide";
 
 const Router = () => {
   return (
@@ -40,6 +41,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/wordtest-result" element={<WordTestResult />} />
           <Route path="/gameguide" element={<GameGuide />} />
+          <Route path="/mainguide" element={<MainGuide />} />
           <Route path="*" element={<div>404 Error</div>} />
         </Routes>
         <Footer />

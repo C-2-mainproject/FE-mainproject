@@ -142,8 +142,8 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
                     onChange={onChangeHandler}
                   />
                 </VocaInput>
-                <Button>
-                  <span onClick={addNewWordStorage}>
+                <Button onClick={addNewWordStorage}>
+                  <span>
                     {id === "add" ? "새 단어장 추가" : "단어장 수정하기"}
                   </span>
                 </Button>

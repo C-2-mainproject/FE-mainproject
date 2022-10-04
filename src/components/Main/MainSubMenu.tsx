@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {
   mainsub_sharebook,
@@ -63,7 +62,6 @@ const SubMenu = styled.div`
   p {
     display: flex;
     justify-content: center;
-    cursor: pointer;
   }
   p {
     margin-top: 22px;

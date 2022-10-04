@@ -106,7 +106,10 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
         </QuizList>
         <div>
           <p>
-            게임서비스 이용에 도움이 필요한가요?<span>고객지원 서비스</span>
+            게임서비스 이용에 도움이 필요한가요?
+            <a href="https://talk.naver.com/W4Y0TR" target="_blank">
+              <span>고객지원 서비스</span>
+            </a>
           </p>
         </div>
         {isFinishPop && (
@@ -118,7 +121,12 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
       </QuizListSection>
 
       <AdsSection>
-        <img src={game_feedback} alt="game_feedback" />
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScCHYnbcZU1l68kQbxbc_43UVBVYIZzy6HUbg241MUo5HJdjQ/viewform"
+          target="_blank"
+        >
+          <img src={game_feedback} alt="game_feedback" />
+        </a>
       </AdsSection>
     </QuizInfoSectionLayout>
   );
