@@ -56,6 +56,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
               <span>{gameInfo.myNickname}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(v);
                   if (gameInfo.myNickname === v) {
                     return <span key={i}> 👍🏻 </span>;
                   }
@@ -67,6 +68,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
               <span>{gameInfo.otherNickname}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
+                  console.log(v);
                   if (gameInfo.otherNickname === v) {
                     return <span key={i}> 👍🏻 </span>;
                   }

@@ -105,43 +105,51 @@ export const gameInfoSlice = createSlice({
         action.payload.message ===
         state.gameWordStorage[state.quizProgress.quizNumber].meanings
       ) {
-        if (state.quizProgress.userA === 4) {
-          state.quizProgress = {
-            ...state.quizProgress,
-            finalWinner: action.payload.matchingNickname[0],
-          };
-        }
+        // if (state.quizProgress.userA === 4) {
+        //   state.quizProgress = {
+        //     ...state.quizProgress,
+        //     finalWinner: action.payload.matchingNickname[0],
+        //   };
+        // }
 
-        if (state.quizProgress.userB === 4) {
-          state.quizProgress = {
-            ...state.quizProgress,
-            finalWinner: action.payload.matchingNickname[1],
-          };
-        }
+        // if (state.quizProgress.userB === 4) {
+        //   state.quizProgress = {
+        //     ...state.quizProgress,
+        //     finalWinner: action.payload.matchingNickname[1],
+        //   };
+        // }
 
-        if (action.payload.matchingNickname[0] === action.payload.nickname) {
-          state.quizProgress = {
-            ...state.quizProgress,
-            quizNumber: state.quizProgress.quizNumber + 1,
-            userA: state.quizProgress.userA + 1,
+        // if (action.payload.matchingNickname[0] === action.payload.nickname) {
+        //   state.quizProgress = {
+        //     ...state.quizProgress,
+        //     quizNumber: state.quizProgress.quizNumber + 1,
+        //     userA: state.quizProgress.userA + 1,
 
-            correctAnswer: [...state.quizProgress.correctAnswer].concat(
-              action.payload.nickname,
-            ),
-          };
-        }
+        //     correctAnswer: [...state.quizProgress.correctAnswer].concat(
+        //       action.payload.nickname,
+        //     ),
+        //   };
+        // }
 
-        if (action.payload.matchingNickname[1] === action.payload.nickname) {
-          state.quizProgress = {
-            ...state.quizProgress,
-            quizNumber: state.quizProgress.quizNumber + 1,
-            userB: state.quizProgress.userB + 1,
+        // if (action.payload.matchingNickname[1] === action.payload.nickname) {
+        //   state.quizProgress = {
+        //     ...state.quizProgress,
+        //     quizNumber: state.quizProgress.quizNumber + 1,
+        //     userB: state.quizProgress.userB + 1,
 
-            correctAnswer: [...state.quizProgress.correctAnswer].concat(
-              action.payload.nickname,
-            ),
-          };
-        }
+        //     correctAnswer: [...state.quizProgress.correctAnswer].concat(
+        //       action.payload.nickname,
+        //     ),
+        //   };
+        // }
+
+        state.quizProgress = {
+          ...state.quizProgress,
+          quizNumber: state.quizProgress.quizNumber + 1,
+          correctAnswer: [...state.quizProgress.correctAnswer].concat(
+            action.payload.myNickname,
+          ),
+        };
       }
     },
 
