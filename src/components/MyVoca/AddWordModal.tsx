@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { addWord } from "../../redux/modules/wordStorageSlice";
 import { apis } from "../../shared/api";
+import { useAppDispatch } from "../../shared/reduxHooks";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
@@ -10,8 +12,10 @@ type ModalProps = {
 
 const AddWordModal = ({ openAddWordModal }: ModalProps) => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const [word, setWord] = useState<string[]>([]);
   const [mean, setMean] = useState<string[][]>([]);
+  const [number, setNumber] = useState<number>(0);
 
   const [inputWord, setInputWord] = useState({
     words: "",
@@ -39,10 +43,18 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
     } catch (error) {
       console.log(error);
     }
+    dispatch(
+      addWord({
+        words: word,
+        meanings: mean,
+      }),
+    );
+    // dispatch(__getDetailWord(newId));
     openAddWordModal();
   };
 
   const addWordList = () => {
+    setNumber(number => number + 1);
     if (inputWord.words && inputWord.meanings) {
       setWord([...word, inputWord.words]);
       setMean([...mean, inputWord.meanings.split(",")]);
@@ -98,6 +110,7 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
                 </span>
                 <button onClick={addWordList}>추가</button>
               </p>
+              <span>추가된 단어는 {number} 개 입니다.</span>
             </AddArea>
 
             <Button>
@@ -251,6 +264,16 @@ const AddArea = styled.div`
       font-weight: 700;
     }
   }
+
+  // h3 {
+  //   font-style: normal;
+  //   font-weight: 600;
+  //   font-size: 18px;
+  //   line-height: 26px;
+  //   letter-spacing: -0.07em;
+
+  //   color: #000000;
+  // }
 `;
 const Button = styled.button`
   width: 480px;
