@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { cancel } from "../../images";
 import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 import { IAnswer } from "../../types/types";
@@ -8,6 +10,7 @@ import WordTestResultItem from "./WordTestResultItem";
 
 const WordTestResultList = () => {
   let countnumber = 0;
+  const navigate = useNavigate();
 
   const [sort, setSort] = useState<IAnswer[]>();
 
@@ -77,10 +80,17 @@ const WordTestResultList = () => {
     );
   });
 
+  const moveToVoca = () => {
+    navigate("/myvoca");
+  };
   return (
     <WordTestResultListLayout>
       <WordTestResultInfo>
-        <h1>단어 시험 결과 📝</h1>
+        <h1>
+          단어 시험 결과 📝
+          <img src={cancel} onClick={moveToVoca} />
+        </h1>
+
         <div>
           <p>
             😀 정답 <span>{countnumber}</span>
@@ -107,6 +117,8 @@ const WordTestResultInfo = styled.div`
   }
 
   h1 {
+    display: flex;
+    justify-content: space-between;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -115,6 +127,11 @@ const WordTestResultInfo = styled.div`
     letter-spacing: -0.07em;
 
     color: #000000;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   p {

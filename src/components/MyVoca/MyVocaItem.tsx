@@ -159,6 +159,7 @@ const BodyDiv = styled.div`
       letter-spacing: -1.26px;
       text-align: left;
       color: #666;
+      word-break: break-all;
     }
 
     p {

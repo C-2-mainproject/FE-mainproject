@@ -113,6 +113,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
                     placeholder="단어장 이름을 입력해주세요"
                     value={title}
                     onChange={onChangeHandler}
+                    maxLength={20}
                   />
                 </VocaName>
                 <VocaInfo>
@@ -139,6 +140,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
                     placeholder="단어장을 소개해주세요"
                     id="description"
                     value={description}
+                    maxLength={50}
                     onChange={onChangeHandler}
                   />
                 </VocaInput>

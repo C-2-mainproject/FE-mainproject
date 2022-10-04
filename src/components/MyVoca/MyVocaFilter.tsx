@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { MyVocaList } from "../../components";
 import { filter } from "../../images";
 import CustomFilter from "../CustomFilter";
-import WrongAnswer from "./WrongAnswer";
 
 const category_list = [
   { filterCategory: "카테고리", value: "토익" },
@@ -121,7 +120,7 @@ const MyVocaFilter = ({ index }: IndexProps) => {
                 전체보기
               </MenuSpan>
             </div>
-            <WrongAnswer targetId="오답노트" />
+            <MyVocaList targetId="오답노트" />
           </WrongAnswerLayout>
         </>
       )}
