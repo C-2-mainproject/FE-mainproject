@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
 import { useState, useEffect } from "react";
 import { IBestVoca } from "../../types/types";
-import { like, like_fill } from "../../images";
+// import { like, like_fill } from "../../images";
 import { MouseEvent } from "react";
 
 const SlickBestVoca = () => {
@@ -50,15 +50,15 @@ const SlickBestVoca = () => {
       });
   };
 
-  const likeBtn = async (id: number) => {
-    try {
-      await apis.suggestionWordStorage(id);
-      getBestVoca();
-    } catch (error) {
-      console.log(error);
-      alert("로그인이 필요한 서비스입니다.");
-    }
-  };
+  // const likeBtn = async (id: number) => {
+  //   try {
+  //     await apis.suggestionWordStorage(id);
+  //     getBestVoca();
+  //   } catch (error) {
+  //     console.log(error);
+  //     alert("로그인이 필요한 서비스입니다.");
+  //   }
+  // };
 
   return (
     <>
@@ -189,18 +189,18 @@ const WordBookBox = styled.div`
   }
 `;
 
-const Header = styled.div`
-  img {
-    margin-left: 600px;
-    margin-top: -25px;
-    cursor: pointer;
-  }
+// const Header = styled.div`
+//   img {
+//     margin-left: 600px;
+//     margin-top: -25px;
+//     cursor: pointer;
+//   }
 
-  span {
-    width: 50px;
-    margin-top: -40px;
-    margin-left: 625px;
-  }
-`;
+//   span {
+//     width: 50px;
+//     margin-top: -40px;
+//     margin-left: 625px;
+//   }
+// `;
 
 export default SlickBestVoca;
