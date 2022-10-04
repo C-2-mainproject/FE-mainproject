@@ -16,18 +16,18 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     state => state.wordStorageSlice,
   );
 
-  const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
+  // const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
   const [likeWordStorage, setLikeWordStorage] = useState([]);
 
   const getWordStorage = () => {
     dispatch(__getWordStorageList());
   };
 
-  const getWrongAnswerWordStorageList = async () => {
-    await apis.getWrongAnswerWordStorages().then(data => {
-      setWrongAnswerWordStorage(data.data);
-    });
-  };
+  // const getWrongAnswerWordStorageList = async () => {
+  //   await apis.getWrongAnswerWordStorages().then(data => {
+  //     setWrongAnswerWordStorage(data.data);
+  //   });
+  // };
 
   const getLike = async () => {
     await apis.getLikeWordStorage().then(data => {
@@ -39,9 +39,9 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     getWordStorage();
   }, [targetId]);
 
-  useEffect(() => {
-    getWrongAnswerWordStorageList();
-  }, [targetId === "오답노트"]);
+  // useEffect(() => {
+  //   getWrongAnswerWordStorageList();
+  // }, [targetId === "오답노트"]);
 
   useEffect(() => {
     getLike();
