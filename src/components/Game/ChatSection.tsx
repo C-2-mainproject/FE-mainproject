@@ -95,8 +95,8 @@ const ChatSection = ({ readyStatus }: IReady) => {
         data => {
           const returnMessage = JSON.parse(data.body);
           setReturnMsg(returnMsg => [...returnMsg, returnMessage.message]);
-          setNickname(nickname => [...nickname, returnMessage.nickname]);
-          setProfile(profile => [...profile, returnMessage.profileImage]);
+          setNickname(nickname => [...nickname, returnMessage.myNickname]);
+          setProfile(profile => [...profile, returnMessage.myProfileImage]);
 
           if (returnMessage.messageType === "READY") {
             setIsReady(true);
@@ -115,7 +115,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
             }
           }
           if (returnMessage.messageType === "VICTORY") {
-            if (returnMessage.nickname !== userInfo.nickname) {
+            if (returnMessage.myNickname !== userInfo.nickname) {
               finishGame(true);
             }
             dispatch(getQuizInfo(returnMessage));
@@ -134,15 +134,24 @@ const ChatSection = ({ readyStatus }: IReady) => {
       `/pub/chat/enter/${gameInfo.roomId}`,
       headers,
       JSON.stringify({
-        matchingNickname: gameInfo.participant,
-        message: message,
-        matchingProfileImage: gameInfo.profileImg,
-        messageType: isReady ? "GAME" : "CHAT",
-        nickname: userInfo.nickname,
-        quizNumber: 0,
-        profileImage: userInfo.profileImage,
-        roomId: gameInfo.roomId,
+        // matchingNickname: gameInfo.participant,
+        // message: message,
+        // matchingProfileImage: gameInfo.profileImg,
+        // messageType: isReady ? "GAME" : "CHAT",
+        // nickname: userInfo.nickname,
+        // quizNumber: 0,
+        // profileImage: userInfo.profileImage,
+        // roomId: gameInfo.roomId,
+        // cookie: gameInfo.cookie,
+        myNickname: gameInfo.myNickname,
+        myProfileImage: gameInfo.myProfileImage,
+        otherNickname: gameInfo.otherNickname,
+        otherProfileImage: gameInfo.otherProfileImage,
         cookie: gameInfo.cookie,
+        roomId: gameInfo.roomId,
+        messageType: isReady ? "GAME" : "CHAT",
+        quizNumber: 0,
+        message: message,
       }),
     );
   };

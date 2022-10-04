@@ -4,9 +4,11 @@ import { apis } from "../../shared/api";
 const initialState = {
   gameInfo: {
     roomId: "",
-    cookie: [],
-    participant: [],
-    profileImg: [],
+    cookie: "",
+    myNickname: "",
+    myProfileImage: "",
+    otherNickname: "",
+    otherProfileImage: "",
   },
 
   gameWordStorage: [

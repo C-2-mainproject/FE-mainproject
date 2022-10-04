@@ -52,22 +52,22 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
           <p>SCORE BOARD</p>
           <UserInfo>
             <div>
-              <img src={gameInfo.profileImg[0]} alt="profile0" />
-              <span>{gameInfo.participant[0]}</span>
+              <img src={gameInfo.myProfileImage} alt="profile0" />
+              <span>{gameInfo.myNickname}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
-                  if (gameInfo.participant[0] === v) {
+                  if (gameInfo.myNickname === v) {
                     return <span key={i}> 👍🏻 </span>;
                   }
                 })}
               </span>
             </div>
             <div>
-              <img src={gameInfo.profileImg[1]} alt="profile1" />
-              <span>{gameInfo.participant[1]}</span>
+              <img src={gameInfo.otherProfileImage} alt="profile1" />
+              <span>{gameInfo.otherNickname}</span>
               <span>
                 {quizProgress.correctAnswer.map((v, i) => {
-                  if (gameInfo.participant[1] === v) {
+                  if (gameInfo.otherNickname === v) {
                     return <span key={i}> 👍🏻 </span>;
                   }
                 })}
