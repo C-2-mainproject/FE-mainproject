@@ -11,6 +11,11 @@ const GameGuide = () => {
 
 const GameGuideLayout = styled.div`
   margin-top: -240px;
+
+  img {
+    display: block;
+    width: 100%;
+  }
 `;
 
 export default GameGuide;

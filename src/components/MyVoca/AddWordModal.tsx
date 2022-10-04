@@ -134,8 +134,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 640px;
-  height: fit-content;
+  width: 600px;
+  height: 750px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -153,27 +153,27 @@ const CloseButton = styled.div`
 
 const Title = styled.div`
   width: 480px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid;
 
   h1 {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
 
   span {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
@@ -183,7 +183,7 @@ const Form = styled.div`
   display: flex;
   h1 {
     margin-top: 20px;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -216,7 +216,6 @@ const Form = styled.div`
   }
 `;
 const Contents = styled.div`
-  margin: 50px 30px;
   padding: 50px;
 
   h1 {
@@ -233,7 +232,6 @@ const AddArea = styled.div`
     font-size: 24px;
     line-height: 35px;
     color: #000000;
-    margin-bottom: 10px;
   }
 
   input {
@@ -264,16 +262,6 @@ const AddArea = styled.div`
       font-weight: 700;
     }
   }
-
-  // h3 {
-  //   font-style: normal;
-  //   font-weight: 600;
-  //   font-size: 18px;
-  //   line-height: 26px;
-  //   letter-spacing: -0.07em;
-
-  //   color: #000000;
-  // }
 `;
 const Button = styled.button`
   width: 480px;

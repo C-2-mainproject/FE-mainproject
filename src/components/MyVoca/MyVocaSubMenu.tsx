@@ -104,12 +104,12 @@ const MyVocaSubMenuLayout = styled.div`
     width: 13rem;
     margin-right: 5rem;
     font-family: NotoSansKR;
-    font-size: 48px;
+    font-size: 40px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -3px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
@@ -123,7 +123,7 @@ const Span = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: -1px;
+  letter-spacing: -0.15em;
   text-align: left;
   cursor: pointer;
 
