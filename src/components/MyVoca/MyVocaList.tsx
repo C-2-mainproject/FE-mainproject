@@ -72,7 +72,17 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "나의 단어장") {
-      console.log("나의 단어장");
+      return (
+        <MyVocaListLayout>
+          {wordStorage
+            .filter(wordStorage => {
+              return !wordStorage.title.includes("오답노트");
+            })
+            .map((wordStorage, index) => {
+              return <MyVocaItem key={index} wordStorage={wordStorage} />;
+            })}
+        </MyVocaListLayout>
+      );
     }
 
     if (targetId === "좋아요") {
@@ -101,8 +111,6 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "공개") {
-      console.log("공개");
-
       return (
         <MyVocaListLayout>
           {wordStorage
@@ -117,7 +125,6 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "비공개") {
-      console.log("비공개");
       return (
         <MyVocaListLayout>
           {wordStorage
@@ -132,14 +139,15 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "오답노트") {
-      console.log("오답노트", wrongAnswerWordStorage);
-      // return (
-      //   <MyVocaListLayout>
-      //     {wrongAnswerWordStorage.map((wrongWordStorage, index) => {
-      //       return <WrongItem key={index} wordStorage={wrongWordStorage} />;
-      //     })}
-      //   </MyVocaListLayout>
-      // );
+      <MyVocaListLayout>
+        {wordStorage
+          .filter(wordStorage => {
+            return wordStorage.title.includes("오답노트");
+          })
+          .map((wordStorage, index) => {
+            return <MyVocaItem key={index} wordStorage={wordStorage} />;
+          })}
+      </MyVocaListLayout>;
     }
 
     return (
