@@ -134,7 +134,6 @@ const Info = styled.div`
 
   p {
     height: 24px;
-    // margin-top: 68px;
     margin-left: 24px;
     font-style: normal;
     font-weight: 500;

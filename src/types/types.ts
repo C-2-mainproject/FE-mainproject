@@ -39,7 +39,6 @@ export interface WordStorageNew {
   title: string;
 }
 
-// AddVocaTypes
 export interface IFilterList {
   filterCategory: string;
   value: string;

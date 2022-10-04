@@ -69,16 +69,6 @@ const ChatSection = ({ readyStatus }: IReady) => {
     try {
       stompClient.connect(headers, () => {
         reSubscribe();
-        // stompClient.subscribe(
-        //   `/sub/chat/join`,
-        //   data => {
-        //     const returnMessage = JSON.parse(data.body);
-        //     // setRoomId(returnMessage.roomId);
-        //     // setSessionId(returnMessage.sessionId);
-        //     reSubscribe();
-        //   },
-        //   headers,
-        // );
       });
     } catch (error) {
       console.log(error);
@@ -88,13 +78,11 @@ const ChatSection = ({ readyStatus }: IReady) => {
 
   const onDisconnect = () => {
     stompClient.disconnect(() => {
-      console.log("ININ");
       stompClient.unsubscribe("sub-0");
     });
   };
 
   const reSubscribe = () => {
-    console.log("!!!!!!!!!!!!!", gameInfo.roomId);
     try {
       stompClient.unsubscribe("sub-0");
 
@@ -123,7 +111,6 @@ const ChatSection = ({ readyStatus }: IReady) => {
             }
           }
           if (returnMessage.messageType === "VICTORY") {
-            console.log("disconnect!!!!");
             if (returnMessage.nickname !== userInfo.nickname) {
               finishGame(true);
             }
@@ -269,5 +256,3 @@ const GameInputWrapper = styled.div`
   height: 60px;
 `;
 export default ChatSection;
-
-// 게임시작 -> http로 검증된 사람인지 파악 -> 소켓연결 -> 매칭 -> 새로운화면 넘어가자마자 검증 -> http 공인단어장 받고

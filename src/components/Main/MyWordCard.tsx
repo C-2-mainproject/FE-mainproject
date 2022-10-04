@@ -8,15 +8,8 @@ type Props = {
 };
 
 const MyWordCard = ({ wordStorage }: Props) => {
-  const {
-    id,
-    category,
-    title,
-    lastTestAt,
-    description,
-    createAt,
-    // likeCount,
-  } = wordStorage;
+  const { id, category, title, lastTestAt, description, createAt } =
+    wordStorage;
   const navigate = useNavigate();
 
   const moveToDetail = (id: number) => {

@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { useState, MouseEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -7,15 +6,12 @@ import { logo, logo_w, mypage_b, mypage_w } from "../images";
 import { __getUserInfo } from "../redux/modules/userInfoSlice";
 import { getCookie, removeCookie } from "../shared/Cookie";
 import { useAppDispatch } from "../shared/reduxHooks";
-// import { apis } from "../shared/api";
-// import SocialLoginModal from "../components/Login/SocialLoginModal";
-// import { apis } from "../shared/api";
-// import { setSessionId } from "../shared/Cookie";
 
 // const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
 
 const Header = () => {
   const location = window.location.pathname;
+  console.log(location);
   const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const cookie = getCookie();
@@ -28,7 +24,7 @@ const Header = () => {
 
   useEffect(() => {
     getCookie();
-  }, [cookie]);
+  }, [location]);
 
   const moveToPage = (event: MouseEvent<HTMLSpanElement>) => {
     const newTarget = event.target as HTMLSpanElement;

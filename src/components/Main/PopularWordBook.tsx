@@ -6,7 +6,6 @@ type Props = {
 };
 const PopularWordBook = ({ BestVoca }: Props) => {
   const { title, description } = BestVoca;
-  console.log(BestVoca);
   return (
     <>
       <WordBookBox>
