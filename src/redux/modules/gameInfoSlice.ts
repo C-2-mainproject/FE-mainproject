@@ -94,7 +94,6 @@ export const gameInfoSlice = createSlice({
 
     getQuizInfo: (state, action) => {
       //
-      console.log(action);
       if (action.payload.messageType === "VICTORY") {
         state.quizProgress = {
           ...state.quizProgress,
@@ -107,57 +106,17 @@ export const gameInfoSlice = createSlice({
         state.gameWordStorage[state.quizProgress.quizNumber].meanings
       ) {
         console.log(action.payload);
-
-        const user = state.quizProgress.correctAnswer.filter(
+        const winnerCheck = state.quizProgress.correctAnswer.filter(
           v => action.payload.myNickname === v,
         ).length;
+        console.log(winnerCheck);
 
-        console.log(user);
-
-        if (user === 5) {
+        if (winnerCheck === 4) {
           state.quizProgress = {
             ...state.quizProgress,
             finalWinner: action.payload.myNickname,
           };
         }
-
-        // if (state.quizProgress.userA === 4) {
-        // state.quizProgress = {
-        //   ...state.quizProgress,
-        //   finalWinner: action.payload.myNickname,
-        // };
-        // }
-
-        // if (state.quizProgress.userB === 4) {
-        //   state.quizProgress = {
-        //     ...state.quizProgress,
-        //     finalWinner: action.payload.matchingNickname[1],
-        //   };
-        // }
-
-        // if (action.payload.matchingNickname[0] === action.payload.nickname) {
-        //   state.quizProgress = {
-        //     ...state.quizProgress,
-        //     quizNumber: state.quizProgress.quizNumber + 1,
-        //     userA: state.quizProgress.userA + 1,
-
-        //     correctAnswer: [...state.quizProgress.correctAnswer].concat(
-        //       action.payload.nickname,
-        //     ),
-        //   };
-        // }
-
-        // if (action.payload.matchingNickname[1] === action.payload.nickname) {
-        //   state.quizProgress = {
-        //     ...state.quizProgress,
-        //     quizNumber: state.quizProgress.quizNumber + 1,
-        //     userB: state.quizProgress.userB + 1,
-
-        //     correctAnswer: [...state.quizProgress.correctAnswer].concat(
-        //       action.payload.nickname,
-        //     ),
-        //   };
-        // }
 
         state.quizProgress = {
           ...state.quizProgress,
