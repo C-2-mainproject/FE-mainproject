@@ -27,11 +27,11 @@ const WordTestResultItem = ({
         <p>{submitAnswer.words}</p>
       </WordTestResultItemQuiz>
       <SubmitAnswer className={success ? "yes" : "no"}>
-        <span>{submitAnswer.meanings.join()}</span>
+        <span>{submitAnswer.meanings}</span>
         <img src={success ? check : cancel} alt="circle" />
       </SubmitAnswer>
       <OriginAnswer>
-        <span>{orginAnswer.join()}</span>
+        <span>{orginAnswer}</span>
         <img src={circle} alt="circle" />
       </OriginAnswer>
     </WordTestResultItemLayout>

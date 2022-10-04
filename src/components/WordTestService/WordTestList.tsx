@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { mainsub_myVoca } from "../../images";
 import { __makeWordTest } from "../../redux/modules/answerSlice";
+import { __getDetailWord } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { WordTestItem } from "../index";
 
@@ -11,11 +12,13 @@ const WordTestList = () => {
 
   const navigate = useNavigate();
   const newId = Number(id);
-
+  console.log(newId);
   const dispatch = useAppDispatch();
   const { testWordStorage } = useAppSelector(state => state.answerSlice);
-
+  const { addWords } = useAppSelector(state => state.wordStorageSlice);
+  console.log(addWords);
   useEffect(() => {
+    dispatch(__getDetailWord(newId));
     dispatch(__makeWordTest(newId));
   }, []);
 
@@ -34,22 +37,38 @@ const WordTestList = () => {
   const submit = () => {
     navigate("/wordtest-result");
   };
-
-  return (
-    <WordTestListLayout>
-      <WordTestListHeader>
-        <p>{testWordStorage[0]?.wordStorageId}번 단어장 시험</p>
-      </WordTestListHeader>
-      <WordTestListItem>{testListResult}</WordTestListItem>
-      <WordTestSubmit>
-        <img src={mainsub_myVoca} alt="mainsub_myVoca" />
-        <p>모두 완료되었습니다! 단어 시험을 제출할 준비가 되셨나요?</p>
-        <button>
-          <span onClick={submit}>제출하기</span>
-        </button>
-      </WordTestSubmit>
-    </WordTestListLayout>
-  );
+  const add = () => {
+    navigate(`/myvoca-detail/${id}`);
+  };
+  if (addWords[0].words.length === 0) {
+    return (
+      <WordTestListLayout>
+        <WordTestSubmit>
+          <img src={mainsub_myVoca} alt="mainsub_myVoca" />
+          <p>단어 추가 후, 시험을 진행해주세요!</p>
+          <button>
+            <span onClick={add}>추가하러 가기</span>
+          </button>
+        </WordTestSubmit>
+      </WordTestListLayout>
+    );
+  } else {
+    return (
+      <WordTestListLayout>
+        <WordTestListHeader>
+          <p>{testWordStorage[0]?.wordStorageId}번 단어장 시험</p>
+        </WordTestListHeader>
+        <WordTestListItem>{testListResult}</WordTestListItem>
+        <WordTestSubmit>
+          <img src={mainsub_myVoca} alt="mainsub_myVoca" />
+          <p>모두 완료되었습니다! 단어 시험을 제출할 준비가 되셨나요?</p>
+          <button>
+            <span onClick={submit}>제출하기</span>
+          </button>
+        </WordTestSubmit>
+      </WordTestListLayout>
+    );
+  }
 };
 
 const WordTestListLayout = styled.div`

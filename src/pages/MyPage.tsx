@@ -28,10 +28,6 @@ const MyPageWrapper = styled.div`
 const MyPageBox = styled.div`
   width: 1280px;
   margin: auto;
-
-  // div:nth-child(2n) {
-  //   display: flex;
-  // }
 `;
 
 export default MyPage;

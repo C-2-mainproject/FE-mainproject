@@ -13,7 +13,11 @@ const MyInfo = () => {
     <MyInfoLayout>
       <MyInfoHeader>
         <p>회원정보</p>
-        <span>고객 센터</span>
+        <span>
+          <a href="https://talk.naver.com/W4Y0TR" target="_blank">
+            고객 센터
+          </a>
+        </span>
       </MyInfoHeader>
 
       <Info>
@@ -61,6 +65,11 @@ const MyInfoHeader = styled.div`
     &:hover {
       font-weight: 700;
     }
+  }
+
+  a {
+    text-decoration: none;
+    color: #000000;
   }
 `;
 
