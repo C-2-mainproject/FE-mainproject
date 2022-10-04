@@ -73,8 +73,10 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
               getGameInfo({
                 roomId: returnMessage.roomId,
                 cookie: returnMessage.cookie,
-                participant: returnMessage.matchingNickname,
-                profileImg: returnMessage.matchingProfileImage,
+                myNickname: returnMessage.myNickname,
+                myProfileImage: returnMessage.myProfileImage,
+                otherNickname: returnMessage.otherNickname,
+                otherProfileImage: returnMessage.otherProfileImage,
               }),
             );
 
