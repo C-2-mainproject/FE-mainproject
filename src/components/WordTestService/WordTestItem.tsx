@@ -18,13 +18,6 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
   const [isInputStatus, setIsInputStatus] = useState<boolean>(false);
   const [answer, setAnswer] = useState<IAnswer>();
 
-  // const checkInputStatus = () => {
-  //   if (answer) {
-  //     setIsInputStatus(true);
-  //     dispatch(answerStorage(answer));
-  //   }
-  // };
-
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setAnswer({
       index: id,

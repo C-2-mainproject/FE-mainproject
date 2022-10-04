@@ -124,7 +124,6 @@ const MyWordBookList = styled.section`
   display: flex;
   height: 908px;
   align-items: center;
-  // justify-content: center;
   margin-top: -10rem;
   div {
     display: flex;

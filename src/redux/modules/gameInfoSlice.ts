@@ -67,10 +67,8 @@ const initialState = {
 export const __getSharedWordStorage = createAsyncThunk(
   "gameInfoSlice/__getSharedWordStorage",
   async (payload: string, thunkAPI) => {
-    console.log(payload, thunkAPI);
     try {
       const data = await apis.getGameWordStorage(payload);
-      console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);

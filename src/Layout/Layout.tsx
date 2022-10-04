@@ -1,5 +1,4 @@
 import Header from "./Header";
-// import Footer from "./Footer";
 import styled from "styled-components";
 
 const Layout = (props: { children?: React.ReactNode }) => {
@@ -9,7 +8,6 @@ const Layout = (props: { children?: React.ReactNode }) => {
     <>
       {location !== "/" && <Header />}
       <LayOut>{props.children}</LayOut>
-      {/* <Footer /> */}
     </>
   );
 };

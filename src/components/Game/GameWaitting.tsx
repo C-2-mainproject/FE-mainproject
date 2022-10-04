@@ -36,37 +36,24 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
 
     return () => {
       stompClient.disconnect(() => {
-        console.log("ININ");
         stompClient.unsubscribe("sub-0");
       });
     };
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     console.log(stompClient.connected);
-  //     if (!stompClient.connected) {
-  //       alert("서버 상태가 좋지 않습니다. 다시 시도해 주세요!");
-  //     }
-  //   }, 2000);
-  // }, []);
-
   const getTicketStr = async () => {
     await apis.getTicket().then(data => {
       checkTicketStr(data.data.ticket);
-      // setTicket(data.data.ticket);
     });
   };
 
   const checkTicketStr = async (ticketStr: string) => {
-    console.log(ticketStr);
     await axios
       .post("https://newlno.com/api/game/ticket/check", {
         ticket: ticketStr,
         cookie: getCookie(),
       })
       .then(data => {
-        console.log(data);
         if (data.data) {
           onConnected();
         }
@@ -82,7 +69,6 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
           `/sub/chat/join/${cook}`,
           data => {
             const returnMessage = JSON.parse(data.body);
-            console.log("TEST!!!!!!!!!!!!!!", returnMessage);
             dispatch(
               getGameInfo({
                 roomId: returnMessage.roomId,
@@ -93,9 +79,7 @@ const GameWaitting = ({ openWattingModal }: ModalProps) => {
             );
 
             if (returnMessage.messageType === "ERROR") {
-              console.log("error!!!!!");
               stompClient.disconnect(() => {
-                console.log("ININ");
                 stompClient.unsubscribe("sub-0");
               });
               navigate("/game");

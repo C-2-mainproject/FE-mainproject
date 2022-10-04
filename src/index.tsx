@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-// import { Reset } from "styled-reset";
 import App from "./App";
 import store from "./redux/config/configStore";
 import "./index.css";
@@ -12,7 +11,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <>
     <Provider store={store}>
-      {/* <Reset /> */}
       <App />
     </Provider>
   </>,

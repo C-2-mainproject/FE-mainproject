@@ -21,10 +21,6 @@ const MyVocaSubMenu = () => {
     setIsOpenModal(!isOpenModal);
   };
 
-  // const guide = () => {
-  //   console.log("guide!!");
-  // };
-
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
@@ -177,23 +173,4 @@ const AddButton = styled.button`
     }
   }
 `;
-
-// const GuideButton = styled.button`
-//   width: 182px;
-//   height: 40px;
-//   background-color: #1f1f1f;
-
-//   span {
-//     flex-grow: 0;
-//     font-family: NotoSansKR;
-//     font-size: 16px;
-//     font-weight: 500;
-//     font-stretch: normal;
-//     font-style: normal;
-//     line-height: normal;
-//     letter-spacing: -1px;
-//     text-align: left;
-//     color: #fff;
-//   }
-// `;
 export default MyVocaSubMenu;

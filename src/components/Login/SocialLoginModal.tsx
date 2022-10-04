@@ -1,4 +1,3 @@
-// import axios from "axios";
 import styled from "styled-components";
 import { google_login } from "../../images";
 import ModalPortal from "../ModalPortal";
@@ -194,7 +193,6 @@ const Button = styled.button`
   width: 480px;
   height: 60px;
   margin-top: 20px;
-  // background-color: #0199c3;
   border: none;
 
   span {
