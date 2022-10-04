@@ -5,8 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
 import { useState, useEffect } from "react";
 import { IBestVoca } from "../../types/types";
-// import { IWordStorage } from "../../types/types";
-import { like } from "../../images";
+import { like, like_fill } from "../../images";
 import { MouseEvent } from "react";
 
 const SlickBestVoca = () => {
@@ -45,6 +44,12 @@ const SlickBestVoca = () => {
       .then(data => console.log(data));
   };
 
+  const likeBtn = async (id: number) => {
+    await apis.suggestionWordStorage(id).then(data => {
+      getBestVoca();
+    });
+  };
+
   return (
     <>
       <BestPopSlider {...BestSettings}>
@@ -57,7 +62,19 @@ const SlickBestVoca = () => {
                 <div>
                   <Header>
                     <span>{bestVoca.likeCount} 개</span>
-                    <img src={like} width="20px" />
+                    {bestVoca.likeCount === 0 ? (
+                      <img
+                        src={like}
+                        width="20px"
+                        onClick={() => likeBtn(bestVoca.id)}
+                      />
+                    ) : (
+                      <img
+                        src={like_fill}
+                        width="20px"
+                        onClick={() => likeBtn(bestVoca.id)}
+                      />
+                    )}
                   </Header>
                   <p>{bestVoca.category}</p>
                   <h3>{bestVoca.title}</h3>
@@ -166,6 +183,7 @@ const Header = styled.div`
   img {
     margin-left: 600px;
     margin-top: -25px;
+    cursor: pointer;
   }
 
   span {
