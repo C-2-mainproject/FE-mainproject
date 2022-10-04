@@ -4,8 +4,8 @@ type TargetIdProps = {
   targetId: string;
 };
 
-const WrongAnswerComponent = ({ targetId }: TargetIdProps) => {
+const WrongAnswer = ({ targetId }: TargetIdProps) => {
   return <MyVocaList targetId={targetId} />;
 };
 
-export default WrongAnswerComponent;
+export default WrongAnswer;

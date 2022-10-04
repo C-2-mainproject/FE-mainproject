@@ -53,8 +53,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 640px;
-  height: fit-content;
+  width: 570px;
+  height: 400px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -71,7 +71,6 @@ const CloseButton = styled.div`
 `;
 
 const Contents = styled.div`
-  margin: 50px 30px;
   padding: 50px;
 
   h1 {

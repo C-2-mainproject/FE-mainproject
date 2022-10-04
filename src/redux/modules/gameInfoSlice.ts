@@ -11,28 +11,44 @@ const initialState = {
 
   gameWordStorage: [
     {
-      word: "Apple",
-      mean: "사과",
+      word: "Provide",
+      mean: "공급하다",
     },
     {
-      word: "Banana",
-      mean: "바나나",
+      word: "Attitude",
+      mean: "태도",
     },
     {
-      word: "Tree",
-      mean: "나무",
+      word: "Occasion",
+      mean: "경우",
     },
     {
-      word: "Star",
-      mean: "별",
+      word: "Opportunity",
+      mean: "기회",
     },
     {
-      word: "Fruit",
-      mean: "과일",
+      word: "Professional",
+      mean: "전문가",
     },
     {
-      word: "Bag",
-      mean: "가방",
+      word: "Generate",
+      mean: "발생하다",
+    },
+    {
+      word: "Frequent",
+      mean: "빈번한",
+    },
+    {
+      word: "Negative",
+      mean: "부정적인",
+    },
+    {
+      word: "Biology",
+      mean: "생물학",
+    },
+    {
+      word: "Compose",
+      mean: "작곡하다",
     },
   ],
   isReady: false,

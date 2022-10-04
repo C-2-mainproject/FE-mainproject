@@ -51,8 +51,6 @@ const WordTestResultList = () => {
           meaning: wrongStorage.meanings,
         },
       });
-    } else {
-      console.log("모두 정답!!");
     }
   };
 
