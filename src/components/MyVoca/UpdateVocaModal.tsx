@@ -168,7 +168,7 @@ const Overlay = styled.div`
 
 const ModalWrap = styled.div`
   width: 600px;
-  height: 900px;
+  height: 800px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -190,27 +190,27 @@ const Contents = styled.div`
 
 const Title = styled.div`
   width: 480px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid;
 
   h1 {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
 
   span {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
@@ -219,7 +219,7 @@ const Title = styled.div`
 const Form = styled.div`
   h1 {
     margin-top: 20px;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -253,12 +253,11 @@ const Form = styled.div`
 `;
 
 const VocaName = styled.div`
-  margin-top: 41px;
+  margin-top: 20px;
 
   input {
     width: 480px;
     height: 60px;
-    margin-top: 10px;
     margin-right: 20px;
 
     outline: 0;
@@ -273,7 +272,7 @@ const VocaName = styled.div`
 `;
 const VocaInfo = styled.div`
   display: flex;
-  margin-top: 60px;
+  margin-top: 30px;
 `;
 
 const Div = styled.div`

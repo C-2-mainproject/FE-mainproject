@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { addWord } from "../../redux/modules/wordStorageSlice";
 import { apis } from "../../shared/api";
+import { useAppDispatch } from "../../shared/reduxHooks";
 import ModalPortal from "../ModalPortal";
 
 type ModalProps = {
@@ -10,8 +12,10 @@ type ModalProps = {
 
 const AddWordModal = ({ openAddWordModal }: ModalProps) => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const [word, setWord] = useState<string[]>([]);
   const [mean, setMean] = useState<string[][]>([]);
+  const [number, setNumber] = useState<number>(0);
 
   const [inputWord, setInputWord] = useState({
     words: "",
@@ -39,10 +43,18 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
     } catch (error) {
       console.log(error);
     }
+    dispatch(
+      addWord({
+        words: word,
+        meanings: mean,
+      }),
+    );
+    // dispatch(__getDetailWord(newId));
     openAddWordModal();
   };
 
   const addWordList = () => {
+    setNumber(number => number + 1);
     if (inputWord.words && inputWord.meanings) {
       setWord([...word, inputWord.words]);
       setMean([...mean, inputWord.meanings.split(",")]);
@@ -98,6 +110,7 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
                 </span>
                 <button onClick={addWordList}>추가</button>
               </p>
+              <span>추가된 단어는 {number} 개 입니다.</span>
             </AddArea>
 
             <Button>
@@ -121,8 +134,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 640px;
-  height: fit-content;
+  width: 600px;
+  height: 750px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -140,27 +153,27 @@ const CloseButton = styled.div`
 
 const Title = styled.div`
   width: 480px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid;
 
   h1 {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
 
   span {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
+    letter-spacing: -0.1em;
     text-align: left;
     color: #000;
   }
@@ -170,7 +183,7 @@ const Form = styled.div`
   display: flex;
   h1 {
     margin-top: 20px;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -203,7 +216,6 @@ const Form = styled.div`
   }
 `;
 const Contents = styled.div`
-  margin: 50px 30px;
   padding: 50px;
 
   h1 {
@@ -220,7 +232,6 @@ const AddArea = styled.div`
     font-size: 24px;
     line-height: 35px;
     color: #000000;
-    margin-bottom: 10px;
   }
 
   input {

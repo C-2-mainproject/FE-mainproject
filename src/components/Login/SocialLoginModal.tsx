@@ -60,8 +60,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 640px;
-  height: 450px;
+  width: 600px;
+  height: 400px;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -79,12 +79,12 @@ const CloseButton = styled.div`
 
 const Contents = styled.div`
   margin: 30px 30px;
-  padding: 50px;
+  padding: 20px;
 `;
 
 const Title = styled.div`
   width: 480px;
-  padding-bottom: 33px;
+  padding-bottom: 20px;
   border-bottom: 1px solid;
 
   h1 {
@@ -97,6 +97,7 @@ const Title = styled.div`
     letter-spacing: -2px;
     text-align: left;
     color: #000;
+    letter-spacing: -0.07em;
   }
 
   span {
@@ -106,9 +107,9 @@ const Title = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2px;
     text-align: left;
     color: #000;
+    letter-spacing: -0.1em;
   }
 `;
 

@@ -199,6 +199,7 @@ const ChartTitle = styled.div`
   font-size: 36px;
   line-height: 52px;
   letter-spacing: -0.07em;
+  margin-right: 5.5rem;
   h3 {
     &:nth-child(1) {
       margin-top: 76px;

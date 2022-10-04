@@ -16,6 +16,12 @@ const initialState: IWordStorageInitialState = {
     public: false,
     title: "",
   },
+  addWords: [
+    {
+      words: [],
+      meanings: [],
+    },
+  ],
   isLoading: false,
   isFinish: false,
   pageNum: 0,
@@ -53,7 +59,6 @@ export const __getDetailWordStorage = createAsyncThunk(
   async (payload: string, thunkAPI) => {
     try {
       const data = await apis.getWordStorages();
-      console.log(data.data);
       const res = data.data.find((value: IWordStorage) => {
         return value.id === Number(payload);
       });
@@ -65,12 +70,31 @@ export const __getDetailWordStorage = createAsyncThunk(
   },
 );
 
+export const __getDetailWord = createAsyncThunk(
+  "wordStorageSlice/__getDetailWord",
+  async (payload: number, thunkAPI) => {
+    try {
+      const data = await apis.getDetailWordStorage(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
 export const wordStorageSlice = createSlice({
   name: "wordStorageSlice",
   initialState,
   reducers: {
-    getDetailWordStorage: (state, action) => {
+    addWord: (state, action) => {
       console.log(state, action);
+      state.addWords = [
+        {
+          words: [...state.addWords[0].words, ...action.payload.words],
+          meanings: [...state.addWords[0].meanings, ...action.payload.meanings],
+        },
+      ];
     },
   },
   extraReducers: {
@@ -104,9 +128,24 @@ export const wordStorageSlice = createSlice({
       state.isFinish = true;
       state.detailWordStorage = action.payload;
     },
+    [__getDetailWord.fulfilled.type]: (state, action) => {
+      console.log(action.payload);
+      state.addWords = [
+        {
+          words: [],
+          meanings: [],
+        },
+      ];
+      state.addWords = [
+        {
+          words: [...state.addWords[0].words, ...action.payload.words],
+          meanings: [...state.addWords[0].meanings, ...action.payload.meanings],
+        },
+      ];
+    },
   },
 });
 
-export const { getDetailWordStorage } = wordStorageSlice.actions;
+export const { addWord } = wordStorageSlice.actions;
 
 export default wordStorageSlice.reducer;

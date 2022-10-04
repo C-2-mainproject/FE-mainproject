@@ -1,54 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { apis } from "../../shared/api";
+import { __getDetailWord } from "../../redux/modules/wordStorageSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { WordItem } from "../index";
 
 const WordList = () => {
   const { id } = useParams();
-  const [updateWordList, setUpdateWordList] = useState({
-    words: [],
-    meanings: [],
-  });
-
-  const getDetailWord = async () => {
-    const newId = Number(id);
-    try {
-      await apis.getDetailWordStorage(newId).then(data => {
-        setUpdateWordList({
-          words: data.data.words,
-          meanings: data.data.meanings,
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { addWords } = useAppSelector(state => state.wordStorageSlice);
 
   useEffect(() => {
-    getDetailWord();
+    dispatch(__getDetailWord(Number(id)));
   }, [id]);
 
-  const words = updateWordList.words.map((wordValue, index) => {
-    return (
-      <WordItem
-        key={index}
-        wordValue={wordValue}
-        meaningValue={updateWordList.meanings[index]}
-      />
-    );
-  });
+  if (addWords.length !== 0) {
+    const words = addWords[0].words.map((wordValue, index) => {
+      return (
+        <WordItem
+          key={index}
+          wordValue={wordValue}
+          meaningValue={addWords[0].meanings[index]}
+        />
+      );
+    });
 
-  return updateWordList.words.length === 0 ? (
-    <Empty>
-      <h1>영어 단어를 추가해주세요! 👀</h1>
-      <h2>
-        우측 상단 '단어 추가하기'를 클릭하여 간편하게 영어 단어를 추가해보세요!
-      </h2>
-    </Empty>
-  ) : (
-    <WordListLayout>{words}</WordListLayout>
-  );
+    return addWords[0].words.length === 0 ? (
+      <Empty>
+        <h1>영어 단어를 추가해주세요! 👀</h1>
+        <h2>
+          우측 상단 '단어 추가하기'를 클릭하여 간편하게 영어 단어를
+          추가해보세요!
+        </h2>
+      </Empty>
+    ) : (
+      <WordListLayout>{words}</WordListLayout>
+    );
+  } else {
+    return <div>로딩중</div>;
+  }
 };
 
 const WordListLayout = styled.div`
