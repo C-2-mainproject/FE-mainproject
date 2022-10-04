@@ -41,7 +41,11 @@ const SlickBestVoca = () => {
 
     await apis
       .addMyVoca(Number(newTarget.value))
-      .then(data => console.log(data));
+      .then(data => console.log(data))
+      .catch(error => {
+        console.log(error);
+        alert("로그인이 필요한 서비스입니다.");
+      });
   };
 
   const likeBtn = async (id: number) => {
@@ -50,6 +54,7 @@ const SlickBestVoca = () => {
       getBestVoca();
     } catch (error) {
       console.log(error);
+      alert("로그인이 필요한 서비스입니다.");
     }
   };
 
