@@ -101,16 +101,31 @@ export const gameInfoSlice = createSlice({
           disconnectUser: action.payload.nickname,
         };
       }
+
       if (
         action.payload.message ===
         state.gameWordStorage[state.quizProgress.quizNumber].meanings
       ) {
         console.log(action.payload);
+
+        const user = state.quizProgress.correctAnswer.filter(
+          v => action.payload.myNickname === v,
+        ).length;
+
+        console.log(user);
+
+        if (user === 5) {
+          state.quizProgress = {
+            ...state.quizProgress,
+            finalWinner: action.payload.myNickname,
+          };
+        }
+
         // if (state.quizProgress.userA === 4) {
-        //   state.quizProgress = {
-        //     ...state.quizProgress,
-        //     finalWinner: action.payload.matchingNickname[0],
-        //   };
+        // state.quizProgress = {
+        //   ...state.quizProgress,
+        //   finalWinner: action.payload.myNickname,
+        // };
         // }
 
         // if (state.quizProgress.userB === 4) {
