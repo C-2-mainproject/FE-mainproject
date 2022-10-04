@@ -92,6 +92,7 @@ export const gameInfoSlice = createSlice({
 
     getQuizInfo: (state, action) => {
       //
+      console.log(action);
       if (action.payload.messageType === "VICTORY") {
         state.quizProgress = {
           ...state.quizProgress,

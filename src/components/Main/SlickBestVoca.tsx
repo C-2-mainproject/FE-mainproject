@@ -39,6 +39,8 @@ const SlickBestVoca = () => {
   const addToMyVoca = async (event: MouseEvent<HTMLButtonElement>) => {
     const newTarget = event.target as HTMLButtonElement;
 
+    alert("단어장이 추가되었습니다!");
+
     await apis
       .addMyVoca(Number(newTarget.value))
       .then(data => console.log(data))
@@ -68,7 +70,7 @@ const SlickBestVoca = () => {
                 className={index === sliderIndex ? "active" : "prev"}
               >
                 <div>
-                  <Header>
+                  {/* <Header>
                     <span>{bestVoca.likeCount} 개</span>
                     {bestVoca.likeCount === 0 ? (
                       <img
@@ -83,7 +85,7 @@ const SlickBestVoca = () => {
                         onClick={() => likeBtn(bestVoca.id)}
                       />
                     )}
-                  </Header>
+                  </Header> */}
                   <p>{bestVoca.category}</p>
                   <h3>{bestVoca.title}</h3>
                   <h4>{bestVoca.description}</h4>
