@@ -105,6 +105,7 @@ export const gameInfoSlice = createSlice({
         action.payload.message ===
         state.gameWordStorage[state.quizProgress.quizNumber].meanings
       ) {
+        console.log(action.payload);
         // if (state.quizProgress.userA === 4) {
         //   state.quizProgress = {
         //     ...state.quizProgress,
