@@ -38,7 +38,11 @@ const Header = () => {
         break;
 
       case "myvoca":
-        navigate("/myvoca");
+        if (cookie) {
+          navigate("/myvoca");
+        } else {
+          alert("로그인이 필요한 서비스입니다.");
+        }
         break;
 
       case "sharedvoca":
@@ -47,7 +51,11 @@ const Header = () => {
         break;
 
       case "game":
-        navigate("/game");
+        if (cookie) {
+          navigate("/game");
+        } else {
+          alert("로그인이 필요한 서비스입니다.");
+        }
         break;
 
       case "board":
@@ -56,12 +64,17 @@ const Header = () => {
         break;
 
       case "mypage":
-        navigate("/mypage");
+        if (cookie) {
+          navigate("/mypage");
+        } else {
+          alert("로그인이 필요한 서비스입니다.");
+        }
         break;
 
       case "logout":
         alert("로그아웃 하시겠습니까?");
         removeCookie();
+        window.location.href = "https://jdh3340.shop/logout";
         navigate("/");
         break;
 
@@ -103,7 +116,6 @@ const Header = () => {
           </p>
         </div>
         <div>
-          {/* <a href={OAUTH2_LOGOUT}>로그아웃</a> */}
           <p>
             <span id="mypage" onClick={moveToPage}>
               <img src={location === "/" ? mypage_w : mypage_b} alt="mypage" />
@@ -111,11 +123,9 @@ const Header = () => {
             </span>
           </p>
           {cookie ? (
-            <>
-              <span id="logout" onClick={moveToPage}>
-                LOGOUT
-              </span>
-            </>
+            <span id="logout" onClick={moveToPage}>
+              LOGOUT
+            </span>
           ) : (
             <>
               <span id="login" onClick={loginModal}>
