@@ -88,7 +88,6 @@ export const wordStorageSlice = createSlice({
   initialState,
   reducers: {
     addWord: (state, action) => {
-      console.log(state, action);
       state.addWords = [
         {
           words: [...state.addWords[0].words, ...action.payload.words],
@@ -129,7 +128,6 @@ export const wordStorageSlice = createSlice({
       state.detailWordStorage = action.payload;
     },
     [__getDetailWord.fulfilled.type]: (state, action) => {
-      console.log(action.payload);
       state.addWords = [
         {
           words: [],

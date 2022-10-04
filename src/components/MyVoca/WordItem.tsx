@@ -6,7 +6,6 @@ type ValueProps = {
 };
 
 const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
-  console.log(wordValue, meaningValue);
   return (
     <WordItemLayout>
       <p>{wordValue}</p>

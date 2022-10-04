@@ -29,7 +29,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
 
   const nextQuiz = () => {
     setTimeout(() => {
-      setQuizWord(gameWordStorage[quizProgress.quizNumber].word);
+      setQuizWord(gameWordStorage[quizProgress.quizNumber].words);
     }, 4000);
   };
 
