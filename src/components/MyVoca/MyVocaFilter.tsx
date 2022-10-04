@@ -1,28 +1,31 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
 import { MyVocaList } from "../../components";
-import { expand, filter } from "../../images";
+import { filter } from "../../images";
+import CustomFilter from "../CustomFilter";
 import WrongAnswer from "./WrongAnswer";
 
 const category_list = [
-  "토익",
-  "토플",
-  "텝스",
-  "초등",
-  "중등",
-  "고등",
-  "회화",
-  "기타",
+  { filterCategory: "카테고리", value: "토익" },
+  { filterCategory: "카테고리", value: "토플" },
+  { filterCategory: "카테고리", value: "텝스" },
+  { filterCategory: "카테고리", value: "초등" },
+  { filterCategory: "카테고리", value: "중등" },
+  { filterCategory: "카테고리", value: "고등" },
+  { filterCategory: "카테고리", value: "회화" },
+  { filterCategory: "카테고리", value: "기타" },
 ];
 
-const shared_list = ["공개", "비공개"];
+const shared_list = [
+  { filterCategory: "공개", value: "공개" },
+  { filterCategory: "공개", value: "비공개" },
+];
 
 type IndexProps = {
   index: number;
 };
 const MyVocaFilter = ({ index }: IndexProps) => {
   const [targetId, setTargetId] = useState<string>("전체보기");
-
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const onFilterHandler = (event: MouseEvent<HTMLSpanElement>) => {
@@ -80,34 +83,18 @@ const MyVocaFilter = ({ index }: IndexProps) => {
               </FilterSpan>
 
               <DropDownButton>
-                <CategorySpan id="카테고리">
-                  카테고리
-                  <img src={expand} alt="expand" />
-                </CategorySpan>
-                <ListContainer>
-                  <Ul>
-                    {category_list.map((value, index) => (
-                      <Li key={index} onClick={onFilterHandler} id={value}>
-                        {value}
-                      </Li>
-                    ))}
-                  </Ul>
-                </ListContainer>
+                <CustomFilter
+                  id="카테고리"
+                  props={category_list}
+                  setTargetId={setTargetId}
+                />
               </DropDownButton>
               <DropDownButton>
-                <CategorySpan id="공개">
-                  공개
-                  <img src={expand} alt="expand" />
-                </CategorySpan>
-                <ListContainer>
-                  <Ul>
-                    {shared_list.map((value, index) => (
-                      <Li key={index} onClick={onFilterHandler} id={value}>
-                        {value}
-                      </Li>
-                    ))}
-                  </Ul>
-                </ListContainer>
+                <CustomFilter
+                  id="공개"
+                  props={shared_list}
+                  setTargetId={setTargetId}
+                />
               </DropDownButton>
               <DropDownButton>
                 <CategorySpan
@@ -188,7 +175,7 @@ const FilterSpan = styled.span`
   }
 `;
 const CategorySpan = styled.span`
-  margin-left: 3rem;
+  margin-left: 2rem;
   font-family: NotoSansKR;
   font-size: 16px;
   font-weight: 500;
@@ -223,54 +210,4 @@ const DropDownButton = styled.button`
   text-align: center;
   color: #000;
 `;
-
-const Li = styled.li`
-  list-style: none;
-  height: 2.5rem;
-  background-color: white;
-  padding: 10px;
-  border-top: 1px solid;
-
-  &:first-child {
-    border-top: 0px;
-  }
-
-  &:hover {
-    background-color: #e4f5fa;
-  }
-`;
-
-const Ul = styled.ul`
-  width: 8rem;
-  list-style: none;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  color: black;
-  line-height: 22px;
-`;
-
-const ListContainer = styled.div`
-  border: 1px solid ${props => props.theme.borderColor};
-  background-color: ${props => props.theme.bgColor};
-  margin-top: 7px;
-  position: absolute;
-  display: none;
-
-  ${DropDownButton}:hover & {
-    display: block;
-    z-index: 999;
-  }
-
-  ${DropDownButton}:active & {
-    display: block;
-    z-index: 999;
-  }
-
-  ${DropDownButton}:focus & {
-    display: block;
-    z-index: 999;
-  }
-`;
-
 export default MyVocaFilter;

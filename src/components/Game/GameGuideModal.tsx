@@ -56,6 +56,7 @@ const Contents = styled.div`
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 60px;
+    letter-spacing: -0.07em;
   }
 `;
 export default GameGuideModal;

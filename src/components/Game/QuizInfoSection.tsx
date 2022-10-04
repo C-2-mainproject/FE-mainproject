@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { game_feedback } from "../../images";
-import { useAppSelector } from "../../shared/reduxHooks";
+import { getGameInfo } from "../../redux/modules/gameInfoSlice";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import GameFinishModal from "./GameFinishModal";
 
 type IClick = {
@@ -11,6 +12,7 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
   const { gameInfo, isReady, gameWordStorage, quizProgress } = useAppSelector(
     state => state.gameInfoSlice,
   );
+  const dispatch = useAppDispatch();
 
   const [quizWord, setQuizWord] = useState<string>("");
   const [isFinishPop, setIsFinishPop] = useState<boolean>(false);
@@ -33,6 +35,14 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
 
   const finishPopup = () => {
     setIsFinishPop(!isFinishPop);
+    dispatch(
+      getGameInfo({
+        roomId: "",
+        cookie: "",
+        participant: "",
+        profileImg: "",
+      }),
+    );
   };
 
   return (
@@ -99,7 +109,12 @@ const QuizInfoSection = ({ clickReady }: IClick) => {
             게임서비스 이용에 도움이 필요한가요?<span>고객지원 서비스</span>
           </p>
         </div>
-        {isFinishPop && <GameFinishModal winner={quizProgress.finalWinner} />}
+        {isFinishPop && (
+          <GameFinishModal
+            winner={quizProgress.finalWinner}
+            disconnectUser={quizProgress.disconnectUser}
+          />
+        )}
       </QuizListSection>
 
       <AdsSection>
