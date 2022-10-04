@@ -29,7 +29,12 @@ const MyPageHeader = () => {
       <Header>
         <p>마이페이지</p>
         <button>
-          <span>🎉 이벤트 🎉</span>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScCHYnbcZU1l68kQbxbc_43UVBVYIZzy6HUbg241MUo5HJdjQ/viewform"
+            target="_blank"
+          >
+            <span>🎉 이벤트 🎉</span>
+          </a>
         </button>
       </Header>
       <Info>
@@ -84,6 +89,9 @@ const Header = styled.div`
     &:hover {
       font-weight: 700;
     }
+  }
+  a {
+    text-decoration: none;
   }
 `;
 const Info = styled.div`

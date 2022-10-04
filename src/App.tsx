@@ -12,12 +12,10 @@ function App() {
     <>
       <GlobalStyle />
       <FloatingBtn>
-        <img src={support} alt="support" />
-        <p>
-          <a href="https://talk.naver.com/W4Y0TR" target="_blank">
-            고객 지원
-          </a>
-        </p>
+        <a href="https://talk.naver.com/W4Y0TR" target="_blank">
+          <img src={support} alt="support" />
+          <p>고객 지원</p>
+        </a>
       </FloatingBtn>
       <Router />
     </>
@@ -30,6 +28,7 @@ const FloatingBtn = styled.div`
   height: 80px;
   left: 90%;
   top: 80%;
+  cursor: pointer;
 
   background: #ffffff;
   border: 1px solid #00b4db;

@@ -57,7 +57,7 @@ export const apis = {
   getChartData: () => api.get("/api/wordstorage/statistic"),
 
   getBestLikeVoca: (page: number) =>
-    api.get(`/api/wordstorage/public/filter/like?page=${page}`),
+    api.get(`/api/wordstorage/official/filter/like?page=${page}`),
 
   addMyVoca: (id: number) => api.post(`/api/wordstorage/save/id/${id}`),
 

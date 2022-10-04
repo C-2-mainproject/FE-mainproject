@@ -24,16 +24,19 @@ const SlickMyBook = () => {
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: wordStorage?.length > 4 ? 4 : wordStorage?.length,
+    slidesToShow: 4,
     loop: true,
   };
 
   const moveToDetail = (id: number) => {
     navigate(`/myvoca-detail/${id}`);
   };
+  const moveToGuide = () => {
+    navigate("/mainguide");
+  };
 
-  if (wordStorage.length === 0) {
-    return <img src={main_guide} alt="main_guide" />;
+  if (wordStorage.length < 5) {
+    return <Img src={main_guide} alt="main_guide" onClick={moveToGuide} />;
   } else {
     return (
       <>
@@ -77,6 +80,10 @@ const SlickMyBook = () => {
 };
 
 export default SlickMyBook;
+
+const Img = styled.img`
+  cursor: pointer;
+`;
 
 const WordBookSlider = styled(Slider)`
   max-width: 1000px;

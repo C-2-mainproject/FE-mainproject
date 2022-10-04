@@ -32,8 +32,8 @@ const WordTestSereviceModal = ({
               <span>TIP!</span> 의미(뜻)가(이) 여러개라면 콤마(,)를 사용하여
               구분해주세요!
             </p>
-            <Button>
-              <span onClick={moveToTestService}>시험 보러 가기</span>
+            <Button onClick={moveToTestService}>
+              <span>시험 보러 가기</span>
             </Button>
           </Contents>
         </ModalWrap>
