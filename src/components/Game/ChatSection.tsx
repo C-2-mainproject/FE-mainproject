@@ -5,11 +5,7 @@ import styled from "styled-components";
 import { GameInput, ChatList } from "../index";
 import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import {
-  getQuizInfo,
-  getReadyInfo,
-  __getSharedWordStorage,
-} from "../../redux/modules/gameInfoSlice";
+import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
 import { getCookie } from "../../shared/Cookie";
 
@@ -62,7 +58,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   }, [quizProgress.finalWinner]);
 
   useEffect(() => {
-    dispatch(__getSharedWordStorage(gameInfo.roomId));
+    // dispatch(__getSharedWordStorage(gameInfo.roomId));
   }, []);
 
   const finishGame = async (result: boolean) => {
