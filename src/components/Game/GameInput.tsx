@@ -27,6 +27,7 @@ const GameInput = ({ setMessage, sendMessage }: GameInputProps) => {
         placeholder="답을 입력하세요"
         onChange={onChangeHandler}
         onKeyPress={onKeyDownHandler}
+        maxLength={40}
       />
       <button>전송</button>
     </GameInputLayout>

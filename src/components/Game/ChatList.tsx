@@ -78,7 +78,7 @@ const ChatNickname = styled.div`
 `;
 
 const ChatBubble = styled.div`
-  width: 200px;
+  min-width: 150px;
   height: 60px;
   margin-left: 20px;
   padding: 17px;

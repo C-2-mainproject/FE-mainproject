@@ -15,7 +15,6 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
-
   // const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
   const [likeWordStorage, setLikeWordStorage] = useState([]);
 
