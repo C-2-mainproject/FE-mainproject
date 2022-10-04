@@ -45,9 +45,12 @@ const SlickBestVoca = () => {
   };
 
   const likeBtn = async (id: number) => {
-    await apis.suggestionWordStorage(id).then(data => {
+    try {
+      await apis.suggestionWordStorage(id);
       getBestVoca();
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
