@@ -2,27 +2,12 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import styled from "styled-components";
-// import { getSessionId } from "../../shared/Cookie";
 import { GameInput, ChatList } from "../index";
-// import axios from "axios";
 import { top_dlfeksdl } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import {
-  getQuizInfo,
-  getReadyInfo,
-  __getSharedWordStorage,
-} from "../../redux/modules/gameInfoSlice";
+import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
 import { getCookie } from "../../shared/Cookie";
-// import { apis } from "../../shared/api";
-
-// JOIN
-// DISCONNECTED
-// CHAT
-// READY
-// GAME
-// NEXT
-// FINISH
 
 type IReady = {
   readyStatus: boolean;
@@ -73,7 +58,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
   }, [quizProgress.finalWinner]);
 
   useEffect(() => {
-    dispatch(__getSharedWordStorage(gameInfo.roomId));
+    // dispatch(__getSharedWordStorage(gameInfo.roomId));
   }, []);
 
   const finishGame = async (result: boolean) => {

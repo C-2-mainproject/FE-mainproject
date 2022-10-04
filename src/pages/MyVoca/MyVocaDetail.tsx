@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
@@ -14,6 +14,7 @@ const MyVocaDetail = () => {
   const { id } = useParams();
   const newId = Number(id);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { isFinish, detailWordStorage } = useAppSelector(
     state => state.wordStorageSlice,
@@ -39,6 +40,7 @@ const MyVocaDetail = () => {
     } catch (error) {
       console.log(error);
     }
+    navigate("/myvoca");
   };
 
   const onLikeHandler = async () => {

@@ -11,44 +11,44 @@ const initialState = {
 
   gameWordStorage: [
     {
-      word: "Provide",
-      mean: "공급하다",
+      words: "Provide",
+      meanings: "공급하다",
     },
     {
-      word: "Attitude",
-      mean: "태도",
+      words: "Attitude",
+      meanings: "태도",
     },
     {
-      word: "Occasion",
-      mean: "경우",
+      words: "Occasion",
+      meanings: "경우",
     },
     {
-      word: "Opportunity",
-      mean: "기회",
+      words: "Opportunity",
+      meanings: "기회",
     },
     {
-      word: "Professional",
-      mean: "전문가",
+      words: "Professional",
+      meanings: "전문가",
     },
     {
-      word: "Generate",
-      mean: "발생하다",
+      words: "Generate",
+      meanings: "발생하다",
     },
     {
-      word: "Frequent",
-      mean: "빈번한",
+      words: "Frequent",
+      meanings: "빈번한",
     },
     {
-      word: "Negative",
-      mean: "부정적인",
+      words: "Negative",
+      meanings: "부정적인",
     },
     {
-      word: "Biology",
-      mean: "생물학",
+      words: "Biology",
+      meanings: "생물학",
     },
     {
-      word: "Compose",
-      mean: "작곡하다",
+      words: "Compose",
+      meanings: "작곡하다",
     },
   ],
   isReady: false,
@@ -70,21 +70,8 @@ export const __getSharedWordStorage = createAsyncThunk(
     console.log(payload, thunkAPI);
     try {
       const data = await apis.getGameWordStorage(payload);
-      console.log(data);
-      // return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-);
-export const __getGameWordStorage = createAsyncThunk(
-  "gameInfoSlice/__getGameWordStorage",
-  async (payload: string, thunkAPI) => {
-    console.log(payload, thunkAPI);
-    try {
-      const data = await apis.getGameWordStorage(payload);
-      console.log(data);
-      // return thunkAPI.fulfillWithValue(data.data);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +102,7 @@ export const gameInfoSlice = createSlice({
       }
       if (
         action.payload.message ===
-        state.gameWordStorage[state.quizProgress.quizNumber].mean
+        state.gameWordStorage[state.quizProgress.quizNumber].meanings
       ) {
         if (state.quizProgress.userA === 4) {
           state.quizProgress = {
@@ -170,13 +157,14 @@ export const gameInfoSlice = createSlice({
     },
   },
   extraReducers: {
-    [__getGameWordStorage.pending.type]: state => {
+    [__getSharedWordStorage.pending.type]: state => {
       console.log(state);
     },
-    [__getGameWordStorage.fulfilled.type]: (state, action) => {
-      console.log(state, action);
+    [__getSharedWordStorage.fulfilled.type]: (state, action) => {
+      console.log(state, action.payload);
+      state.gameWordStorage = action.payload;
     },
-    [__getGameWordStorage.rejected.type]: state => {
+    [__getSharedWordStorage.rejected.type]: state => {
       console.log(state);
     },
   },
