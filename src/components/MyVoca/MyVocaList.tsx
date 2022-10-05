@@ -11,7 +11,6 @@ type TargetIdProps = {
 };
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
-  console.log(targetId);
   const dispatch = useAppDispatch();
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,

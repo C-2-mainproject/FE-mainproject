@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from "../shared/reduxHooks";
 
 const Header = () => {
   const location = window.location.pathname;
-  console.log(location);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isCheckUser } = useAppSelector(state => state.userInfoSlice);
