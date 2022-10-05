@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { IBestVoca } from "../../types/types";
 // import { like, like_fill } from "../../images";
 import { MouseEvent } from "react";
+import { getCookie } from "../../shared/Cookie";
 
 const SlickBestVoca = () => {
   const [bestVoca, setBestVoca] = useState<IBestVoca[]>();
@@ -39,15 +40,19 @@ const SlickBestVoca = () => {
   const addToMyVoca = async (event: MouseEvent<HTMLButtonElement>) => {
     const newTarget = event.target as HTMLButtonElement;
 
-    alert("단어장이 추가되었습니다!");
+    if (getCookie()) {
+      await apis
+        .addMyVoca(Number(newTarget.value))
+        .then(data => console.log(data))
+        .catch(error => {
+          console.log(error);
+          alert("로그인이 필요한 서비스입니다.");
+        });
 
-    await apis
-      .addMyVoca(Number(newTarget.value))
-      .then(data => console.log(data))
-      .catch(error => {
-        console.log(error);
-        alert("로그인이 필요한 서비스입니다.");
-      });
+      alert("단어장이 추가되었습니다!");
+    } else {
+      alert("로그인이 필요한 서비스입니다.");
+    }
   };
 
   // const likeBtn = async (id: number) => {
