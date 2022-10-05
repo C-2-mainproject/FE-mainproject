@@ -11,7 +11,6 @@ import WordTestResultItem from "./WordTestResultItem";
 const WordTestResultList = () => {
   let countnumber = 0;
   const navigate = useNavigate();
-
   const [sort, setSort] = useState<IAnswer[]>();
 
   const { testWordStorage, answerStorage, wrongStorage } = useAppSelector(
@@ -42,23 +41,24 @@ const WordTestResultList = () => {
   };
 
   const endTest = async () => {
-    if (wrongStorage.words.length !== 0) {
-      await apis.endWordTest({
-        wordStorageId: testWordStorage[0].wordStorageId,
-        testType: "스펠링",
-        totalWords: answerStorage[0].words.length,
-        wrongWords: wrongStorage.words.length,
-        time: 30,
-        collectionWrongWord: {
-          word: wrongStorage.words,
-          meaning: wrongStorage.meanings,
-        },
-      });
-    }
+    await apis.endWordTest({
+      wordStorageId: testWordStorage[0].wordStorageId,
+      testType: "스펠링",
+      totalWords: answerStorage[0].words.length,
+      wrongWords: wrongStorage.words.length,
+      time: 30,
+      collectionWrongWord: {
+        word: wrongStorage.words,
+        meaning: wrongStorage.meanings,
+      },
+    });
   };
 
   useEffect(() => {
     sortedArray();
+  }, []);
+
+  useEffect(() => {
     endTest();
   }, []);
 
@@ -83,6 +83,7 @@ const WordTestResultList = () => {
   const moveToVoca = () => {
     navigate("/myvoca");
   };
+
   return (
     <WordTestResultListLayout>
       <WordTestResultInfo>
@@ -129,6 +130,7 @@ const WordTestResultInfo = styled.div`
     color: #000000;
 
     img {
+      cursor: pointer;
       width: 20px;
       height: 20px;
     }

@@ -10,6 +10,7 @@ type Props = {
 };
 
 const MyVocaItem = ({ wordStorage }: Props) => {
+  console.log("inininininin", wordStorage);
   const { id } = useParams();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const navigate = useNavigate();

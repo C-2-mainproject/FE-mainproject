@@ -11,6 +11,7 @@ type TargetIdProps = {
 };
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
+  console.log(targetId);
   const dispatch = useAppDispatch();
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
@@ -138,15 +139,17 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     }
 
     if (targetId === "오답노트") {
-      <MyVocaListLayout>
-        {wordStorage
-          .filter(wordStorage => {
-            return wordStorage.title.includes("오답노트");
-          })
-          .map((wordStorage, index) => {
-            return <MyVocaItem key={index} wordStorage={wordStorage} />;
-          })}
-      </MyVocaListLayout>;
+      return (
+        <MyVocaListLayout>
+          {wordStorage
+            .filter(wordStorage => {
+              return wordStorage.title.includes("오답노트");
+            })
+            .map((wordStorage, index) => {
+              return <MyVocaItem key={index} wordStorage={wordStorage} />;
+            })}
+        </MyVocaListLayout>
+      );
     }
 
     return (

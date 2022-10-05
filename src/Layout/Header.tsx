@@ -1,11 +1,11 @@
-import { useState, MouseEvent, useEffect, useLayoutEffect } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SocialLoginModal from "../components/Login/SocialLoginModal";
 import { logo, logo_w, mypage_b, mypage_w } from "../images";
-import { __getUserInfo } from "../redux/modules/userInfoSlice";
-import { getCookie, removeCookie } from "../shared/Cookie";
-import { useAppDispatch } from "../shared/reduxHooks";
+import { __checkUser, __getUserInfo } from "../redux/modules/userInfoSlice";
+import { removeCookie } from "../shared/Cookie";
+import { useAppDispatch, useAppSelector } from "../shared/reduxHooks";
 
 // const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
 
@@ -13,18 +13,16 @@ const Header = () => {
   const location = window.location.pathname;
   console.log(location);
   const navigate = useNavigate();
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [cookie, setCookie] = useState<string>("");
-  const cook = getCookie();
-
   const dispatch = useAppDispatch();
+  const { isCheckUser } = useAppSelector(state => state.userInfoSlice);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
     dispatch(__getUserInfo());
   }, []);
 
-  useLayoutEffect(() => {
-    setCookie(cook);
+  useEffect(() => {
+    dispatch(__checkUser());
   }, []);
 
   const moveToPage = (event: MouseEvent<HTMLSpanElement>) => {
@@ -35,7 +33,7 @@ const Header = () => {
         break;
 
       case "myvoca":
-        if (cookie) {
+        if (isCheckUser) {
           navigate("/myvoca");
         } else {
           alert("로그인이 필요한 서비스입니다.");
@@ -48,7 +46,7 @@ const Header = () => {
         break;
 
       case "game":
-        if (cookie) {
+        if (isCheckUser) {
           navigate("/game");
         } else {
           alert("로그인이 필요한 서비스입니다.");
@@ -61,7 +59,7 @@ const Header = () => {
         break;
 
       case "mypage":
-        if (cookie) {
+        if (isCheckUser) {
           navigate("/mypage");
         } else {
           alert("로그인이 필요한 서비스입니다.");
@@ -84,6 +82,7 @@ const Header = () => {
   const loginModal = () => {
     setIsOpenModal(!isOpenModal);
   };
+
   return (
     <HeaderBar>
       <HeaderContent className={location === "/" ? "main" : "else"}>
@@ -119,7 +118,7 @@ const Header = () => {
               MY PAGE
             </span>
           </p>
-          {cookie ? (
+          {isCheckUser ? (
             <span id="logout" onClick={moveToPage}>
               LOGOUT
             </span>
