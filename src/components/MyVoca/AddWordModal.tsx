@@ -31,7 +31,6 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
   };
 
   const makeWord = async () => {
-    console.log(word, mean);
     const newId = Number(id);
     try {
       await apis

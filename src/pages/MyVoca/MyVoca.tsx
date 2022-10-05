@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { MyVocaSubMenu } from "../../components";
+import { reset } from "../../redux/modules/answerSlice";
+import { useAppDispatch } from "../../shared/reduxHooks";
 
 const MyVoca = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(reset());
+  }, []);
+
   return (
     <MyVocaLayout>
       <MyVocaWrapper>

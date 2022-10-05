@@ -32,7 +32,7 @@ export const answerSlice = createSlice({
   name: "answerSlice",
   initialState,
   reducers: {
-    answerStorage: (state, action) => {
+    submitStorage: (state, action) => {
       state.answerStorage = [...state.answerStorage, action.payload];
     },
     wrongStorage: (state, action) => {
@@ -41,6 +41,9 @@ export const answerSlice = createSlice({
         words: [...state.wrongStorage.words, action.payload.word],
         meanings: [...state.wrongStorage.meanings, action.payload.mean],
       };
+    },
+    reset: state => {
+      Object.assign(state, initialState);
     },
   },
   extraReducers: {
@@ -58,6 +61,6 @@ export const answerSlice = createSlice({
   },
 });
 
-export const { answerStorage, wrongStorage } = answerSlice.actions;
+export const { submitStorage, wrongStorage, reset } = answerSlice.actions;
 
 export default answerSlice.reducer;

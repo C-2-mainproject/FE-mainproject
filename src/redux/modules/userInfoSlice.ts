@@ -7,6 +7,7 @@ const initialState = {
     profileImage: "",
     username: "",
   },
+  isCheckUser: false,
   isLoading: false,
   isFinish: false,
 };
@@ -17,6 +18,19 @@ export const __getUserInfo = createAsyncThunk(
     try {
       const data = await apis.getUserInfo();
       return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
+
+export const __checkUser = createAsyncThunk(
+  "userInfoSlice/__checkUser",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await apis.getUserTest();
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log(error);
       throw error;
@@ -39,6 +53,11 @@ export const userInfoSlice = createSlice({
     },
     [__getUserInfo.rejected.type]: state => {
       state.isFinish = true;
+    },
+    [__checkUser.fulfilled.type]: (state, action) => {
+      if (action.payload.headers.cookie) {
+        state.isCheckUser = true;
+      }
     },
   },
 });

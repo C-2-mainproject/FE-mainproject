@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { answerStorage, wrongStorage } from "../../redux/modules/answerSlice";
+import { submitStorage, wrongStorage } from "../../redux/modules/answerSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { IAnswer } from "../../types/types";
 
@@ -44,7 +44,8 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
           }),
         );
       }
-      dispatch(answerStorage(answer));
+
+      dispatch(submitStorage(answer));
       setIsInputStatus(true);
     }
   };
@@ -69,7 +70,7 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
           <input
             placeholder="정답을 입력하세요"
             onChange={onChangeHandler}
-            onKeyDown={onKeyDownHandler}
+            onKeyPress={onKeyDownHandler}
           />
           <button>확인</button>
         </WordTestItemInput>
