@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { apis } from "../../shared/api";
+import { removeCookie } from "../../shared/Cookie";
 import { useAppSelector } from "../../shared/reduxHooks";
 
 const MyInfo = () => {
@@ -9,6 +10,7 @@ const MyInfo = () => {
 
   const deleteUser = async () => {
     await apis.deleteUserInfo().then(data => console.log(data));
+    removeCookie();
     alert("회원 탈퇴합니다!");
     navigate("/");
   };
