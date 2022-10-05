@@ -31,13 +31,8 @@ const initialState: IWordStorageInitialState = {
 export const __getWordStorageList = createAsyncThunk(
   "wordStorageSlice/__getWordStorageList",
   async (payload, thunkAPI) => {
-    try {
-      const data = await apis.getWordStorages();
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const data = await apis.getWordStorages();
+    return thunkAPI.fulfillWithValue(data.data);
   },
 );
 
