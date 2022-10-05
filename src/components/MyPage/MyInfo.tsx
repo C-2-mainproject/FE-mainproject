@@ -9,6 +9,7 @@ const MyInfo = () => {
 
   const deleteUser = async () => {
     await apis.deleteUserInfo().then(data => console.log(data));
+    alert("회원 탈퇴합니다!");
     navigate("/");
   };
 
