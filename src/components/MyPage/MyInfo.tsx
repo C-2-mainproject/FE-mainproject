@@ -10,8 +10,9 @@ const MyInfo = () => {
 
   const deleteUser = async () => {
     await apis.deleteUserInfo().then(data => console.log(data));
-    removeCookie();
     alert("회원 탈퇴합니다!");
+    removeCookie();
+    window.location.href = "https://jdh3340.shop/logout";
     navigate("/");
   };
 
