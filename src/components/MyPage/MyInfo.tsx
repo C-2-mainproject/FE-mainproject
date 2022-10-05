@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
 
 const MyInfo = () => {
+  const navigate = useNavigate();
   const { userInfo } = useAppSelector(state => state.userInfoSlice);
 
   const deleteUser = async () => {
     await apis.deleteUserInfo().then(data => console.log(data));
+    navigate("/");
   };
 
   return (
