@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect } from "react";
+import { useState, MouseEvent, useEffect, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SocialLoginModal from "../components/Login/SocialLoginModal";
@@ -14,7 +14,8 @@ const Header = () => {
   console.log(location);
   const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const cookie = getCookie();
+  const [cookie, setCookie] = useState<string>("");
+  const cook = getCookie();
 
   const dispatch = useAppDispatch();
 
@@ -22,9 +23,9 @@ const Header = () => {
     dispatch(__getUserInfo());
   }, []);
 
-  useEffect(() => {
-    getCookie();
-  }, [location]);
+  useLayoutEffect(() => {
+    setCookie(cook);
+  }, []);
 
   const moveToPage = (event: MouseEvent<HTMLSpanElement>) => {
     const newTarget = event.target as HTMLSpanElement;
