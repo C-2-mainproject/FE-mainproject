@@ -15,26 +15,16 @@ const initialState = {
 export const __getUserInfo = createAsyncThunk(
   "userInfoSlice/__getUserInfo",
   async (payload, thunkAPI) => {
-    try {
-      const data = await apis.getUserInfo();
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const data = await apis.getUserInfo();
+    return thunkAPI.fulfillWithValue(data.data);
   },
 );
 
 export const __checkUser = createAsyncThunk(
   "userInfoSlice/__checkUser",
   async (payload, thunkAPI) => {
-    try {
-      const data = await apis.getUserTest();
-      return thunkAPI.fulfillWithValue(data);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const data = await apis.getUserTest();
+    return thunkAPI.fulfillWithValue(data);
   },
 );
 
