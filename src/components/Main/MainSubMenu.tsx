@@ -1,42 +1,43 @@
 import styled from "styled-components";
 import {
-  mainsub_sharebook,
-  mainsub_myVoca,
-  mainsub_community,
-  mainsub_csceneter,
-  mainsub_game,
-} from "../../images/index";
+  share_book,
+  my_word_book,
+  community,
+  cscenter,
+  game,
+} from "../../images";
+
 const MainSubMenu = () => {
   return (
     <>
       <SubMenu>
         <div>
           <span>
-            <img src={mainsub_myVoca} />
+            <img src={my_word_book} />
           </span>
           <p>나의 단어장</p>
         </div>
         <div>
           <span>
-            <img src={mainsub_sharebook} />
+            <img src={share_book} />
           </span>
           <p>공유 단어장</p>
         </div>
         <div>
           <span>
-            <img src={mainsub_game} />
+            <img src={game} />
           </span>
           <p>게임</p>
         </div>
         <div>
           <span>
-            <img src={mainsub_community} />
+            <img src={community} />
           </span>
           <p>자유 게시판</p>
         </div>
         <div>
           <span>
-            <img src={mainsub_csceneter} />
+            <img src={cscenter} />
           </span>
           <p>고객 지원</p>
         </div>

@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { logo_w } from "../images";
-import WorkVideo from "../images/video/works.mp4";
+import { logo_w, works } from "../images";
+
 const Footer = () => {
   return (
     <FooterMenu>
       <FooterVideo muted autoPlay loop>
-        <source src={WorkVideo} type="video/mp4" />
+        <source src={works} type="video/mp4" />
       </FooterVideo>
       <section>
         <FooterTextBox>

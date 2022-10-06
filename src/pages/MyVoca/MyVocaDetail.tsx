@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MyVocaItem, WordList } from "../../components";
 import AddWordModal from "../../components/MyVoca/AddWordModal";
 import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
-import { top_dlfeksdl, like, like_fill } from "../../images";
+import { like, like_fill, main_ildan } from "../../images";
 import { __getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
 import { apis } from "../../shared/api";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
@@ -131,7 +131,7 @@ const MyVocaDetail = () => {
                     <span>잘하고 있어! 너무 멋진데?</span>
                   </Balloon>
                   <Ildan
-                    src={top_dlfeksdl}
+                    src={main_ildan}
                     alt="ildan"
                     onClick={deleteWordStorage}
                   />

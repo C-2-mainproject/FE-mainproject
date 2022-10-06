@@ -1,67 +1,94 @@
-import add from "./add.png";
-import logo_w from "./logo_w.png";
-import logo from "./logo.png";
-import search from "./search.png";
-import person from "./person.png";
-import expand from "./expand_more.png";
-import filter from "./filter_alt.png";
-import mainsub_game from "./icon/game.png";
-import mainsub_csceneter from "./icon/cscenter.png";
-import mainsub_community from "./icon/community.png";
-import mainsub_myVoca from "./icon/my_word_book.png";
-import mainsub_sharebook from "./icon/share_book.png";
-import ildan from "./ildan.png";
-import like_fill from "./like_fill.png";
-import like from "./like.png";
-import cancel from "./cancel.png";
-import game_logo from "./game_logo.png";
-import check from "./check.png";
-import circle from "./circle.png";
-import star from "./star.png";
-import top_dlfeksdl from "./top_dlfeksdl.png";
-import game_ildan from "./game_ildan.png";
-import game_feedback from "./game_feedback.png";
-import mypage_w from "./mypage_w.png";
-import mypage_b from "./mypage_b.png";
-import main_guide from "./main_guide.png";
-import support from "./support.png";
-import game_win from "./game_win.png";
-import game_lose from "./game_lose.png";
-import game_guide from "./game_guide.png";
-import google_login from "./google_login.png";
-import main_word_guide from "./main_word_guide.png";
+// Common
+import logo_w from "./Common/logo_w.png";
+import logo from "./Common/logo.png";
+import mypage_b from "./Common/mypage_b.png";
+import mypage_w from "./Common/mypage_w.png";
+import community from "./Common/community.png";
+import cscenter from "./Common/cscenter.png";
+import game from "./Common/game.png";
+import my_word_book from "./Common/my_word_book.png";
+import share_book from "./Common/share_book.png";
+import main_ildan from "./Common/main_ildan.png";
+import search from "./Common/search.png";
+import add from "./Common/add.png";
+import like from "./Common/like.png";
+import like_fill from "./Common/like_fill.png";
+import arrow_back from "./Common/arrow_back.png";
+import arrow_forward from "./Common/arrow_forward.png";
+import filter from "./Common/filter.png";
+import run_ildan from "./Common/run_ildan.png";
+
+// Game
+import game_feedback from "./Game/game_feedback.png";
+import game_guide from "./Game/game_guide.png";
+import game_ildan from "./Game/game_ildan.png";
+import game_logo from "./Game/game_logo.png";
+import game_lose from "./Game/game_lose.png";
+import game_win from "./Game/game_win.png";
+
+// Login
+import google_login from "./Login/google_login.png";
+
+// Main
+import main_guide from "./Main/main_guide.png";
+import main_word_guide from "./Main/main_word_guide.png";
+
+// SharedVoca
+import ildan from "./SharedVoca/ildan.png";
+import expand_more from "./SharedVoca/expand_more.png";
+
+// TestService
+import cancel from "./TestService/cancel.png";
+import check from "./TestService/check.png";
+import circle from "./TestService/circle.png";
+
+// Footer
+import works from "./Footer/works.mp4";
 
 export {
-  add,
   logo_w,
   logo,
+  mypage_b,
+  mypage_w,
+  community,
+  cscenter,
+  game,
+  my_word_book,
+  share_book,
+  main_ildan,
   search,
-  person,
-  expand,
-  filter,
-  mainsub_sharebook,
-  mainsub_myVoca,
-  mainsub_community,
-  mainsub_csceneter,
-  mainsub_game,
-  ildan,
-  like_fill,
+  add,
   like,
-  cancel,
+  like_fill,
+  arrow_back,
+  arrow_forward,
+  filter,
+  run_ildan,
+
+  //
+  game_feedback,
+  game_guide,
+  game_ildan,
   game_logo,
+  game_lose,
+  game_win,
+
+  //
+  google_login,
+
+  //
+  main_guide,
+  main_word_guide,
+
+  //
+  ildan,
+  expand_more,
+
+  //
+  cancel,
   check,
   circle,
-  star,
-  top_dlfeksdl,
-  game_ildan,
-  game_feedback,
-  mypage_w,
-  mypage_b,
-  main_guide,
-  support,
-  game_win,
-  game_lose,
-  game_guide,
-  google_login,
-  main_word_guide,
+
+  //
+  works,
 };

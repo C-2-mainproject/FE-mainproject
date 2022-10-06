@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { apis } from "../../shared/api";
 import { useState, useEffect } from "react";
 import { IBestVoca } from "../../types/types";
-// import { like, like_fill } from "../../images";
 import { MouseEvent } from "react";
 import { getCookie } from "../../shared/Cookie";
 

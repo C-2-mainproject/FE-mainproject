@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { MainSubMenu, WordChart } from "../components/index";
 import SlickMyBook from "../components/Main/SlickMyBook";
 import SlickBestBook from "../components/Main/SlickBestVoca";
-import Dlfeksdl from "../images/top_dlfeksdl.png";
-import RunDlfeksdl from "../images/run_dlfeksdl.png";
+import { main_ildan, run_ildan } from "../images";
 import { useEffect } from "react";
 import { apis } from "../shared/api";
 import { setCookie } from "../shared/Cookie";
@@ -32,7 +31,7 @@ const Main = () => {
               <p>수강료 걱정없는 단어 학습의 시작</p>
             </div>
 
-            <TopDlfeksd src={Dlfeksdl} />
+            <TopDlfeksd src={main_ildan} />
           </WelcomeText>
         </section>
       </MainMenu>
@@ -70,7 +69,7 @@ const Main = () => {
               학습한 만큼 받아가고, <br />
               일단이와 함께해서 더 즐거운
             </p>
-            <RunDlfeksd src={RunDlfeksdl} />
+            <RunDlfeksd src={run_ildan} />
           </ChartTitle>
           <ChartText>
             <ChartSubText>

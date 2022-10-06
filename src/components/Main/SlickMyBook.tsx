@@ -2,13 +2,11 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import goPrev from "../../images/arrow_back_ios.png";
-import goNext from "../../images/arrow_forward_ios.png";
+import { arrow_back, arrow_forward, main_guide } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { main_guide } from "../../images";
 
 const SlickMyBook = () => {
   const dispatch = useAppDispatch();
@@ -88,7 +86,7 @@ const Img = styled.img`
 const WordBookSlider = styled(Slider)`
   max-width: 1000px;
   .slick-prev:before {
-    content: url(${goPrev});
+    content: url(${arrow_back});
     opacity: 1; // 기존에 숨어있던 화살표 버튼이 보이게
     color: black; // 버튼 색은 검은색으로
     left: 0;
@@ -97,7 +95,7 @@ const WordBookSlider = styled(Slider)`
     content: ">";
 
     opacity: 1;
-    content: url(${goNext});
+    content: url(${arrow_forward});
 
     color: black;
   }

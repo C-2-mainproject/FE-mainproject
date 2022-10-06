@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { expand, filter } from "../../images";
+import { filter, expand_more } from "../../images";
 import { SharedVocaList } from "../index";
 
 const category_list = [
@@ -79,7 +79,7 @@ const SharedVocaFilter = () => {
               id="카테고리"
             >
               카테고리
-              <img src={expand} alt="expand" />
+              <img src={expand_more} alt="expand" />
             </CategorySpan>
             <ListContainer>
               <Ul>
@@ -97,7 +97,7 @@ const SharedVocaFilter = () => {
               id="공개"
             >
               공개
-              <img src={expand} alt="expand" />
+              <img src={expand_more} alt="expand" />
             </CategorySpan>
             <ListContainer>
               <Ul>
