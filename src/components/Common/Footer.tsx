@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { logo_w, works } from "../images";
+import { logo_w, works } from "../../images";
 
 const Footer = () => {
   return (

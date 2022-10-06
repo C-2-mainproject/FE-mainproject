@@ -1,3 +1,7 @@
+// Common
+import Header from "./Common/Header";
+import Footer from "./Common/Footer";
+
 import MyWordCard from "./Main/MyWordCard";
 import PopularWordBook from "./Main/PopularWordBook";
 import WordChart from "./Main/WordChart";
@@ -24,6 +28,10 @@ import MyPageHeader from "./MyPage/MyPageHeader";
 import MyInfo from "./MyPage/MyInfo";
 
 export {
+  //
+  Header,
+  Footer,
+  //
   MyWordCard,
   PopularWordBook,
   WordChart,
