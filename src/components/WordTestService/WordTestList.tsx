@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { mainsub_myVoca } from "../../images";
+import { my_word_book } from "../../images";
 import { __makeWordTest } from "../../redux/modules/answerSlice";
 import { __getDetailWord } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
@@ -43,7 +43,7 @@ const WordTestList = () => {
     return (
       <WordTestListLayout>
         <WordTestSubmit>
-          <img src={mainsub_myVoca} alt="mainsub_myVoca" />
+          <img src={my_word_book} alt="mainsub_myVoca" />
           <p>단어 추가 후, 시험을 진행해주세요!</p>
           <button onClick={add}>
             <span>추가하러 가기</span>
@@ -59,7 +59,7 @@ const WordTestList = () => {
         </WordTestListHeader>
         <WordTestListItem>{testListResult}</WordTestListItem>
         <WordTestSubmit>
-          <img src={mainsub_myVoca} alt="mainsub_myVoca" />
+          <img src={my_word_book} alt="mainsub_myVoca" />
           <p>모두 완료되었습니다! 단어 시험을 제출할 준비가 되셨나요?</p>
           <button onClick={submit}>
             <span>제출하기</span>

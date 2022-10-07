@@ -3,7 +3,7 @@ import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import styled from "styled-components";
 import { GameInput, ChatList } from "../index";
-import { top_dlfeksdl } from "../../images";
+import { main_ildan } from "../../images";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { getQuizInfo, getReadyInfo } from "../../redux/modules/gameInfoSlice";
 import { apis } from "../../shared/api";
@@ -192,7 +192,7 @@ const ChatSection = ({ readyStatus }: IReady) => {
     <ChatBoxLayout>
       <ChatBoxHeader>
         <div>
-          <img src={top_dlfeksdl} onClick={ready} />
+          <img src={main_ildan} onClick={ready} />
         </div>
         <p>일단이의 랜덤 매칭 영단어 게임</p>
       </ChatBoxHeader>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "../Layout/Footer";
-import Header from "../Layout/Header";
+import { Header, Footer } from "../components/index";
+
 import {
   Main,
   MyVoca,
@@ -18,6 +18,7 @@ import {
   WordTestResult,
   GameGuide,
 } from "../pages";
+
 import MainGuide from "../pages/MainGuide";
 
 const Router = () => {

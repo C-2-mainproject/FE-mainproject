@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { add, search } from "../../images";
+import { search, add } from "../../images";
 import { SharedVocaFilter } from "../index";
 
 const SharedVocaSubMenu = () => {

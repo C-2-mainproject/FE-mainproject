@@ -1,11 +1,11 @@
 import { useState, MouseEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SocialLoginModal from "../components/Login/SocialLoginModal";
-import { logo, logo_w, mypage_b, mypage_w } from "../images";
-import { __checkUser, __getUserInfo } from "../redux/modules/userInfoSlice";
-import { removeCookie } from "../shared/Cookie";
-import { useAppDispatch, useAppSelector } from "../shared/reduxHooks";
+import SocialLoginModal from "../Login/SocialLoginModal";
+import { logo, logo_w, mypage_b, mypage_w } from "../../images";
+import { __checkUser, __getUserInfo } from "../../redux/modules/userInfoSlice";
+import { removeCookie } from "../../shared/Cookie";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 
 // const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
 

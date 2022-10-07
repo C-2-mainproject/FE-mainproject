@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "./App.css";
-import { support } from "./images";
+import { cscenter } from "./images";
 import Router from "./router/router";
 import { GlobalStyle } from "./styles/GlobalStyle";
 
@@ -13,7 +13,7 @@ function App() {
       <GlobalStyle />
       <FloatingBtn>
         <a href="https://talk.naver.com/W4Y0TR" target="_blank">
-          <img src={support} alt="support" />
+          <img src={cscenter} alt="support" />
           <p>고객 지원</p>
         </a>
       </FloatingBtn>
