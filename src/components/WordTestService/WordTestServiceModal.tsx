@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 
 type ModalProps = {
   id: number;

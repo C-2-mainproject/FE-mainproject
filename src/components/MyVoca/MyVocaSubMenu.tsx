@@ -1,23 +1,22 @@
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { MyVocaFilter } from "../../components";
-import { search, add } from "../../images";
 import { __searchWordStorage } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch } from "../../shared/reduxHooks";
-import AddVocaModal from "./UpdateVocaModal";
+import { MyVocaFilter, UpdateVocaModal } from "../MyVoca/index";
+import { search, add } from "../../images";
 
 const MyVocaSubMenu = () => {
   const dispatch = useAppDispatch();
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
 
   const tabClickHandler = (index: number) => {
     setActiveIndex(index);
   };
 
-  const addWordStorage = () => {
+  const openUpdateWordStorageModal = () => {
     setIsOpenModal(!isOpenModal);
   };
 
@@ -61,25 +60,18 @@ const MyVocaSubMenu = () => {
 
         {activeIndex === 0 ? (
           <>
-            <AddButton onClick={addWordStorage}>
+            <AddButton onClick={openUpdateWordStorageModal}>
               <span>새 단어장 추가</span>
             </AddButton>
             {isOpenModal && (
-              <AddVocaModal id="add" openAddStorageModal={addWordStorage} />
+              <UpdateVocaModal
+                id="add"
+                openUpdateWordStorageModal={openUpdateWordStorageModal}
+              />
             )}
           </>
         ) : (
-          <>
-            {/* <GuideButton onClick={guide}>
-              <span>오답 노트 가이드</span>
-            </GuideButton>
-            {isOpenModal && (
-              <AddVocaModal
-                id="wrongAnswer"
-                openAddStorageModal={addWordStorage}
-              />
-            )} */}
-          </>
+          <></>
         )}
       </MyVocaSubMenuLayout>
 

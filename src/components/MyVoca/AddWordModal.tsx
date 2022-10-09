@@ -1,22 +1,20 @@
 import { ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { addWord } from "../../redux/modules/wordStorageSlice";
-import { apis } from "../../shared/api";
 import { useAppDispatch } from "../../shared/reduxHooks";
-import ModalPortal from "../ModalPortal";
-
-type ModalProps = {
-  openAddWordModal: () => void;
-};
+import { addWord } from "../../redux/modules/wordStorageSlice";
+import { ModalPortal } from "../Common/index";
+import { apis } from "../../shared/api";
+import { ModalProps } from "../../types/MyVocaTypes";
 
 const AddWordModal = ({ openAddWordModal }: ModalProps) => {
   const { id } = useParams();
+
   const dispatch = useAppDispatch();
+
   const [word, setWord] = useState<string[]>([]);
   const [mean, setMean] = useState<string[][]>([]);
   const [number, setNumber] = useState<number>(0);
-
   const [inputWord, setInputWord] = useState({
     words: "",
     meanings: "",
@@ -38,22 +36,25 @@ const AddWordModal = ({ openAddWordModal }: ModalProps) => {
           words: word,
           meanings: mean,
         })
-        .then(data => console.log(data));
+        .then(data => {
+          console.log(data);
+
+          dispatch(
+            addWord({
+              words: word,
+              meanings: mean,
+            }),
+          );
+          openAddWordModal();
+        });
     } catch (error) {
       console.log(error);
     }
-    dispatch(
-      addWord({
-        words: word,
-        meanings: mean,
-      }),
-    );
-    // dispatch(__getDetailWord(newId));
-    openAddWordModal();
   };
 
   const addWordList = () => {
     setNumber(number => number + 1);
+
     if (inputWord.words && inputWord.meanings) {
       setWord([...word, inputWord.words]);
       setMean([...mean, inputWord.meanings.split(",")]);
@@ -133,8 +134,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 600px;
-  height: 750px;
+  width: 37.5rem;
+  height: 46.8rem;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -144,19 +145,19 @@ const ModalWrap = styled.div`
 
 const CloseButton = styled.div`
   float: right;
-  width: 40px;
-  height: 40px;
-  margin: 20px;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 1.25rem;
   cursor: pointer;
 `;
 
 const Title = styled.div`
-  width: 480px;
+  width: 30rem;
   padding-bottom: 10px;
   border-bottom: 1px solid;
 
   h1 {
-    font-size: 30px;
+    font-size: 1.8rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -167,12 +168,12 @@ const Title = styled.div`
   }
 
   span {
-    font-size: 30px;
+    font-size: 1.8rem;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -0.1em;
+    letter-spacing: -0.1rem;
     text-align: left;
     color: #000;
   }
@@ -181,61 +182,62 @@ const Title = styled.div`
 const Form = styled.div`
   display: flex;
   h1 {
-    margin-top: 20px;
-    font-size: 30px;
+    margin-top: 1.25rem;
+    font-size: 1.8rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2.52px;
+    letter-spacing: -0.15rem;
     text-align: left;
     color: #000;
   }
 
   p {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.68px;
+    letter-spacing: -0.1rem;
     text-align: left;
     color: #000;
   }
 
   span {
-    font-size: 18px;
+    font-size: 1.12rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.26px;
+    letter-spacing: -0.01rem;
     text-align: left;
     color: #dbdbdb;
   }
 `;
+
 const Contents = styled.div`
-  padding: 50px;
+  padding: 3.12rem;
 
   h1 {
-    font-size: 30px;
+    font-size: 1.8rem;
     font-weight: 600;
   }
 `;
 
 const AddArea = styled.div`
   p {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 35px;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
     color: #000000;
   }
 
   input {
-    width: 480px;
-    height: 60px;
+    width: 30rem;
+    height: 3.75rem;
     border: 0px;
     border-bottom: 1px solid;
     background: #ffffff;
@@ -244,16 +246,16 @@ const AddArea = styled.div`
   span {
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 23px;
+    font-size: 1rem;
+    line-height: 1.4rem;
     color: #000000;
   }
 
   button {
-    width: 80px;
-    height: 40px;
+    width: 5.25rem;
+    height: 2.5rem;
     margin: auto;
-    margin-left: 10px;
+    margin-left: 0.6rem;
     background-color: black;
     color: white;
 
@@ -262,23 +264,24 @@ const AddArea = styled.div`
     }
   }
 `;
+
 const Button = styled.button`
-  width: 480px;
-  height: 60px;
-  padding: 17px 192px;
-  margin-top: 60px;
+  width: 30rem;
+  height: 3.75rem;
+  padding: 1rem 12rem;
+  margin-top: 3.75rem;
   background-color: #d4d4d4;
 
   span {
-    width: 96px;
-    height: 26px;
+    width: 6rem;
+    height: 1.6rem;
     font-family: NotoSansKR;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1px;
+    letter-spacing: -0.07rem;
     text-align: left;
     color: #fff;
   }

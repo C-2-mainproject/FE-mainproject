@@ -1,29 +1,19 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { IFilterList, IAddWordStorageSelect } from "../types/types";
+import { IFilterList } from "../../types/types";
 
 type SelectProps = {
+  id: string;
   props: IFilterList[];
-  addWordStorageSelect: IAddWordStorageSelect;
-  setAddWordStorageSelect: React.Dispatch<
-    React.SetStateAction<IAddWordStorageSelect>
-  >;
+  setTargetId: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CustomSelect = ({
-  props,
-  addWordStorageSelect,
-  setAddWordStorageSelect,
-}: SelectProps) => {
+const CustomFilter = ({ id, props, setTargetId }: SelectProps) => {
   let initValue = "";
-  if (props[0].filterCategory === "카테고리") {
-    initValue = "카테고리를 선택하세요";
-  } else if (props[0].filterCategory === "공개") {
-    initValue = "공개 여부를 선택하세요";
-  } else if (props[0].filterCategory === "나이") {
-    initValue = "나이를 선택하세요";
-  } else if (props[0].filterCategory === "성별") {
-    initValue = "성별을 선택하세요";
+  if (id === "카테고리") {
+    initValue = "카테고리";
+  } else if (id === "공개") {
+    initValue = "공개";
   }
 
   const [currentValue, setCurrentValue] = useState(initValue);
@@ -31,28 +21,7 @@ const CustomSelect = ({
 
   const handleOnChangeSelectValue = (event: MouseEvent<HTMLLIElement>) => {
     const newTarget = event.target as HTMLLIElement;
-
-    if (newTarget.id === "카테고리") {
-      setAddWordStorageSelect({
-        ...addWordStorageSelect,
-        category: newTarget.innerText,
-      });
-    } else if (newTarget.id === "공개") {
-      setAddWordStorageSelect({
-        ...addWordStorageSelect,
-        status: newTarget.innerText,
-      });
-    } else if (newTarget.id === "나이") {
-      setAddWordStorageSelect({
-        ...addWordStorageSelect,
-        category: newTarget.innerText,
-      });
-    } else if (newTarget.id === "성별") {
-      setAddWordStorageSelect({
-        ...addWordStorageSelect,
-        status: newTarget.innerText,
-      });
-    }
+    setTargetId(newTarget.innerText);
     setCurrentValue(newTarget.innerText);
     setShowOptions(false);
   };
@@ -81,11 +50,22 @@ const CustomSelect = ({
 
 const SelectBox = styled.div`
   position: relative;
-  width: 230px;
-  padding: 8px;
+  width: 100px;
+  padding: 10px;
   background-color: #ffffff;
   align-self: center;
   cursor: pointer;
+
+  z-index: 999;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -1px;
+
+  color: #999;
 
   &::before {
     content: "⌵";
@@ -97,8 +77,6 @@ const SelectBox = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 14px;
-  margin-right: 20px;
   text-align: center;
 `;
 
@@ -126,4 +104,4 @@ const Option = styled.li`
     background-color: #595959;
   }
 `;
-export default CustomSelect;
+export default CustomFilter;

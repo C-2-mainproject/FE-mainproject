@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { IWordStorage } from "../../types/types";
+import { IWordStorage } from "../../types/MyVocaTypes";
 
 type Props = {
   wordStorage: IWordStorage;

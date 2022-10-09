@@ -56,34 +56,6 @@ export interface IAddWordStorage {
   description: string;
 }
 
-export interface IWordStorage {
-  category: string;
-  createAt: string;
-  description: string;
-  id: number;
-  lastTestAt: string;
-  likeCount: number;
-  modifiedAt: string;
-  nickname: string;
-  public: boolean;
-  title: string;
-}
-
-export interface IWordStorageInitialState {
-  wordStorage: IWordStorage[];
-  detailWordStorage: IWordStorage;
-  addWords: IUpdateWord[];
-  isLoading: boolean;
-  isFinish: boolean;
-  pageNum: number;
-  lastPage: boolean;
-}
-
-export interface IUpdateWord {
-  words: string[];
-  meanings: string[][];
-}
-
 export interface ITestWordStorage {
   wordStorageId: number;
   words: string[];

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { game_ildan } from "../../images";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import { useEffect } from "react";

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { MyVocaSubMenu } from "../../components";
+import { MyVocaSubMenu } from "../../components/MyVoca/index";
 import { reset } from "../../redux/modules/answerSlice";
 import { useAppDispatch } from "../../shared/reduxHooks";
 
