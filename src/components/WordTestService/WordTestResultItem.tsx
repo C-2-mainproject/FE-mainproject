@@ -1,20 +1,13 @@
 import styled from "styled-components";
 import { cancel, check, circle } from "../../images";
-import { IAnswer } from "../../types/types";
-
-type Props = {
-  submitAnswer: IAnswer;
-  orginAnswer: string[];
-  totalLength: number;
-  success: boolean;
-};
+import { ResultProps } from "../../types/TestServiceTypes";
 
 const WordTestResultItem = ({
   orginAnswer,
   submitAnswer,
   totalLength,
   success,
-}: Props) => {
+}: ResultProps) => {
   return (
     <WordTestResultItemLayout>
       <WordTestResultItemHeader>

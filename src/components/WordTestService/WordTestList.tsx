@@ -5,20 +5,19 @@ import { my_word_book } from "../../images";
 import { __makeWordTest } from "../../redux/modules/answerSlice";
 import { __getDetailWord } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { WordTestItem } from "../index";
+import { WordTestItem } from "../WordTestService";
 
 const WordTestList = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const newId = Number(id);
 
   const dispatch = useAppDispatch();
   const { testWordStorage } = useAppSelector(state => state.answerSlice);
   const { addWords } = useAppSelector(state => state.wordStorageSlice);
 
   useEffect(() => {
-    dispatch(__getDetailWord(newId));
-    dispatch(__makeWordTest(newId));
+    dispatch(__getDetailWord(Number(id)));
+    dispatch(__makeWordTest(Number(id)));
   }, []);
 
   const testListResult = testWordStorage[0]?.words.map((word, index) => {
@@ -36,9 +35,11 @@ const WordTestList = () => {
   const submit = () => {
     navigate("/wordtest-result");
   };
+
   const add = () => {
     navigate(`/myvoca-detail/${id}`);
   };
+
   if (addWords[0].words.length === 0) {
     return (
       <WordTestListLayout>

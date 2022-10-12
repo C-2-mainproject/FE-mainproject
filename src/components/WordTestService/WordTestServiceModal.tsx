@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ModalPortal from "../Common/ModalPortal";
-
-type ModalProps = {
-  id: number;
-  openWordTestServiceModal: () => void;
-};
+import { ModalProps } from "../../types/TestServiceTypes";
 
 const WordTestSereviceModal = ({
   id,

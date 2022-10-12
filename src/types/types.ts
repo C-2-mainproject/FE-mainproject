@@ -56,32 +56,6 @@ export interface IAddWordStorage {
   description: string;
 }
 
-export interface ITestWordStorage {
-  wordStorageId: number;
-  words: string[];
-  meanings: string[][];
-}
-
-export interface IAnswer {
-  index: number;
-  words: string;
-  meanings: string[];
-}
-
-export interface IWrong {
-  index: number;
-  words: string[];
-  meanings: string[][];
-}
-
-export interface IAnswerInitialState {
-  answerStorage: IAnswer[];
-  wrongStorage: IWrong;
-  testWordStorage: ITestWordStorage[];
-  isLoading: boolean;
-  isFinish: boolean;
-}
-
 export interface IEndWordTestItem {
   wordStorageId: number;
   testType: string;
