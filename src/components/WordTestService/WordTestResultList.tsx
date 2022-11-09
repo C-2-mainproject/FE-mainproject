@@ -1,11 +1,10 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { cancel } from "../../images";
 import { apis } from "../../shared/api";
 import { useAppSelector } from "../../shared/reduxHooks";
-import { IAnswer } from "../../types/types";
+import { IAnswer } from "../../types/TestServiceTypes";
 import WordTestResultItem from "./WordTestResultItem";
 
 const WordTestResultList = () => {

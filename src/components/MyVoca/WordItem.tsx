@@ -1,9 +1,5 @@
 import styled from "styled-components";
-
-type ValueProps = {
-  wordValue: string;
-  meaningValue: string[];
-};
+import { ValueProps } from "../../types/MyVocaTypes";
 
 const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
   return (
@@ -16,20 +12,20 @@ const WordItem = ({ wordValue, meaningValue }: ValueProps) => {
 
 const WordItemLayout = styled.div`
   position: relative;
-  width: 290px;
-  height: 300px;
+  width: 18rem;
+  height: 18.75rem;
   background-color: #eeeeee;
-  margin-right: 40px;
-  margin-bottom: 40px;
+  margin-right: 2.5rem;
+  margin-bottom: 2.5rem;
 
   &:nth-child(4n) {
     margin-right: 0px;
   }
 
   p:nth-child(1) {
-    margin-top: 105px;
+    margin-top: 6.5rem;
     font-family: NotoSansKR;
-    font-size: 30px;
+    font-size: 1.87rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -40,14 +36,14 @@ const WordItemLayout = styled.div`
   }
 
   p:nth-child(2) {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     font-family: NotoSansKR;
-    font-size: 18px;
+    font-size: 1.12rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1px;
+    letter-spacing: -0.07rem;
     text-align: center;
     color: #666;
   }

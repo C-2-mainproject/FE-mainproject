@@ -1,27 +1,43 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { IFilterList } from "../types/types";
+import { IFilterList, IAddWordStorageSelect } from "../../types/types";
 
 type SelectProps = {
-  id: string;
   props: IFilterList[];
-  setTargetId: React.Dispatch<React.SetStateAction<string>>;
+  addWordStorageSelect: IAddWordStorageSelect;
+  setAddWordStorageSelect: React.Dispatch<
+    React.SetStateAction<IAddWordStorageSelect>
+  >;
 };
 
-const CustomFilter = ({ id, props, setTargetId }: SelectProps) => {
+const CustomSelect = ({
+  props,
+  addWordStorageSelect,
+  setAddWordStorageSelect,
+}: SelectProps) => {
   let initValue = "";
-  if (id === "카테고리") {
-    initValue = "카테고리";
-  } else if (id === "공개") {
-    initValue = "공개";
+  if (props[0].filterCategory === "카테고리") {
+    initValue = "카테고리를 선택하세요";
+  } else if (props[0].filterCategory === "공개") {
+    initValue = "공개 여부를 선택하세요";
   }
-
   const [currentValue, setCurrentValue] = useState(initValue);
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOnChangeSelectValue = (event: MouseEvent<HTMLLIElement>) => {
     const newTarget = event.target as HTMLLIElement;
-    setTargetId(newTarget.innerText);
+
+    if (newTarget.id === "카테고리") {
+      setAddWordStorageSelect({
+        ...addWordStorageSelect,
+        category: newTarget.innerText,
+      });
+    } else if (newTarget.id === "공개") {
+      setAddWordStorageSelect({
+        ...addWordStorageSelect,
+        status: newTarget.innerText,
+      });
+    }
     setCurrentValue(newTarget.innerText);
     setShowOptions(false);
   };
@@ -50,22 +66,11 @@ const CustomFilter = ({ id, props, setTargetId }: SelectProps) => {
 
 const SelectBox = styled.div`
   position: relative;
-  width: 100px;
-  padding: 10px;
+  width: 230px;
+  padding: 8px;
   background-color: #ffffff;
   align-self: center;
   cursor: pointer;
-
-  z-index: 999;
-
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -1px;
-
-  color: #999;
 
   &::before {
     content: "⌵";
@@ -77,6 +82,8 @@ const SelectBox = styled.div`
 `;
 
 const Label = styled.label`
+  font-size: 14px;
+  margin-right: 20px;
   text-align: center;
 `;
 
@@ -104,4 +111,4 @@ const Option = styled.li`
     background-color: #595959;
   }
 `;
-export default CustomFilter;
+export default CustomSelect;

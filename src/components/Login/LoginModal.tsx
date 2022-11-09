@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 import { apis } from "../../shared/api";
-import CustomSelect from "../CustomSelect";
+import { CustomSelect } from "../Common/index";
 
 type ModalProps = {
   openLoginModal: () => void;

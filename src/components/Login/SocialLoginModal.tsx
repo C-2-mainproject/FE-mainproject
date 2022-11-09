@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { google_login } from "../../images";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 type ModalProps = {
   openLoginModal: () => void;
 };

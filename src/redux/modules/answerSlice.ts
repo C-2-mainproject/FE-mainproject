@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
-import { IAnswerInitialState } from "../../types/types";
+import { IAnswerInitialState } from "../../types/TestServiceTypes";
 
 const initialState: IAnswerInitialState = {
   answerStorage: [],

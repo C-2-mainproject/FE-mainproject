@@ -1,28 +1,14 @@
 import { useState, MouseEvent } from "react";
 import styled from "styled-components";
-import { MyVocaList } from "../../components";
+import { MyVocaList } from "../MyVoca/index";
 import { filter } from "../../images";
-import CustomFilter from "../CustomFilter";
+import CustomFilter from "../Common/CustomFilter";
+import {
+  category_list,
+  shared_list,
+  IndexProps,
+} from "../../types/MyVocaTypes";
 
-const category_list = [
-  { filterCategory: "카테고리", value: "토익" },
-  { filterCategory: "카테고리", value: "토플" },
-  { filterCategory: "카테고리", value: "텝스" },
-  { filterCategory: "카테고리", value: "초등" },
-  { filterCategory: "카테고리", value: "중등" },
-  { filterCategory: "카테고리", value: "고등" },
-  { filterCategory: "카테고리", value: "회화" },
-  { filterCategory: "카테고리", value: "기타" },
-];
-
-const shared_list = [
-  { filterCategory: "공개", value: "공개" },
-  { filterCategory: "공개", value: "비공개" },
-];
-
-type IndexProps = {
-  index: number;
-};
 const MyVocaFilter = ({ index }: IndexProps) => {
   const [targetId, setTargetId] = useState<string>("전체보기");
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -173,6 +159,7 @@ const FilterSpan = styled.span`
     vertical-align: middle;
   }
 `;
+
 const CategorySpan = styled.span`
   margin-left: 2rem;
   font-family: NotoSansKR;

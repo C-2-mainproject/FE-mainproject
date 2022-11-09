@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
-import { IWordStorageInitialState, IWordStorage } from "../../types/types";
+import {
+  IWordStorageInitialState,
+  IWordStorage,
+} from "../../types/MyVocaTypes";
 
 const initialState: IWordStorageInitialState = {
   wordStorage: [],

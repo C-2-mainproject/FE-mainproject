@@ -1,32 +1,22 @@
-import styled from "styled-components";
-import { MyVocaItem } from "../../components";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import styled from "styled-components";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
-import { IWordStorage } from "../../types/types";
+import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
+import { MyVocaItem } from "../MyVoca/index";
 import { apis } from "../../shared/api";
-
-type TargetIdProps = {
-  targetId: string;
-};
+import { TargetIdProps } from "../../types/MyVocaTypes";
 
 const MyVocaList = ({ targetId }: TargetIdProps) => {
   const dispatch = useAppDispatch();
   const { wordStorage, isFinish } = useAppSelector(
     state => state.wordStorageSlice,
   );
-  // const [wrongAnswerWordStorage, setWrongAnswerWordStorage] = useState([]);
+
   const [likeWordStorage, setLikeWordStorage] = useState([]);
 
   const getWordStorage = () => {
     dispatch(__getWordStorageList());
   };
-
-  // const getWrongAnswerWordStorageList = async () => {
-  //   await apis.getWrongAnswerWordStorages().then(data => {
-  //     setWrongAnswerWordStorage(data.data);
-  //   });
-  // };
 
   const getLike = async () => {
     await apis.getLikeWordStorage().then(data => {
@@ -37,10 +27,6 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
   useEffect(() => {
     getWordStorage();
   }, [targetId]);
-
-  // useEffect(() => {
-  //   getWrongAnswerWordStorageList();
-  // }, [targetId === "오답노트"]);
 
   useEffect(() => {
     getLike();
@@ -60,6 +46,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
         </Empty>
       );
     }
+
     if (targetId === "전체보기") {
       return (
         <MyVocaListLayout>
@@ -99,7 +86,7 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
         <MyVocaListLayout>
           {wordStorage
             .slice()
-            .sort((a: IWordStorage, b: IWordStorage): number => {
+            .sort((a, b): number => {
               return b.likeCount - a.likeCount;
             })
             .map((wordStorage, index) => {
@@ -166,9 +153,10 @@ const MyVocaList = ({ targetId }: TargetIdProps) => {
     return <div>로딩중</div>;
   }
 };
+
 const MyVocaListLayout = styled.div`
-  margin-top: 30px;
-  margin-bottom: 200px;
+  margin-top: 1.87rem;
+  margin-bottom: 12.5rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -176,12 +164,12 @@ const MyVocaListLayout = styled.div`
 `;
 
 const Empty = styled.div`
-  width: 1280px;
-  height: 300px;
+  width: 80rem;
+  height: 18.75rem;
   display: flex;
   background: #e4f5fa;
-  margin-top: 75px;
-  margin-bottom: 200px;
+  margin-top: 4.6rem;
+  margin-bottom: 12.5rem;
 
   text-align: center;
 
@@ -192,18 +180,18 @@ const Empty = styled.div`
   h1 {
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 43px;
+    font-size: 1.87rem;
+    line-height: 2.6rem;
     letter-spacing: -0.07em;
     color: #00b4db;
   }
 
   h2 {
-    margin-left: 35px;
+    margin-left: 2.1rem;
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 1.12rem;
+    line-height: 1.62rem;
 
     color: #666666;
   }

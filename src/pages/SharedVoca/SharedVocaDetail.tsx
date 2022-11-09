@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SharedVocaItem } from "../../components";
 import { like, ildan } from "../../images";
-import { IWordStorage } from "../../types/types";
+import { IWordStorage } from "../../types/MyVocaTypes";
 
 const wordStorage_list = {
   category: "category",

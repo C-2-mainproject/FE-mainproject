@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 
 type ModalProps = {
   openGameGuideModal: () => void;

@@ -2,14 +2,7 @@ import { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { submitStorage, wrongStorage } from "../../redux/modules/answerSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { IAnswer } from "../../types/types";
-
-type Props = {
-  id: number;
-  word: string;
-  length: number;
-  meaing: string[];
-};
+import { Props, IAnswer } from "../../types/TestServiceTypes";
 
 const WordTestItem = ({ id, word, length, meaing }: Props) => {
   const dispatch = useAppDispatch();
@@ -72,7 +65,7 @@ const WordTestItem = ({ id, word, length, meaing }: Props) => {
             onChange={onChangeHandler}
             onKeyPress={onKeyDownHandler}
           />
-          <button>확인</button>
+          <span>Enter</span>
         </WordTestItemInput>
       </WordTestItemLayout>
     );

@@ -1,24 +1,21 @@
-import styled from "styled-components";
-import { IWordStorage } from "../../types/types";
-import { like, like_fill } from "../../images";
-import { useNavigate, useParams } from "react-router-dom";
-import WordTestSereviceModal from "../WordTestService/WordTestServiceModal";
 import { useState } from "react";
-
-type Props = {
-  wordStorage: IWordStorage;
-};
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import WordTestSereviceModal from "../WordTestService/WordTestServiceModal";
+import { Props } from "../../types/MyVocaTypes";
+import { like, like_fill } from "../../images";
 
 const MyVocaItem = ({ wordStorage }: Props) => {
   const { id } = useParams();
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const moveToDetail = (id: number) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+  const moveToWordStorageDetail = (id: number) => {
     navigate(`/myvoca-detail/${id}`);
   };
 
-  const wordTestServiceModal = () => {
+  const openWordTestServiceModal = () => {
     setIsOpenModal(!isOpenModal);
   };
 
@@ -59,17 +56,17 @@ const MyVocaItem = ({ wordStorage }: Props) => {
       </BodyDiv>
       <MyVocaItemLayoutHover key={wordStorage.id}>
         {!id ? (
-          <button onClick={() => moveToDetail(wordStorage.id)}>
+          <button onClick={() => moveToWordStorageDetail(wordStorage.id)}>
             자세히 보기
           </button>
         ) : (
           ""
         )}
-        <button onClick={wordTestServiceModal}>시험보기</button>
+        <button onClick={openWordTestServiceModal}>시험보기</button>
         {isOpenModal && (
           <WordTestSereviceModal
             id={wordStorage.id}
-            openWordTestServiceModal={wordTestServiceModal}
+            openWordTestServiceModal={openWordTestServiceModal}
           />
         )}
       </MyVocaItemLayoutHover>
@@ -79,10 +76,10 @@ const MyVocaItem = ({ wordStorage }: Props) => {
 
 const MyVocaItemLayout = styled.div`
   position: relative;
-  width: 290px;
-  height: 400px;
-  margin-right: 40px;
-  margin-bottom: 40px;
+  width: 18rem;
+  height: 25rem;
+  margin-right: 2.5rem;
+  margin-bottom: 2.5rem;
   background-color: #e4f5fa;
 
   &:nth-child(4n) {
@@ -96,67 +93,67 @@ const HeaderDiv = styled.div`
   align-items: center;
 
   p {
-    margin-left: 40px;
+    margin-left: 2.5rem;
     font-family: NotoSansKR;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.12px;
+    letter-spacing: -0.07rem;
     text-align: left;
     color: #000;
     border-bottom: 1px solid;
   }
 
   span {
-    width: 90px;
-    height: 52px;
-    padding: 12px;
+    width: 5.6rem;
+    height: 3.2rem;
+    padding: 0.75rem;
     text-align: center;
     background-color: #00b4db;
     font-family: NotoSansKR;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.68px;
+    letter-spacing: -0.1rem;
     color: #fff;
   }
 `;
 
 const BodyDiv = styled.div`
-  width: 210px;
+  width: 13rem;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 
   h1 {
-    height: 105px;
+    height: 6.5rem;
     font-family: NotoSansKR;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.68px;
+    letter-spacing: -0.1rem;
     text-align: left;
     color: #000;
   }
 
   div:nth-child(2n + 1) {
-    height: 220px;
+    height: 13.75rem;
     border-bottom: 1px solid;
 
     h2 {
-      height: 70px;
+      height: 4.37rem;
       font-family: NotoSansKR;
-      font-size: 18px;
+      font-size: 1.12rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
-      letter-spacing: -1.26px;
+      letter-spacing: -0.08rem;
       text-align: left;
       color: #666;
       word-break: break-all;
@@ -164,51 +161,51 @@ const BodyDiv = styled.div`
 
     p {
       font-family: NotoSansKR;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
-      letter-spacing: -1.12px;
+      letter-spacing: -0.07rem;
       text-align: left;
       color: #333;
     }
     span {
-      margin-left: 10px;
+      margin-left: 0.62rem;
     }
   }
 
   div:nth-child(2n) {
-    height: 105px;
-    margin-top: 20px;
+    height: 6.56rem;
+    margin-top: 1.25rem;
 
     p {
       font-family: NotoSansKR;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
-      letter-spacing: -1.12px;
+      letter-spacing: -0.07rem;
       text-align: left;
       color: #666;
     }
 
     span {
-      margin-left: 10px;
+      margin-left: 0.625rem;
       font-family: NotoSansKR;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
-      letter-spacing: -1.12px;
+      letter-spacing: -0.07rem;
       text-align: left;
       color: #666;
     }
 
     img {
-      margin-left: 40px;
+      margin-left: 2.5rem;
     }
   }
 `;
@@ -218,8 +215,8 @@ const MyVocaItemLayoutHover = styled.div`
   left: 0;
   top: 0;
   z-index: 9;
-  width: 290px;
-  height: 400px;
+  width: 18.1rem;
+  height: 25rem;
   display: flex;
   flex-direction: column-reverse;
   font-size: 1.5rem;
@@ -232,9 +229,9 @@ const MyVocaItemLayoutHover = styled.div`
   }
 
   button {
-    width: 160px;
-    height: 52px;
-    margin: 0 65px 20px 65px;
+    width: 10rem;
+    height: 3.25rem;
+    margin: 0 4rem 1.25rem 4rem;
     color: white;
     background-color: transparent;
     border: 1px solid;

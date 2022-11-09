@@ -1,152 +1,29 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { MyVocaItem, WordList } from "../../components";
-import AddWordModal from "../../components/MyVoca/AddWordModal";
-import UpdateVocaModal from "../../components/MyVoca/UpdateVocaModal";
-import { like, like_fill, main_ildan } from "../../images";
-import { __getDetailWordStorage } from "../../redux/modules/wordStorageSlice";
-import { apis } from "../../shared/api";
-import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { IWordStorage } from "../../types/types";
+import { MyVocaItem, WordList } from "../../components/MyVoca/index";
+import MyVocaDetailHeader from "../../components/MyVoca/MyVocaDetailHeader";
+import MyVocaDetailInfo from "../../components/MyVoca/MyVocaDetailInfo";
+import { useAppSelector } from "../../shared/reduxHooks";
+import { IWordStorage } from "../../types/MyVocaTypes";
 
 const MyVocaDetail = () => {
-  const { id } = useParams();
-  const newId = Number(id);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
 
-  const { isFinish, detailWordStorage } = useAppSelector(
-    state => state.wordStorageSlice,
+  return (
+    <MyVocaDetailLayout>
+      <MyVocaDetailWrapper>
+        <MyVocaDetailBox>
+          <div>
+            <MyVocaDetailHeader />
+            <Contents>
+              <MyVocaItem wordStorage={detailWordStorage as IWordStorage} />
+              <MyVocaDetailInfo />
+            </Contents>
+          </div>
+          <WordList />
+        </MyVocaDetailBox>
+      </MyVocaDetailWrapper>
+    </MyVocaDetailLayout>
   );
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isAddOpenModal, setIsAddOpenModal] = useState(false);
-  const [isEditOpenModal, setIsEditOpenModal] = useState(false);
-
-  const todoEdit = () => {
-    setIsEdit(!isEdit);
-    setIsEditOpenModal(!isEditOpenModal);
-    getDetail();
-  };
-
-  const addWord = () => {
-    setIsAddOpenModal(!isAddOpenModal);
-  };
-
-  const deleteWordStorage = async () => {
-    alert("단어장을 삭제하시겠습니까?");
-    try {
-      await apis.deleteWordStorage(newId).then(data => console.log(data));
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/myvoca");
-  };
-
-  const onLikeHandler = async () => {
-    const newId = Number(id);
-    await apis.suggestionWordStorage(newId).then(data => {
-      console.log(data);
-      getDetail();
-    });
-  };
-
-  const getDetail = () => {
-    dispatch(__getDetailWordStorage(id as string));
-  };
-
-  useEffect(() => {
-    getDetail();
-  }, []);
-
-  if (isFinish && detailWordStorage) {
-    return (
-      <MyVocaDetailLayout>
-        <MyVocaDetailWrapper>
-          <MyVocaDetailBox>
-            <div>
-              <DivA>
-                <p>지금 보고 있는 단어장</p>
-                <div>
-                  <Button onClick={addWord}>
-                    <span>단어 추가하기</span>
-                  </Button>
-                  {isAddOpenModal && (
-                    <AddWordModal openAddWordModal={addWord} />
-                  )}
-                  <Button onClick={todoEdit}>
-                    <span>단어장 편집하기</span>
-                  </Button>
-                  {isEditOpenModal && (
-                    <UpdateVocaModal id="edit" openAddStorageModal={todoEdit} />
-                  )}
-                </div>
-              </DivA>
-              <DivB>
-                <MyVocaItem wordStorage={detailWordStorage as IWordStorage} />
-                <DetailInfo>
-                  <div>
-                    <p>
-                      카테고리<span>{detailWordStorage.category}</span>
-                      {detailWordStorage.likeCount === 0 ? (
-                        <img onClick={onLikeHandler} src={like} alt="like" />
-                      ) : (
-                        <img
-                          onClick={onLikeHandler}
-                          src={like_fill}
-                          alt="like"
-                        />
-                      )}
-                      <span>{detailWordStorage.likeCount}</span>
-                    </p>
-                    <h1>{detailWordStorage.title}</h1>
-                    <h2>{detailWordStorage.description}</h2>
-                    <h3>{detailWordStorage.public ? "공개" : "비공개"}</h3>
-                    <p>
-                      마지막 시험
-                      <span>
-                        {detailWordStorage.lastTestAt === null
-                          ? "미응시"
-                          : detailWordStorage.lastTestAt.split("T")[0]}
-                      </span>
-                      모르는 단어<span> 개</span>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      작성<span>{detailWordStorage.nickname}</span>
-                    </p>
-                    <p>
-                      제작
-                      <span>
-                        {detailWordStorage.createAt === null
-                          ? ""
-                          : detailWordStorage.createAt.split("T")[0]}
-                      </span>
-                    </p>
-                  </div>
-
-                  <Balloon>
-                    <p>일단이</p>
-                    <span>잘하고 있어! 너무 멋진데?</span>
-                  </Balloon>
-                  <Ildan
-                    src={main_ildan}
-                    alt="ildan"
-                    onClick={deleteWordStorage}
-                  />
-                </DetailInfo>
-              </DivB>
-            </div>
-
-            <WordList />
-          </MyVocaDetailBox>
-        </MyVocaDetailWrapper>
-      </MyVocaDetailLayout>
-    );
-  } else {
-    return <div>로딩중</div>;
-  }
 };
 
 const MyVocaDetailLayout = styled.div`
@@ -165,62 +42,8 @@ const MyVocaDetailBox = styled.div`
   margin: auto;
 `;
 
-const DivA = styled.div`
+const Contents = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    width: 148px;
-    height: 26px;
-    font-family: NotoSansKR;
-    font-size: 18px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1.26px;
-    text-align: left;
-    color: #000;
-  }
-
-  button {
-    width: 182px;
-    height: 40px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    background-color: #1f1f1f;
-  }
-
-  span {
-    width: 99px;
-    height: 23px;
-    font-family: NotoSansKR;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -1.12px;
-    text-align: left;
-    color: #fff;
-  }
-`;
-
-const DivB = styled.div`
-  display: flex;
-`;
-
-const Button = styled.button`
-  width: 290px;
-  height: 300px;
-  background-color: #f3f3f3;
-
-  span {
-    &:hover {
-      font-weight: 700;
-    }
-  }
 `;
 
 const DetailInfo = styled.div`

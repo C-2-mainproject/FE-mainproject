@@ -1,5 +1,6 @@
 import axios from "axios";
-import { IAddWordStorage, IEndWordTestItem, IUpdateWord } from "../types/types";
+import { IAddWordStorage, IEndWordTestItem } from "../types/types";
+import { IUpdateWord } from "../types/MyVocaTypes";
 
 // const MAIN_SERVER = process.env.REACT_APP_MAIN_SERVER;
 

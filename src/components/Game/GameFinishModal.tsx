@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { game_lose, game_win } from "../../images";
 import { useAppSelector } from "../../shared/reduxHooks";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 
 type ModalProps = {
   winner: string;

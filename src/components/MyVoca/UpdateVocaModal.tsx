@@ -1,33 +1,18 @@
 import styled from "styled-components";
-import ModalPortal from "../ModalPortal";
+import ModalPortal from "../Common/ModalPortal";
 import { useState, ChangeEvent } from "react";
-import CustomSelect from "../CustomSelect";
+import { CustomSelect } from "../Common/index";
 import { apis } from "../../shared/api";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 import { __getWordStorageList } from "../../redux/modules/wordStorageSlice";
+import { category_list, shared_list } from "../../types/MyVocaTypes";
 
 type ModalProps = {
-  openAddStorageModal: () => void;
+  openUpdateWordStorageModal: () => void;
   id: string;
 };
 
-const category_list = [
-  { filterCategory: "카테고리", value: "토익" },
-  { filterCategory: "카테고리", value: "토플" },
-  { filterCategory: "카테고리", value: "텝스" },
-  { filterCategory: "카테고리", value: "초등" },
-  { filterCategory: "카테고리", value: "중등" },
-  { filterCategory: "카테고리", value: "고등" },
-  { filterCategory: "카테고리", value: "회화" },
-  { filterCategory: "카테고리", value: "기타" },
-];
-
-const shared_list = [
-  { filterCategory: "공개", value: "공개" },
-  { filterCategory: "공개", value: "비공개" },
-];
-
-const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
+const UpdateVocaModal = ({ openUpdateWordStorageModal, id }: ModalProps) => {
   const dispatch = useAppDispatch();
   const { detailWordStorage } = useAppSelector(state => state.wordStorageSlice);
 
@@ -52,6 +37,7 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
+
     setAddWordStorageInput({
       ...addWordStorageInput,
       [id]: value,
@@ -86,14 +72,14 @@ const UpdateVocaModal = ({ openAddStorageModal, id }: ModalProps) => {
       throw error;
     }
     dispatch(__getWordStorageList());
-    openAddStorageModal();
+    openUpdateWordStorageModal();
   };
 
   return (
     <ModalPortal>
       <Overlay>
         <ModalWrap>
-          <CloseButton onClick={openAddStorageModal}>X</CloseButton>
+          <CloseButton onClick={openUpdateWordStorageModal}>X</CloseButton>
           <Contents>
             <Title>
               <h1>단어장의 기준이 되다</h1>
@@ -169,8 +155,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-  width: 600px;
-  height: 800px;
+  width: 37.5rem;
+  height: 50rem;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -180,23 +166,23 @@ const ModalWrap = styled.div`
 
 const CloseButton = styled.div`
   float: right;
-  width: 40px;
-  height: 40px;
-  margin: 20px;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 1.25rem;
   cursor: pointer;
 `;
 
 const Contents = styled.div`
-  padding: 50px;
+  padding: 3.12rem;
 `;
 
 const Title = styled.div`
-  width: 480px;
+  width: 30rem;
   padding-bottom: 10px;
   border-bottom: 1px solid;
 
   h1 {
-    font-size: 30px;
+    font-size: 1.87rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -207,7 +193,7 @@ const Title = styled.div`
   }
 
   span {
-    font-size: 30px;
+    font-size: 1.87rem;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -220,94 +206,94 @@ const Title = styled.div`
 
 const Form = styled.div`
   h1 {
-    margin-top: 20px;
-    font-size: 30px;
+    margin-top: 1.25rem;
+    font-size: 1.87rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -2.52px;
+    letter-spacing: -0.15rem;
     text-align: left;
     color: #000;
   }
 
   p {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.68px;
+    letter-spacing: -0.1rem;
     text-align: left;
     color: #000;
   }
 
   span {
-    font-size: 18px;
+    font-size: 1.12rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1.26px;
+    letter-spacing: -0.08rem;
     text-align: left;
     color: #dbdbdb;
   }
 `;
 
 const VocaName = styled.div`
-  margin-top: 20px;
+  margin-top: 1.25rem;
 
   input {
-    width: 480px;
-    height: 60px;
-    margin-right: 20px;
+    width: 30rem;
+    height: 3.75rem;
+    margin-right: 1.25rem;
 
     outline: 0;
     border-width: 0 0 1px;
   }
 
   button {
-    width: 80px;
-    height: 58px;
+    width: 5rem;
+    height: 3.6rem;
     background-color: #000;
   }
 `;
 const VocaInfo = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin-top: 1.87rem;
 `;
 
 const Div = styled.div`
-  margin-right: 20px;
+  margin-right: 1.25rem;
 
-  width: 230px;
-  height: 60px;
+  width: 14.3rem;
+  height: 3.75rem;
 
   &:nth-child(2n) {
     margin-right: 0px;
   }
 
   p {
-    height: 35px;
-    font-size: 24px;
+    height: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1px;
+    letter-spacing: -0.07rem;
     text-align: left;
   }
 
   span {
-    width: 158px;
-    height: 26px;
-    margin-right: 22px;
-    font-size: 18px;
+    width: 9.9rem;
+    height: 1.62rem;
+    margin-right: 1.37rem;
+    font-size: 1.12rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1px;
+    letter-spacing: -0.07rem;
     text-align: left;
     color: #dbdbdb;
   }
@@ -315,45 +301,45 @@ const Div = styled.div`
   div {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 0.62rem;
+    padding-bottom: 0.62rem;
     border-bottom: 1px solid;
   }
 
   select {
-    width: 230px;
-    height: 50px;
+    width: 14.3rem;
+    height: 3.1rem;
     border: none;
   }
 `;
 
 const VocaInput = styled.div`
-  width: 480px;
-  margin-top: 60px;
+  width: 30rem;
+  margin-top: 3.75rem;
 
   input {
-    margin-top: 10px;
-    width: 480px;
-    height: 180px;
+    margin-top: 0.62rem;
+    width: 30rem;
+    height: 11rem;
   }
 `;
 
 const Button = styled.button`
-  width: 480px;
-  height: 60px;
-  padding: 17px 192px;
-  margin-top: 25px;
+  width: 30rem;
+  height: 3.75rem;
+  padding: 1rem 12rem;
+  margin-top: 1.5rem;
   background-color: #d4d4d4;
 
   span {
-    width: 96px;
-    height: 26px;
-    font-size: 16px;
+    width: 6rem;
+    height: 1.6rem;
+    font-size: 1rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: -1px;
+    letter-spacing: -0.07rem;
     text-align: left;
     color: #fff;
   }

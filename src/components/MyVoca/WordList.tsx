@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { __getDetailWord } from "../../redux/modules/wordStorageSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
-import { WordItem } from "../index";
+import { WordItem } from "../MyVoca/index";
 
 const WordList = () => {
   const { id } = useParams();
@@ -42,28 +42,28 @@ const WordList = () => {
 };
 
 const WordListLayout = styled.div`
-  margin-top: 90px;
+  margin-top: 5.6rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: 200px;
+  margin-bottom: 12.5rem;
 `;
 
 const Empty = styled.div`
-  width: 1280px;
-  height: 300px;
+  width: 80rem;
+  height: 18.75rem;
   background: #e4f5fa;
-  margin-top: 75px;
-  margin-bottom: 200px;
-  padding-top: 110px;
+  margin-top: 4.6rem;
+  margin-bottom: 12.5rem;
+  padding-top: 6.9rem;
   text-align: center;
 
   h1 {
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 43px;
+    font-size: 1.87rem;
+    line-height: 2.69rem;
 
     color: #000000;
   }
@@ -71,8 +71,8 @@ const Empty = styled.div`
   h2 {
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 1.12rem;
+    line-height: 1.6rem;
 
     color: #666666;
   }
