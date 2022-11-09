@@ -5,8 +5,6 @@ import { cscenter } from "./images";
 import Router from "./router/router";
 import { GlobalStyle } from "./styles/GlobalStyle";
 
-// const NAVER_SUPPORT = process.env.REACT_APP_NAVER_SUPPORT;
-
 function App() {
   return (
     <>
