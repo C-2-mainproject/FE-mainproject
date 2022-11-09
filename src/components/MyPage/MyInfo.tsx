@@ -12,7 +12,7 @@ const MyInfo = () => {
     await apis.deleteUserInfo().then(data => console.log(data));
     alert("회원 탈퇴합니다!");
     removeCookie();
-    window.location.href = "https://jdh3340.shop/logout";
+    window.location.href = process.env.REACT_APP_OAUTH2_LOGOUT as string;
     navigate("/");
   };
 

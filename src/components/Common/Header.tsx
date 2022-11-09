@@ -7,8 +7,6 @@ import { __checkUser, __getUserInfo } from "../../redux/modules/userInfoSlice";
 import { removeCookie } from "../../shared/Cookie";
 import { useAppDispatch, useAppSelector } from "../../shared/reduxHooks";
 
-// const OAUTH2_LOGOUT = process.env.REACT_APP_OAUTH2_LOGOUT;
-
 const Header = () => {
   const location = window.location.pathname;
   const navigate = useNavigate();
@@ -68,7 +66,7 @@ const Header = () => {
       case "logout":
         alert("로그아웃 하시겠습니까?");
         removeCookie();
-        window.location.href = "https://jdh3340.shop/logout";
+        window.location.href = process.env.REACT_APP_OAUTH2_LOGOUT as string;
         navigate("/");
         break;
 

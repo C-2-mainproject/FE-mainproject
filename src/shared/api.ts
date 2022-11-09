@@ -2,10 +2,8 @@ import axios from "axios";
 import { IAddWordStorage, IEndWordTestItem } from "../types/types";
 import { IUpdateWord } from "../types/MyVocaTypes";
 
-// const MAIN_SERVER = process.env.REACT_APP_MAIN_SERVER;
-
 const api = axios.create({
-  baseURL: "https://jdh3340.shop",
+  baseURL: process.env.REACT_APP_MAIN_SERVER,
 
   withCredentials: true,
 });

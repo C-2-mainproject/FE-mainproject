@@ -17,6 +17,14 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
 
+      - name: Generate Environment Variables File
+        run: |
+          echo "REACT_APP_MAIN_SERVER=${{secrets.REACT_APP_MAIN_SERVER}}" >> .env
+          echo "REACT_APP_SOCKET_SERVER=${{secrets.REACT_APP_SOCKET_SERVER}}" >> .env
+          echo "REACT_APP_OAUTH2_LOGIN=${{secrets.REACT_APP_OAUTH2_LOGIN}}" >> .env
+          echo "REACT_APP_OAUTH2_LOGOUT=${{secrets.REACT_APP_OAUTH2_LOGOUT}}" >> .env
+          cat .env
+
       - name: Install dependencies
         run: npm install
 

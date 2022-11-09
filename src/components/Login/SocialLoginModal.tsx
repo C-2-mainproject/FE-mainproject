@@ -5,9 +5,6 @@ type ModalProps = {
   openLoginModal: () => void;
 };
 
-// const NAVER_SUPPORT = process.env.REACT_APP_NAVER_SUPPORT;
-// const OAUTH2_LOGIN = process.env.REACT_APP_OAUTH2_LOGIN;
-
 const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
   return (
     <ModalPortal>
@@ -24,7 +21,7 @@ const SocialLoginModal = ({ openLoginModal }: ModalProps) => {
                 <SelectLogin>
                   <p>로그인</p>
                   <Button>
-                    <A href="https://jdh3340.shop/oauth2/authorization/google">
+                    <A href={process.env.REACT_APP_OAUTH2_LOGIN}>
                       <img src={google_login} alt="google_login" />
                     </A>
                   </Button>
